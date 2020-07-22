@@ -158,11 +158,11 @@ class BotClient extends AkairoClient {
 		});
 
 		this.mongo = new Mongo();
+		this.settings = new Settings(this.mongo.db('musico').collection('settings'));
 
 		await this.mongo.connect();
 		await this.settings.init();
 
-		this.settings = new Settings(this.mongo.db('musico').collection('settings'));
 		this.storage = new Rejects(this.music.queues.redis);
 		this.playlist = new Playlist(this);
 		this.tags = new Tags(this);
