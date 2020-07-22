@@ -20,7 +20,7 @@ module.exports = class TagInfoCommand extends Command {
 					type: 'tag',
 					prompt: {
 						start: message => `${message.author}, What tag do you want information on?`,
-						retry: (message, { failure }) => `${message.author}, a tag with the name **${failure.value} doesn't exist.`
+						retry: (message, { phrase }) => `${message.author}, a tag with the name **${phrase} doesn't exist.`
 					}
 				}
 			]
