@@ -9,14 +9,11 @@ class ReadyListener extends Listener {
 		super('ready', {
 			event: 'ready',
 			emitter: 'client',
-			category: 'client',
-			type: 'once'
+			category: 'client'
 		});
-
-		this.once = false;
 	}
 
-	async exec() {
+	exec() {
 		console.log('I AM READY');
 	}
 }
