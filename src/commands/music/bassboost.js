@@ -18,7 +18,6 @@ class BassBoosterCommand extends Command {
 	constructor() {
 		super('bassboost', {
 			aliases: ['bassboost', 'bass', 'boost', 'bb'],
-			cooldown: 60000,
 			ratelimit: 2,
 			category: 'music',
 			channel: 'guild',
@@ -76,6 +75,12 @@ class BassBoosterCommand extends Command {
 		this.bass_8 = [{ band: 0, gain: 0.5 }, { band: 1, gain: 0.28 }, { band: 2, gain: 0.20 }];
 		this.bass_9 = [{ band: 0, gain: 0.4 }, { band: 1, gain: 0.26 }, { band: 2, gain: 0.18 }];
 		this.wtf = [{ band: 0, gain: 1 }, { band: 1, gain: 0.8 }, { band: 2, gain: 0.6 }];
+	}
+
+	cooldown(message) {
+		const premium = this.client.settings.get('global', 'premium', []);
+		if (premium.includes(message.author.id)) return 10000;
+		return 60000;
 	}
 
 	async exec(message, { mode }) {

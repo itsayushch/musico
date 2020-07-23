@@ -30,10 +30,10 @@ class BlacklistCommand extends Command {
 		if (premium.includes(user.id)) {
 			const index = premium.indexOf(user.id);
 			premium.splice(index, 1);
-			if (premium.length === 0) this.client.settings.delete('global', 'blacklist');
+			if (premium.length === 0) this.client.settings.delete('global', 'global');
 			else this.client.settings.set('global', 'premium', premium);
 
-			return message.util.send(`**${user.tag}** has been removed from the blacklist.`);
+			return message.util.send(`**${user.tag}** has been removed from the global.`);
 		}
 
 		premium.push(user.id);

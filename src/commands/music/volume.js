@@ -4,7 +4,6 @@ class VolumeCommand extends Command {
 	constructor() {
 		super('setvolume', {
 			aliases: ['volume', 'set-vol', 'vol'],
-			cooldown: 60000,
 			category: 'music',
 			channel: 'guild',
 			args: [
@@ -20,6 +19,12 @@ class VolumeCommand extends Command {
 				examples: ['50', '60', '70']
 			}
 		});
+	}
+
+	cooldown(message) {
+		const premium = this.client.settings.get('global', 'premium', []);
+		if (premium.includes(message.author.id)) return 10000;
+		return 60000;
 	}
 
 	async exec(message, { volume }) {
