@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const supportServer = 'https://gwabot.tk/support';
+const supportServer = 'https://discord.gg/sY57ftY';
 
 class InviteCommand extends Command {
 	constructor() {
@@ -33,7 +33,7 @@ class InviteCommand extends Command {
 			}
 			return message.channel.send('Sorry, the user you mentioned is not a bot!');
 		}
-		const invMessage = 'https://gwabot.tk/invite';
+		const invMessage = 'https://discord.com/oauth2/authorize?client_id=629283787095932938&permissions=305482819&scope=bot';
 		if (args.here) {
 			const embed = this.client.util.embed()
 				.setColor(0x5e17eb)

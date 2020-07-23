@@ -25,7 +25,7 @@ class GuildCreateListener extends Listener {
 		if (!webhook) return;
 		const joinembed = this.client.util.embed()
 			.setColor(0x5e17eb)
-			.setAuthor('Hello, I am Musico', 'https://gwabot.tk/images/logoround.png')
+			.setAuthor('Hello, I am Musico', this.client.user.avatarURL())
 			.setFooter(`© ${new Date().getFullYear()} ${this.owner.username}#${this.owner.discriminator}`, this.owner.displayAvatarURL())
 			.setDescription(stripIndents`Thanks for inviting!
 		**___Hello I am Musico___**
@@ -37,7 +37,7 @@ class GuildCreateListener extends Listener {
 		To get details for each command type \`;help <command>\`
 
 		I am a public bot and can be added to as many servers you want!
-		You can invite me to other servers using : [invite link](https://gwabot.tk/invite)
+		You can invite me to other servers using : [invite link](https://discord.com/oauth2/authorize?client_id=629283787095932938&permissions=305482819&scope=bot)
 
 		**What can I do ?**
 		**_I can :-_**
@@ -52,7 +52,7 @@ class GuildCreateListener extends Listener {
 			.addField('Support', stripIndents`
 		**_If you like my features, please consider voting me on_** : [vote link](https://top.gg/bot/629283787095932938/vote)
 
-		**_If you need any help you can join our_** [support server](https://gwabot.tk/support)
+		**_If you need any help you can join our_** [support server](https://discord.gg/sY57ftY)
 		`);
 		if (guild.channels.cache.filter(ch => ch.name.includes('general') && ch.type === 'text').map(m => m).length) {
 			guild.channels.cache.filter(ch => ch.name.includes('general') && ch.type === 'text').first().send(joinembed);

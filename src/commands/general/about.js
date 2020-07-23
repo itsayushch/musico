@@ -42,7 +42,7 @@ class aboutCommand extends Command {
 				stripIndents`
 				**_If you like my features, please consider voting me on_** : [vote link](https://top.gg/bot/629283787095932938/vote)
 
-				**_If you need any help you can join our_** [support server](https://gwabot.tk/support)
+				**_If you need any help you can join our_** [support server](https://discord.gg/sY57ftY)
 			`)
 			.setFooter(`© ${new Date().getFullYear()} ${this.owner.tag}`, this.owner.displayAvatarURL());
 

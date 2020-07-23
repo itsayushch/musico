@@ -29,8 +29,6 @@ module.exports = class extends Command {
 				embed: { description: 'I couldn\'t find What you were looking for!', color: 'RED' }
 			});
 		}
-
-		const sh = await this.client.music.load(`ytsearch:${args.youtube}`).then(d => d.tracks[0].info.uri.toString());
-		message.channel.send(sh);
+		return message.channel.send(track.tracks[0].info.uri);
 	}
 };
