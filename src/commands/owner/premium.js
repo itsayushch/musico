@@ -33,7 +33,7 @@ class BlacklistCommand extends Command {
 			if (premium.length === 0) this.client.settings.delete('global', 'global');
 			else this.client.settings.set('global', 'premium', premium);
 
-			return message.util.send(`**${user.tag}** has been removed from the global.`);
+			return message.util.send(`**${user.tag}** has been removed from the premium users.`);
 		}
 
 		premium.push(user.id);
