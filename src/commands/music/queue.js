@@ -41,9 +41,29 @@ class QueueCommand extends Command {
 
 		const decoded = await this.client.music.decode(tracks);
 		const totalLength = decoded.filter(track => !track.info.isStream).reduce((prev, song) => prev + song.info.length, 0);
+		let pagesNum = Math.ceil(decoded.length / 10);
+		if (pagesNum === 0) pagesNum = 1;
 		const paginated = paginate(decoded.slice(1), page);
 		let index = (paginated.page - 1) * 10;
+		const pages = [];
+		for (let i = 0; i < pagesNum; i++) {
+			const str = decoded.slice(i * 10, (i * 10) + 10).join('');
+			const embed = new MessageEmbed()
+				.setAuthor(`Queue - ${message.guild.name}`, message.guild.iconURL())
+				.setColor(0x5e17eb)
+				.setDescription([
+					'🎵 **Now Playing**',
+					`[${decoded[0].info.title}](${decoded[0].info.uri}) (${timeString(current.position)}/${decoded[0].info.isStream ? '∞' : timeString(decoded[0].info.length)})`,
+					'',
+					decoded.length
+						? stripIndents`🎶 **Current Queue${paginated.maxPage > 1 ? `, Page ${paginated.page}/${paginated.maxPage}` : ''}**
+				${paginated.items.map(song => `**${++index}.** [${song.info.title}](${song.info.uri}) (${song.info.isStream ? '∞' : timeString(song.info.length)})`).join('\n')}
 
+				**Total Queue Time:** ${timeString(totalLength)}, **Song${decoded.length > 1 || decoded.length === 0 ? 's' : ''}:** ${decoded.length}`
+						: 'No songs in Queue!'
+				]);
+			pages.push(embed);
+		}
 		const embed = new MessageEmbed()
 			.setColor(0x5e17eb)
 			.setAuthor(`Queue for ${message.guild.name}`, message.guild.iconURL())
@@ -61,6 +81,42 @@ class QueueCommand extends Command {
 			]);
 
 		return message.util.send({ embed });
+	}
+
+	async page(message, pages) {
+		let page = 0;
+		const emojiList = ['⬅', '➡'];
+		const msg = await message.channel.send(pages[page]);
+
+		for (const emoji of ['⬅', '➡']) {
+			await msg.react(emoji);
+		}
+
+		const collector = msg.createReactionCollector(
+			(reaction, user) => emojiList.includes(reaction.emoji.name) && user.id === message.author.id,
+			{ time: 45000, max: 10 }
+		);
+
+		collector.on('collect', reaction => {
+			reaction.users.remove(message.author);
+			switch (reaction.emoji.name) {
+				case emojiList[0]:
+					page = page > 0 ? --page : pages.length - 1;
+					break;
+				case emojiList[1]:
+					page = page + 1 < pages.length ? ++page : 0;
+					break;
+				default:
+					break;
+			}
+			msg.edit(pages[page]);
+		});
+
+		collector.on('end', async () => {
+			await msg.reactions.removeAll().catch(() => null);
+		});
+
+		return msg;
 	}
 }
 

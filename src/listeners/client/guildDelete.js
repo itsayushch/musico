@@ -24,19 +24,22 @@ class GuildDeleteListener extends Listener {
 
 		const embed = this.client.util.embed()
 			.setColor('RED')
-			.setAuthor('Musico - Removed from Guild!')
+			.setAuthor('Left a Guild!')
 			.setThumbnail(guild.iconURL())
-			.addField('Guild Info', [
-				`Name: ${guild.name}`,
-				`ID: ${guild.id}`,
-				`Made: ${guild.createdAt}`,
-				`Owner: ${user ? user.tag : 'Unknown'} (ID: ${guild.ownerID})`,
-				`Region: ${guild.region}`,
-				`Roles: ${guild.roles.size}`,
-				`Verification Level: ${guild.verificationLevel}`,
-				`Members: ${guild.memberCount}`
-			])
-			.setTimestamp();
+			.setDescription(stripIndents`
+            Name:
+            \`${guild.name}\`
+
+            Owner: 
+            \`${user ? `${user.tag} (${user.id})` : 'Unknown'}\`
+
+            ID: 
+            \`${guild.id}\`
+
+            Total Members: 
+            \`${guild.memberCount}\`
+        	`)
+		  .setTimestamp();
 		return webhook.send({ embeds: [embed] });
 	}
 }

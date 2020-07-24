@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 const { Listener } = require('discord-akairo');
+const Logger = require('../../util/logger');
 
 class CommandBlockedListener extends Listener {
 	constructor() {
@@ -16,6 +17,7 @@ class CommandBlockedListener extends Listener {
 		}[reason];
 
 		const level = message.guild ? `${message.guild.name}/${message.author.tag}` : `${message.author.tag}`;
+		Logger.info(`[${level}] => ${command.id} ~ ${reason}`, { level: 'COMMAND BLOCKED' });
 
 		if (!text) return;
 		if (message.guild ? message.channel.permissionsFor(this.client.user).has('SEND_MESSAGES') : true) {

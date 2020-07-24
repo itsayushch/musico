@@ -31,7 +31,7 @@ class GuildCreateListener extends Listener {
 		**___Hello I am Musico___**
 
 		My default prefix is \`;\`
-		Want a new prefix ? just type \`;prefix <new prefix>\`
+		Want a new prefix? Just type \`;prefix <new prefix>\`
 
 		To get a list of commands type \`;help\`
 		To get details for each command type \`;help <command>\`
@@ -43,7 +43,7 @@ class GuildCreateListener extends Listener {
 		**_I can :-_**
 		<:discord:711151112501329920> **Play \`Music\`**,
 		<:discord:711151112501329920> **Manage your server with my \`Moderation\` commands**,
-
+		<:discord:711151112501329920> **Some awesome \`utily\` commands you can play with.**,
 
 		**_AND MUCH MORE_**
 
@@ -60,21 +60,22 @@ class GuildCreateListener extends Listener {
 
 		const embed = this.client.util.embed()
 			.setColor('GREEN')
-			.setAuthor('Musico - Joined a Guild!')
+			.setAuthor('Joined a Guild!')
 			.setThumbnail(guild.iconURL())
-			.addField('Guild Info', [
-				`Name: ${guild.name}`,
-				`ID: ${guild.id}`,
-				`Made: ${guild.createdAt}`,
-				`Owner: ${user ? user.tag : 'Unknown'} (ID: ${guild.ownerID})`,
-				`Region: ${guild.region}`,
-				`Roles: ${guild.roles.cache.size}`,
-				`Verification Level: ${guild.verificationLevel}`,
-				`Members: ${guild.memberCount}`,
-				`Bots: ${bots}`,
-				`${invite ? `Invite link: ${invite}` : ''}`
-			])
-	  .setTimestamp();
+			.setDescription(stripIndents`
+            Name:
+            \`${guild.name}\`
+
+            Owner: 
+            \`${user ? `${user.tag} (${user.id})` : 'Unknown'}\`
+
+            ID: 
+            \`${guild.id}\`
+
+            Total Members: 
+            \`${guild.memberCount}\`
+        	`)
+		  .setTimestamp();
 	  return webhook.send({ embeds: [embed] });
 	}
 

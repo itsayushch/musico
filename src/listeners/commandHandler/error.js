@@ -1,4 +1,4 @@
-
+const Logger = require('../../util/logger');
 const { Listener } = require('discord-akairo');
 const Sentry = require('@sentry/node');
 class ErrorListener extends Listener {
@@ -10,16 +10,24 @@ class ErrorListener extends Listener {
 		});
 	}
 
-	//
-	async exec(error, message) {
+	async exec(error, message, command) {
 		Sentry.init({ dsn: process.env.SENTRY });
-		await message.channel.send([
-			'<:error:702558845142171648> Something went wrong, report us!',
-			'<:logo:702556389985353738> https://discord.com/invite/sY57ftY',
-			`\`\`\`${error.toString()}\`\`\``
-		]);
-		console.log(error);
+
+		const level = message.guild ? `${message.guild.name} - ${message.guild.id}/${message.author.tag} - ${message.author.id}` : `${message.author.tag}`;
+
+		Logger.error(`${command.id} ~ ${error}`, { level });
+		Logger.stacktrace(error);
 		Sentry.captureException(error);
+
+		const embed = this.client.util.embed()
+			.setColor(0xFF0000)
+			.setAuthor('Something went wrong', 'https://cdn.discordapp.com/emojis/724585245193535521.gif', 'https://discord.com/invite/sY57ftY')
+			.setDescription([
+				'<:error:702558845142171648> An error has occured. Please report the error to our support staff.',
+				'<:logo:702556389985353738> https://discord.com/invite/sY57ftY',
+				`\`\`\`js\n${error.toString()}\`\`\``
+			]);
+		return message.util.send(embed);
 	}
 }
 

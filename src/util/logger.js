@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const chalk = require('chalk');
 const moment = require('moment');
 const { inspect } = require('util');

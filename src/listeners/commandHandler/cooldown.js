@@ -1,5 +1,5 @@
-/* eslint-disable consistent-return */
 const { Listener } = require('discord-akairo');
+const Logger = require('../../util/logger');
 
 class CooldownListener extends Listener {
 	constructor() {
@@ -13,6 +13,7 @@ class CooldownListener extends Listener {
 	exec(message, command, remaining) {
 		const time = remaining / 1000;
 		const level = message.guild ? `${message.guild.name}/${message.author.tag}` : `${message.author.tag}`;
+		Logger.info(`${command.id} ~ ${time}`, { level });
 
 		if (message.guild ? message.channel.permissionsFor(this.client.user).has(['SEND_MESSAGES', 'EMBED_LINKS']) : true) {
 			const embed = this.client.util.embed().setColor(0x5e17eb)

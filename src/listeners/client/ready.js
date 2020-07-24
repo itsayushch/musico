@@ -1,8 +1,5 @@
-/* eslint-disable no-return-assign */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-await-in-loop */
 const { Listener } = require('discord-akairo');
+const Logger = require('../../util/logger');
 
 class ReadyListener extends Listener {
 	constructor() {
@@ -14,7 +11,7 @@ class ReadyListener extends Listener {
 	}
 
 	exec() {
-		console.log('I AM READY');
+		Logger.info(`${this.client.user.tag} (${this.client.user.id})`, { label: 'READY' });
 	}
 }
 

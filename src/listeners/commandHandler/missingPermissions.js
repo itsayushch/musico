@@ -1,5 +1,4 @@
-/* eslint-disable consistent-return */
-/* eslint-disable class-methods-use-this */
+const Logger = require('../../util/logger');
 const { Listener } = require('discord-akairo');
 
 class MissingPermissionsListener extends Listener {
@@ -25,6 +24,7 @@ class MissingPermissionsListener extends Listener {
 
 
 		const level = message.guild ? `${message.guild.name}/${message.author.tag}` : `${message.author.tag}`;
+		Logger.log(`${command.id} ~ ${type}Permissions`, { level });
 		if (text) return message.channel.send(text()).catch(() => null);
 	}
 

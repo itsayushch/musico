@@ -14,7 +14,6 @@ class MessageInvalidListener extends Listener {
 			if (!message.util.parsed.alias || !message.util.parsed.afterPrefix) return;
 			const command = this.client.commandHandler.modules.get('tag-show');
 
-			// eslint-disable-next-line max-len
 			return this.client.commandHandler.runCommand(message, command, await command.parse(message, message.util.parsed.afterPrefix));
 		}
 	}
