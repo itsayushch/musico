@@ -17,7 +17,7 @@ class CommandStartedListener extends Listener {
 		const embed = this.client.util.embed()
 			.setColor('GREEN')
 			.setTitle(`Command used - ${command.id}`)
-			.setDescription(`\`\`\`js\n${command.id}-${level}\n${args ? args : ''}\`\`\``)
+			.setDescription(`\`\`\`js\n${command.id} - ${level}\`\`\``)
 			.setTimestamp();
 		return this.client.channels.cache.get('736088895128600598').send({ embed });
 	}
