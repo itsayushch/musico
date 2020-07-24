@@ -24,6 +24,8 @@ class CommandStartedListener extends Listener {
 
 			USER: ${message.author.tag} (${message.author.id})
 
+			CHANNEL: ${message.channel.name} (${message.channel.id})
+			
 			GUILD: ${message.guild.name} (${message.guild.id})
 			\`\`\``)
 			.setTimestamp();
