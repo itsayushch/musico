@@ -9,12 +9,7 @@ class HelpCommand extends Command {
 			args: [
 				{
 					id: 'command',
-					type: 'commandAlias',
-					prompt: {
-						start: 'Which command do you need help with?',
-						retry: 'Please provide a valid command.',
-						optional: true
-					}
+					type: 'commandAlias'
 				}
 			],
 			description: {
@@ -25,7 +20,7 @@ class HelpCommand extends Command {
 		});
 	}
 
-	exec(message, { command, prefix }) {
+	exec(message, { command }) {
 		if (!command) return this.execCommandList(message);
 
 		const description = Object.assign({
@@ -58,6 +53,7 @@ class HelpCommand extends Command {
 		const embed = this.client.util.embed()
 			.setColor(0x5e17eb)
 			.setDescription(`<a:pin:711108642551758869> **Command List**\nThis is a list of commands.\nTo view details for a command, do \`${this.handler.prefix(message)}help <command>\``)
+			.addField('Some Usefull Links', '[Invite Link](https://discord.com/oauth2/authorize?client_id=629283787095932938&permissions=305482819&scope=bot) | [Support Server](https://discord.gg/sY57ftY) | [Source Code](https://github.com/gwatech/musico)')
 			.setFooter(`© ${new Date().getFullYear()} ${this.owner.tag}`, this.owner.displayAvatarURL());
 		for (const category of this.handler.categories.values()) {
 			const title = {

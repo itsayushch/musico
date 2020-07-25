@@ -13,7 +13,7 @@ class GuildDeleteListener extends Listener {
 	}
 
 	async exec(guild) {
-		Logger.info(`${guild.name} (${guild.id})`, { level: 'GUILD DELETE' });
+		Logger.info(`${guild.name} (${guild.id})`, { tag: 'GUILD DELETE' });
 
 		this.client.settings.clear(guild);
 

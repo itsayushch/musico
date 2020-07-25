@@ -1,38 +1,39 @@
 const chalk = require('chalk');
 const moment = require('moment');
-const { inspect } = require('util');
+const util = require('util');
 
 class Logger {
-	static log(message, { color = 'grey', level = 'Log' } = {}) {
-		this.write(message, { color, level });
+	static log(content, { color = 'pink', tag = 'Log' } = {}) {
+		this.write(content, { color, tag });
 	}
 
-	static info(message, { color = 'green', level = 'Info' } = {}) {
-		this.write(message, { color, level });
+	static info(content, { color = 'green', tag = 'Info' } = {}) {
+		this.write(content, { color, tag });
 	}
 
-	static error(message, { color = 'red', level = 'Error' } = {}) {
-		this.write(message, { color, level, error: true });
+	static warn(content, { color = 'yellow', tag = 'Warn' } = {}) {
+		this.write(content, { color, tag });
 	}
 
-	static stacktrace(message, { color = 'red', level = 'Error' } = {}) {
-		this.write(message, { color, level, error: true });
+	static error(content, { color = 'red', tag = 'Error' } = {}) {
+		this.write(content, { color, tag, error: true });
 	}
 
-	static warn(message, { color = 'yellow', level = 'Warn' } = {}) {
-		this.write(message, { color, level });
+	static stacktrace(content, { color = 'white', tag = 'Error' } = {}) {
+		this.write(content, { color, tag, error: true });
 	}
 
-	static write(message, { color = 'grey', level = 'Log', error = false } = {}) {
-		const timestamp = chalk.cyan(moment().format('DD-MM-YYYY kk:mm:ss'));
-		const content = chalk[color](this.clean(message));
+	static write(content, { color = 'grey', tag = 'Log', error = false } = {}) {
+		const timestamp = chalk.cyan(`[${moment().format('DD-MM-YYYY kk:mm:ss')}]:`);
+		const levelTag = chalk.bold(`[${tag}]:`);
+		const text = chalk[color](this.clean(content));
 		const stream = error ? process.stderr : process.stdout;
-		stream.write(`[${timestamp}] [${chalk.bold(level)}]: ${content}\n`);
+		stream.write(`${timestamp} ${levelTag} ${text}\n`);
 	}
 
 	static clean(item) {
 		if (typeof item === 'string') return item;
-		const cleaned = inspect(item, { depth: Infinity });
+		const cleaned = util.inspect(item, { depth: Infinity });
 		return cleaned;
 	}
 }

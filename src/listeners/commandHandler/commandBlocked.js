@@ -16,8 +16,8 @@ class CommandBlockedListener extends Listener {
 			guild: () => 'You must be in a guild to use this command.'
 		}[reason];
 
-		const level = message.guild ? `${message.guild.name}/${message.author.tag}` : `${message.author.tag}`;
-		Logger.info(`[${level}] => ${command.id} ~ ${reason}`, { level: 'COMMAND BLOCKED' });
+		const tag = message.guild ? `${message.guild.name}/${message.author.tag}` : `${message.author.tag}`;
+		Logger.info(`[${tag}] => ${command.id} ~ ${reason}`, { tag: 'COMMAND BLOCKED' });
 
 		if (!text) return;
 		if (message.guild ? message.channel.permissionsFor(this.client.user).has('SEND_MESSAGES') : true) {

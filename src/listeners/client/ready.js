@@ -11,7 +11,7 @@ class ReadyListener extends Listener {
 	}
 
 	exec() {
-		Logger.info(`${this.client.user.tag} (${this.client.user.id})`, { label: 'READY' });
+		Logger.info(`${this.client.user.tag} (${this.client.user.id})`, { tag: 'READY' });
 	}
 }
 

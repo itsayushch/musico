@@ -28,7 +28,6 @@ class AvatarCommand extends Command {
 
 		if (!args.user) {
 			const format = message.author.displayAvatarURL({ dynamic: true }).substr(message.author.displayAvatarURL({ dynamic: true }).length - 3);
-			console.log(format);
 			if (format === 'gif') {
 				avatarEmbed.setAuthor(message.author.username);
 				avatarEmbed.setDescription(`[gif](${message.author.displayAvatarURL({ format: 'gif', size: 2048 })})`);
@@ -41,7 +40,6 @@ class AvatarCommand extends Command {
 			return message.channel.send({ embed: avatarEmbed });
 		}
 		const format = args.user.displayAvatarURL({ dynamic: true }).substr(args.user.displayAvatarURL({ dynamic: true }).length - 3);
-		console.log(format);
 		if (format === 'gif') {
 			avatarEmbed.setAuthor(`${args.user.username}#${args.user.discriminator} (${args.user.id})`);
 			avatarEmbed.setDescription(`[gif](${args.user.displayAvatarURL({ format: 'gif', size: 2048 })})`);

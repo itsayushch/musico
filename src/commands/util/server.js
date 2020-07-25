@@ -32,8 +32,7 @@ class ServerCommand extends Command {
 			.addField('❯ Server Owner', message.guild.owner, false)
 			.addField('❯ Server Region', message.guild.region.toUpperCase(), false)
 			.addField('❯ Join Date', moment(message.member.joinedAt).format('DD-MM-YYYY'), false)
-			.setTimestamp()
-			.setFooter(`${new Date().getTime() - message.createdTimestamp} ms`);
+			.setTimestamp();
 
 		return message.util.send({ embed });
 	}

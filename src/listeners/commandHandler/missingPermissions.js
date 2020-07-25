@@ -23,8 +23,8 @@ class MissingPermissionsListener extends Listener {
 		}[type];
 
 
-		const level = message.guild ? `${message.guild.name}/${message.author.tag}` : `${message.author.tag}`;
-		Logger.log(`${command.id} ~ ${type}Permissions`, { level });
+		const tag = message.guild ? `${message.guild.name}/${message.author.tag}` : `${message.author.tag}`;
+		Logger.log(`${command.id} ~ ${type}Permissions`, { tag });
 		if (text) return message.channel.send(text()).catch(() => null);
 	}
 

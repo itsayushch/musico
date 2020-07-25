@@ -47,8 +47,6 @@ class SayCommand extends Command {
 			'multi': args.multi
 		};
 
-		console.log(JSON.stringify(request));
-
 		fetch('https://www.strawpoll.me/api/v2/polls', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },

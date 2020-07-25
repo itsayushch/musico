@@ -12,8 +12,8 @@ class CommandStartedListener extends Listener {
 	}
 
 	async exec(message, command) {
-		const level = message.guild ? `${message.guild.name}/${message.author.tag}` : `${message.author.tag}`;
-		Logger.log(`${command.id}`, { level });
+		const tag = message.guild ? `${message.guild.name}/${message.author.tag}` : `${message.author.tag}`;
+		Logger.log(`${command.id}`, { tag });
 
 		const embed = this.client.util.embed()
 			.setColor('GREEN')

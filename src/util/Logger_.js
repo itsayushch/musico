@@ -1,79 +1,40 @@
-/* eslint-disable no-console */
-/* eslint-disable class-methods-use-this */
-const markup = {
-	bright: '\x1b[1m',
-	reset: '\x1b[0m'
-};
-
-const foreground = {
-	black: '\x1b[30m',
-	blue: '\x1b[34m',
-	cyan: '\x1b[36m',
-	green: '\x1b[32m',
-	magenta: '\x1b[35m',
-	red: '\x1b[31m',
-	yellow: '\x1b[33m',
-	white: '\x1b[37m'
-};
+const chalk = require('chalk');
+const moment = require('moment');
+const util = require('util');
 
 class Logger {
-	constructor(client) {
-		this.client = client;
+	static log(content, { color = 'grey', tag = 'Log' } = {}) {
+		this.write(content, { color, tag });
 	}
 
-	debug(text, { label = '' } = {}) {
-		return console.log(`[${this.timestamp()}] ${markup.bright}${foreground.yellow}[DEBUG]${markup.reset} » ${label ? `[${label}] ` : ''}${text}`);
+	static info(content, { color = 'green', tag = 'Info' } = {}) {
+		this.write(content, { color, tag });
 	}
 
-	info(text, { label = '' } = {}) {
-		return console.log(`[${this.timestamp()}] ${markup.bright}${foreground.cyan}[INFO]${markup.reset} » ${label ? `[${label}] ` : ''}${text}`);
+	static warn(content, { color = 'yellow', tag = 'Warn' } = {}) {
+		this.write(content, { color, tag });
 	}
 
-	log(text, { label = '' } = {}) {
-		return console.log(`[${this.timestamp()}] ${markup.bright}${foreground.green}[INFO]${markup.reset} » ${label ? `[${label}] ` : ''}${text}`);
+	static error(content, { color = 'red', tag = 'Error' } = {}) {
+		this.write(content, { color, tag, error: true });
 	}
 
-	warn(text, { label = '' } = {}) {
-		return console.log(`[${this.timestamp()}] ${markup.bright}${foreground.magenta}[WARN]${markup.reset} » ${label ? `[${label}] ` : ''}${text}`);
+	static stacktrace(content, { color = 'white', tag = 'Error' } = {}) {
+		this.write(content, { color, tag, error: true });
 	}
 
-	error(text, { label = '' } = {}) {
-		return console.log(`[${this.timestamp()}] ${markup.bright}${foreground.red}[ERROR]${markup.reset} » ${label ? `[${label}] ` : ''}${text}`);
+	static write(content, { color = 'grey', tag = 'Log', error = false } = {}) {
+		const timestamp = chalk.cyan(`[${moment().format('DD-MM-YYYY kk:mm:ss')}]:`);
+		const levelTag = chalk.bold(`[${tag}]:`);
+		const text = chalk[color](this.clean(content));
+		const stream = error ? process.stderr : process.stdout;
+		stream.write(`${timestamp} ${levelTag} ${text}\n`);
 	}
 
-	shard() {
-		return this.client.shard.ids ? `[SHARD ${this.client.shard.ids.join(' ')}]` : '';
-	}
-
-	timestamp() {
-		const {
-			date, month, year, hour, min, sec
-		} = this.date();
-		return `${[date, month, year].join('-')} ${[hour, min, sec].join(':')}`;
-	}
-
-	date() {
-		const date = new Date();
-		return {
-			date: date.getDate()
-				.toString()
-				.padStart(2, '0'),
-			month: (date.getMonth() + 1)
-				.toString()
-				.padStart(2, '0'),
-			year: date.getFullYear()
-				.toString()
-				.padStart(2, '0'),
-			hour: date.getHours()
-				.toString()
-				.padStart(2, '0'),
-			min: date.getMinutes()
-				.toString()
-				.padStart(2, '0'),
-			sec: date.getSeconds()
-				.toString()
-				.padStart(2, '0')
-		};
+	static clean(item) {
+		if (typeof item === 'string') return item;
+		const cleaned = util.inspect(item, { depth: Infinity });
+		return cleaned;
 	}
 }
 

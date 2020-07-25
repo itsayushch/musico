@@ -1,4 +1,5 @@
 const { Command } = require('discord-akairo');
+const Logger = require('../../util/logger');
 class RebootCommand extends Command {
 	constructor() {
 		super('shutdown', {
@@ -13,14 +14,13 @@ class RebootCommand extends Command {
 	}
 
 	async exec(message) {
-		console.log('\x1b[31m\x1b[47m\x1b[5mSHUTING DOWN!!!!!\x1b[0m');
+		Logger.info(`${this.client.user.tag} (${this.client.user.id})`, { tag: 'RESTARTING' });
 		await message.channel.send({
 			embed: {
 				color: 'RED',
-				description: '!!!RESTARTING!!!'
+				description: '**RESTARTING**'
 			}
 		});
-		console.log('\x1b[31m\x1b[47m\x1b[5mSHUTING DOWN!!!!!\x1b[0m');
 		process.exit();
 	}
 }

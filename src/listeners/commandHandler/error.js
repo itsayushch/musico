@@ -13,9 +13,9 @@ class ErrorListener extends Listener {
 	async exec(error, message, command) {
 		Sentry.init({ dsn: process.env.SENTRY });
 
-		const level = message.guild ? `${message.guild.name} - ${message.guild.id}/${message.author.tag} - ${message.author.id}` : `${message.author.tag}`;
+		const tag = message.guild ? `${message.guild.name} - ${message.guild.id}/${message.author.tag} - ${message.author.id}` : `${message.author.tag}`;
 
-		Logger.error(`${command.id} ~ ${error}`, { level });
+		Logger.error(`${command.id} ~ ${error}`, { tag });
 		Logger.stacktrace(error);
 		Sentry.captureException(error);
 

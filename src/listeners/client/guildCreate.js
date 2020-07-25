@@ -13,7 +13,7 @@ class GuildCreateListener extends Listener {
 	}
 
 	async exec(guild) {
-		Logger.info(`${guild.name} (${guild.id})`, { level: 'GUILD CREATE' });
+		Logger.info(`${guild.name} (${guild.id})`, { tag: 'GUILD CREATE' });
 
 		const members = await guild.members.fetch();
 		const bots = members.filter(m => m.user.bot).size;
