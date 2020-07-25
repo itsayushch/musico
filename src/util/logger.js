@@ -3,7 +3,7 @@ const moment = require('moment');
 const util = require('util');
 
 class Logger {
-	static log(content, { color = 'pink', tag = 'Log' } = {}) {
+	static log(content, { color = 'grey', tag = 'Log' } = {}) {
 		this.write(content, { color, tag });
 	}
 
