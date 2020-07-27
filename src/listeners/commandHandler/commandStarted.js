@@ -15,6 +15,7 @@ class CommandStartedListener extends Listener {
 		const tag = message.guild ? `${message.guild.name}/${message.author.tag}` : `${message.author.tag}`;
 		Logger.log(`${command.id}`, { tag });
 
+		const webhook = await this.client.fetchWebhook('737262261906833430').catch(() => null);
 		const embed = this.client.util.embed()
 			.setColor('GREEN')
 			.setTitle(`Command used - ${command.id}`)
@@ -29,7 +30,8 @@ class CommandStartedListener extends Listener {
 			GUILD: ${message.guild.name} (${message.guild.id})
 			\`\`\``)
 			.setTimestamp();
-		return this.client.channels.cache.get('736088895128600598').send({ embed });
+
+		return webhook.send({ embeds: [embed] });
 	}
 }
 

@@ -15,11 +15,9 @@ class GuildCreateListener extends Listener {
 	async exec(guild) {
 		Logger.info(`${guild.name} (${guild.id})`, { tag: 'GUILD CREATE' });
 
-		const members = await guild.members.fetch();
-		const bots = members.filter(m => m.user.bot).size;
 		const user = await this.client.users.fetch(guild.ownerID).catch(() => null);
 		const channel = guild.channels.cache.filter(ch => ch.type === 'text').first();
-		const invite = await channel.createInvite({ maxAge: 0 }).catch(() => null);
+		// const invite = await channel.createInvite({ maxAge: 0 }).catch(() => null);
 		const id = this.client.settings.get('global', 'guildLog', '710854402977693748');
 		const webhook = await this.client.fetchWebhook(id).catch(() => null);
 		if (!webhook) return;
