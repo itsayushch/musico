@@ -8,8 +8,8 @@ module.exports = class extends Command {
 		super('ban', {
 			aliases: ['ban'],
 			channel: 'guild',
-			clientPermissions: ['KICK_MEMBERS'],
-			userPermissions: ['KICK_MEMBERS'],
+			clientPermissions: ['BAN_MEMBERS'],
+			userPermissions: ['BAN_MEMBERS'],
 			category: 'moderation',
 			description: {
 				content: 'Kicks a member',
