@@ -57,10 +57,10 @@ class HelpCommand extends Command {
 			.setFooter(`© ${new Date().getFullYear()} ${this.owner.tag}`, this.owner.displayAvatarURL());
 		for (const category of this.handler.categories.values()) {
 			const title = {
-				general: 'General',
-				utility: 'Utility',
+				// general: 'General',
+				// utility: 'Utility',
 				music: 'Music',
-				moderation: 'Moderation'
+				// moderation: 'Moderation'
 			}[category.id];
 
 			if (title) { embed.addField(title, `${category.map(cmd => `\`${cmd.aliases[0]}\``).join(', ')}`); }
