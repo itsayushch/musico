@@ -20,7 +20,7 @@ class MessageDeleteListener extends Listener {
 			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
 			.setTitle('Message Deleted')
 			.setDescription([
-				'❯ Message',
+				'**❯ Message**',
 				`${message.content.substring(0, 2000)}`
 			])
 			.addField('❯ Channel', `${message.channel} (${message.channel.id})`)

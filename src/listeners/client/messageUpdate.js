@@ -21,10 +21,10 @@ class MessageUpdateListener extends Listener {
 			.setAuthor(`${newMessage.author.tag} (${newMessage.author.id})`, newMessage.author.displayAvatarURL())
 			.setTitle('Message Deleted')
 			.setDescription([
-				'❯ Old Message',
+				'**❯ Old Message**',
 				`${oldMessage.content.substring(0, 1000)}`,
 				'',
-				'❯ New Message',
+				'**❯ New Message**',
 				`[${newMessage.content.substring(0, 1000)}](${newMessage.url})`
 			])
 			.addField('❯ Channel', `${newMessage.channel} (${newMessage.channel.id})`)
