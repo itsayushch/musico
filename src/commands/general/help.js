@@ -60,7 +60,7 @@ class HelpCommand extends Command {
 				general: 'General',
 				utility: 'Utility',
 				music: 'Music',
-				moderation: 'Moderation'
+			        moderation: 'Moderation'
 			}[category.id];
 
 			if (title) { embed.addField(title, `${category.map(cmd => `\`${cmd.aliases[0]}\``).join(', ')}`); }
