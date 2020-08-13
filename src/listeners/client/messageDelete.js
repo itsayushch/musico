@@ -16,7 +16,7 @@ class MessageDeleteListener extends Listener {
 
 		const attachment = message.attachments.first();
 		const embed = new MessageEmbed()
-			.setColor(0x824aee)
+			.setColor(0xFF0000)
 			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
 			.setTitle('Message Deleted')
 			.setDescription([

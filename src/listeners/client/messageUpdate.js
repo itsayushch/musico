@@ -17,7 +17,7 @@ class MessageUpdateListener extends Listener {
 
 		const logChannel = this.client.settings.get(newMessage.guild.id, 'message-log', undefined);
 		const embed = new MessageEmbed()
-			.setColor(0x5e17eb)
+			.setColor(0xFFFF00)
 			.setAuthor(`${newMessage.author.tag} (${newMessage.author.id})`, newMessage.author.displayAvatarURL())
 			.setTitle('Message Deleted')
 			.setDescription([
