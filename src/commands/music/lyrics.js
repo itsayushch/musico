@@ -38,7 +38,7 @@ class LyricsCommand extends Command {
 		await message.util.send({
 			embed: { description: `**Searching lyrics for**  \`${query}\``, color: 0x5e17eb }
 		});
-		const song = await fetch(`http://ec2-18-222-83-60.us-east-2.compute.amazonaws.com/lyrics/${query}`).then(r => r.json());
+		const song = await fetch(`https://some-random-api.ml/lyrics?title=${query}`).then(r => r.json());
 		if (!song || !song.lyrics) {
 			return message.util.send({
 				embed: {
