@@ -8,12 +8,14 @@ module.exports = class extends Command {
 			description: {
 				content: stripIndents`Available Keys
 				• modlog
-				• memberlog`,
+				• memberlog
+				• messagelog`,
 
 				usage: '<key>',
 				examples: [
 					'modlog',
-					'memberlog'
+					'memberlog',
+					'messagelog'
 				]
 			},
 			category: 'moderation',
@@ -25,8 +27,9 @@ module.exports = class extends Command {
 	*args() {
 		const method = yield {
 			type: [
-				['delete-modlog', 'modlog'],
-				['delete-memberlog', 'memberlog']
+				['delete-modlog', 'modlog', 'mod-log'],
+				['delete-memberlog', 'memberlog', 'member-log'],
+				['delete-messagelog', 'messagelog', 'message-log']
 			],
 			otherwise: m => new MessageEmbed()
 				.setColor('RED')
@@ -34,6 +37,7 @@ module.exports = class extends Command {
 				.addField('Available Keys', stripIndents`
 						• modlog
 						• memberlog
+						• messagelog
 					`)
 
 		};
