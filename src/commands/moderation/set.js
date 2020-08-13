@@ -7,8 +7,9 @@ module.exports = class TagCommand extends Command {
 			aliases: ['set'],
 			description: {
 				content: stripIndents`Available Keys
-				• modlog \`<channel>\`
-				• memberlog \`<channel>\`
+				• modlog \`[channel]\`
+				• memberlog \`[channel]\`
+				• messagelog \`[channel]\`
 
                 Required: \`<>\` | Optional: \`[]\`
 
@@ -19,7 +20,9 @@ module.exports = class TagCommand extends Command {
 					'modlog',
 					'modlog #mod-channel',
 					'memberlog',
-					'memberlog #memberlog-channel'
+					'memberlog #memberlog-channel',
+					'messagelog',
+					'messagelog #memberlog-channel'
 				]
 			},
 			category: 'moderation',
@@ -31,17 +34,18 @@ module.exports = class TagCommand extends Command {
 	*args() {
 		const method = yield {
 			type: [
-				['set-modlog', 'modlog'],
-				['set-memberlog', 'memberlog']
+				['set-modlog', 'modlog', 'mod-log'],
+				['set-memberlog', 'memberlog', 'member-log'],
+				['set-messagelog', 'messagelog', 'message-log']
 			],
-			otherwise: m => new MessageEmbed()
+			otherwise: () => new MessageEmbed()
 				.setColor('RED')
 				.setTitle('Invalid Key Provided!')
 				.addField('Available Keys', stripIndents`
-						• modlog \`<channel>\`
-						• memberlog \`<channel>\`
-					`)
-
+					• modlog \`[channel]\`
+					• memberlog \`[channel]\`
+					• messagelog \`[channel]\`
+				`)
 		};
 
 		return Flag.continue(method);

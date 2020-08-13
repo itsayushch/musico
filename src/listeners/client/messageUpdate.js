@@ -1,8 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable no-continue */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable consistent-return */
 const { Listener } = require('discord-akairo');
 const { MessageEmbed, Util } = require('discord.js');
 const diff = require('diff');
@@ -17,85 +12,29 @@ class MessageUpdateListener extends Listener {
 	}
 
 	exec(oldMessage, newMessage) {
-		if (oldMessage.guild.id === '694554848758202451' || newMessage.guild.id === '694554848758202451') {
-			if (oldMessage.partial) return;
-			if (oldMessage.author.bot || newMessage.author.bot) return;
-			if (Util.escapeMarkdown(oldMessage.content) === Util.escapeMarkdown(newMessage.content)) return;
-			const guildLogs = this.client.settings.get(newMessage.guild.id, 'guildLog', '695196728344838204');
+		if (oldMessage.author.bot || newMessage.author.bot) return;
+		if (Util.escapeMarkdown(oldMessage.content) === Util.escapeMarkdown(newMessage.content)) return;
 
-			const embed = new MessageEmbed().setColor(0x824aee)
-				.setColor(0x306bff)
-				.setAuthor(`${newMessage.author.tag} (${newMessage.author.id})`, newMessage.author.displayAvatarURL())
-				.addField('❯ Channel', `${newMessage.channel} - ${newMessage.channel.id}`);
-			let msg = '';
-			if (/```(.*?)```/s.test(oldMessage.content) && /```(.*?)```/s.test(newMessage.content)) {
-				const strippedOldMessage = oldMessage.content.match(/```(?:(\S+)\n)?\s*([^]+?)\s*```/)[2];
-				const strippedNewMessage = newMessage.content.match(/```(?:(\S+)\n)?\s*([^]+?)\s*```/)[2];
-				if (strippedOldMessage === strippedNewMessage) return;
-				const diffMessage = diff.diffLines(strippedOldMessage, strippedNewMessage, { newlineIsToken: true });
-				for (const part of diffMessage) {
-					if (part.value === '\n') continue;
-					const d = part.added ? '+ ' : part.removed ? '- ' : '';
-					msg += `${d}${part.value.replace(/\n/g, '')}\n`;
-				}
-				const prepend = '```diff\n';
-				const append = '\n```';
-				embed.addField('❯ Message', `${prepend}${msg.substring(0, 1000)}${append}`);
-			} else {
-				const diffMessage = diff.diffWords(Util.escapeMarkdown(oldMessage.content),
-					Util.escapeMarkdown(newMessage.content));
-				for (const part of diffMessage) {
-					const markdown = part.added ? '**' : part.removed ? '~~' : '';
-					msg += `${markdown}${part.value}${markdown}`;
-				}
-				embed.addField('❯ Message', `${msg.substring(0, 1020)}` || '\u200b');
-			}
-			embed.addField('❯ Message', `[Jump To](${newMessage.url})`, true);
-			embed.addField('❯ Message ID', `${newMessage.id})`, true);
-			embed.setTimestamp(oldMessage.editedAt || newMessage.editedAt || new Date());
-			embed.setThumbnail('https://i.imgur.com/i69m7Rk.png');
-			embed.setFooter('Message Edited');
-
-			this.client.channels.cache.get('695196728344838204').send({ embed });
-		} else if (oldMessage.guild.id === '694902189033783306' || newMessage.guild.id === '694902189033783306') {
-			if (oldMessage.partial) return;
-			if (oldMessage.author.bot || newMessage.author.bot) return;
-			if (Util.escapeMarkdown(oldMessage.content) === Util.escapeMarkdown(newMessage.content)) return;
-
-			const embed = new MessageEmbed().setColor(0x824aee)
-				.setColor(0x306bff)
-				.setAuthor(`${newMessage.author.tag} (${newMessage.author.id})`, newMessage.author.displayAvatarURL())
-				.addField('❯ Channel', `${newMessage.channel} - ${newMessage.channel.id}`);
-			let msg = '';
-			if (/```(.*?)```/s.test(oldMessage.content) && /```(.*?)```/s.test(newMessage.content)) {
-				const strippedOldMessage = oldMessage.content.match(/```(?:(\S+)\n)?\s*([^]+?)\s*```/)[2];
-				const strippedNewMessage = newMessage.content.match(/```(?:(\S+)\n)?\s*([^]+?)\s*```/)[2];
-				if (strippedOldMessage === strippedNewMessage) return;
-				const diffMessage = diff.diffLines(strippedOldMessage, strippedNewMessage, { newlineIsToken: true });
-				for (const part of diffMessage) {
-					if (part.value === '\n') continue;
-					const d = part.added ? '+ ' : part.removed ? '- ' : '';
-					msg += `${d}${part.value.replace(/\n/g, '')}\n`;
-				}
-				const prepend = '```diff\n';
-				const append = '\n```';
-				embed.addField('❯ Message', `${prepend}${msg.substring(0, 1000)}${append}`);
-			} else {
-				const diffMessage = diff.diffWords(Util.escapeMarkdown(oldMessage.content),
-					Util.escapeMarkdown(newMessage.content));
-				for (const part of diffMessage) {
-					const markdown = part.added ? '**' : part.removed ? '~~' : '';
-					msg += `${markdown}${part.value}${markdown}`;
-				}
-				embed.addField('❯ Message', `${msg.substring(0, 1020)}` || '\u200b');
-			}
-			embed.addField('❯ Message', `[Jump To](${newMessage.url})`, true);
-			embed.addField('❯ Message ID', `${newMessage.id})`, true);
-			embed.setTimestamp(oldMessage.editedAt || newMessage.editedAt || new Date());
-			embed.setThumbnail('https://i.imgur.com/i69m7Rk.png');
-			embed.setFooter('Message Edited');
-
-			this.client.channels.cache.get('725340879291809843').send({ embed });
+		const logChannel = this.client.settings.get(newMessage.guild.id, 'message-log', undefined);
+		const embed = new MessageEmbed()
+			.setColor(0x5e17eb)
+			.setAuthor(`${newMessage.author.tag} (${newMessage.author.id})`, newMessage.author.displayAvatarURL())
+			.setTitle('Message Deleted')
+			.setDescription([
+				'❯ Old Message',
+				`${oldMessage.content.substring(0, 1000)}`,
+				'',
+				'❯ New Message',
+				`[${newMessage.content.substring(0, 1000)}](${newMessage.url})`
+			])
+			.addField('❯ Channel', `${newMessage.channel} (${newMessage.channel.id})`)
+			.setThumbnail('https://i.imgur.com/D6jek0j.png')
+			.addField('❯ Message ID', `${newMessage.id}`);
+		embed.setTimestamp();
+		embed.setFooter('Message Deleted');
+		if (logChannel) {
+			const sendguild = newMessage.guild;
+			sendguild.channels.cache.get(logChannel).send({ embed });
 		}
 	}
 }
