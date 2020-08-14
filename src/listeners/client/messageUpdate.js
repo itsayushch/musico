@@ -19,14 +19,15 @@ class MessageUpdateListener extends Listener {
 		const embed = new MessageEmbed()
 			.setColor(0xFFFF00)
 			.setAuthor(`${newMessage.author.tag} (${newMessage.author.id})`, newMessage.author.displayAvatarURL())
-			.setTitle('Message Deleted')
+			.setTitle('Message Edited')
 			.setDescription([
 				'**❯ Old Message**',
 				`${oldMessage.content.substring(0, 1000)}`,
 				'',
 				'**❯ New Message**',
-				`[${newMessage.content.substring(0, 1000)}](${newMessage.url})`
+				`${newMessage.content.substring(0, 1000)}`
 			])
+			.addField('❯ Goto Message', `[Click Here](${newMessage.url})`)
 			.addField('❯ Channel', `${newMessage.channel} (${newMessage.channel.id})`)
 			.setThumbnail('https://i.imgur.com/D6jek0j.png')
 			.addField('❯ Message ID', `${newMessage.id}`);
