@@ -14,7 +14,7 @@ class VoiceStateUpdateListener extends Listener {
 	async exec(oldState, newState) {
 		if (newState.guild.me.voice.channel && oldState.guild.me.voice.channel) {
 			const queue = this.client.music.queues.get(newState.guild.id);
-			if (!await queue.current() || newState.guild.me.voice.channel.members.size <= 1) {
+			if (newState.guild.me.voice.channel.members.size <= 1) {
 				this.leave(queue);
 			} if (newState.guild.me.voice.channel.members.size >= 2) {
 				this.cancel(queue);

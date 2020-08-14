@@ -1,6 +1,6 @@
 const { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler, Flag } = require('discord-akairo');
 const { MessageEmbed, Util } = require('discord.js');
-const { Client: Music } = require('lavaqueue');
+const Music = require('./Queue');
 const { Rejects } = require('rejects');
 const path = require('path');
 
