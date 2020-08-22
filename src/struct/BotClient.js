@@ -25,21 +25,16 @@ class BotClient extends AkairoClient {
 			password: 'youshallnotpass',
 			hosts: {
 				rest: process.env.LAVALINK_REST,
-				ws: process.env.LAVALINK_WS,
-				redis: {
-					port: process.env.REDIS_PORT,
-					host: process.env.REDIS_HOST,
-					password: process.env.REDIS_PASSWORD,
-					db: 0
-				}
+				ws: process.env.LAVALINK_WS
 			},
 			send: async (guild, packet) => {
 				const shardGuild = this.guilds.cache.get(guild);
 				if (shardGuild) return shardGuild.shard.send(packet);
 				return Promise.resolve();
 			},
-			advanceBy: (queue, { previous }) => {
-				if (this.repeat.get(queue.guildID)) queue.add(previous);
+			advanceBy: queue => {
+				if (queue.looping()) return 0;
+				return 1;
 			}
 		});
 
@@ -150,7 +145,6 @@ class BotClient extends AkairoClient {
 		this.listenerHandler.loadAll();
 
 		this.stats = new Map();
-		this.repeat = new Map();
 		this.bass = new Map();
 		this.volume = new Map();
 		this.music.on('stats', stats => {
