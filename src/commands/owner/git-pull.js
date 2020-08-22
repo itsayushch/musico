@@ -17,7 +17,6 @@ class GitPullCommand extends Command {
 		const { stderr, stdout, code } = shell.exec('git pull');
 		return message.channel.send([
 			`${stderr}`,
-			`${stdout}`,
 			`Process exited with code ${code}`
 		], { code: true, split: true });
 	}
