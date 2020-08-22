@@ -22,6 +22,10 @@ class VolumeCommand extends Command {
 		});
 	}
 
+	cooldown() {
+		return 1;
+	}
+
 	async exec(message, { volume }) {
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util.send({

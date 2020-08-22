@@ -149,7 +149,7 @@ class Queue extends events.EventEmitter {
 
 	async tracks() {
 		const tracks = this._store.get(this.keys.next);
-		return tracks;
+		return tracks || [];
 	}
 
 	_next({ count, previous } = {}) {

@@ -15,8 +15,7 @@ class ErrorListener extends Listener {
 
 		const tag = message.guild ? `${message.guild.name} - ${message.guild.id}/${message.author.tag} - ${message.author.id}` : `${message.author.tag}`;
 
-		Logger.error(`${command.id} ~ ${error}`, { tag });
-		Logger.stacktrace(error);
+		Logger.error(`${command.id} ~ ${error.toString()}`, { tag });
 		Sentry.captureException(error);
 
 		const embed = this.client.util.embed()
