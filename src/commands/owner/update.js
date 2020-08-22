@@ -20,8 +20,7 @@ class EvalCommand extends Command {
 		await exec('git pull')
 			.then(output => {
 				const Embed = this.client.util.embed()
-					.addField('stdout', output.stdout ? output.stdout : 'No update')
-					.addField('stderr', output.stderr ? output.stderr : 'No error');
+					.addField('stdout', output.stdout ? output.stdout : 'No update');
 				message.channel.send({ embed: Embed })
 					.catch(() => {
 						message.channel.send(`stdout: ${output.stdout}\nstderr: ${output.stderr}`);
