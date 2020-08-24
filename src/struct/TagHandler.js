@@ -9,21 +9,17 @@ class TagHandler {
 
 	add(message, tag, info, hoist = false) {
 		return this.database
-			.updateOne({
-				name: tag,
-				guild: message.guild.id,
-				user: message.author.id,
-				content: Util.cleanContent(info, message),
-				hoisted: hoist,
-				uses: 0,
-				createdAt: new Date(),
-				updatedAt: new Date(),
-				last_modified: message.author.id
-			},
-			{
-				$push: {
-					aliases:
-						{ $each: [tag] }
+			.updateOne({ name: tag }, {
+				$push: { aliases: { $each: [tag] } },
+				$set: {
+					guild: message.guild.id,
+					user: message.author.id,
+					content: Util.cleanContent(info, message),
+					hoisted: hoist,
+					uses: 0,
+					createdAt: new Date(),
+					updatedAt: new Date(),
+					last_modified: message.author.id
 				}
 			},
 			{ upsert: true });
@@ -31,21 +27,19 @@ class TagHandler {
 
 	aliasesadd(message, name, aliases) {
 		return this.database
-			.updateOne({
-				name,
-				last_modified: message.author.id
+			.updateOne({ name }, {
+				$push: { aliases },
+				$set: { last_modified: message.author.id }
 			},
-			{ $push: { aliases } },
 			{ upsert: true });
 	}
 
 	aliasesdel(message, name, aliases) {
 		return this.database
-			.updateOne({
-				name,
-				last_modified: message.author.id
+			.updateOne({ name }, {
+				$pull: { aliases },
+				$set: { last_modified: message.author.id }
 			},
-			{ $pull: { aliases } },
 			{ upsert: true });
 	}
 

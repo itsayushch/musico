@@ -55,7 +55,7 @@ class NPCommand extends Command {
 			**❯ Options**
 			\u2002• Bass - \`${currBase ? currBase : 0}\`
 			\u2002• Volume - \`${currVolume ? currVolume : 100}\`
-			\u2002• Loop - \`${this.client.repeat.get(message.guild.id) ? 'Enabled' : 'Disabled'}\`
+			\u2002• Loop - \`${queue.looping() ? 'Enabled' : 'Disabled'}\`
 			`);
 		return message.util.send({ embed });
 	}

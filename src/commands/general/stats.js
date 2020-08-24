@@ -27,6 +27,7 @@ class StatsCommand extends Command {
 	async exec(message, { music }) {
 		if (music) {
 			const lavalink = await this.client.stats.get('lavalink-stats');
+			const queue = this.client.music.queues.get(message.guild.id);
 			const embed = this.client.util.embed()
 				.setColor(0x5e17eb)
 				.setAuthor('Musico', this.client.user.displayAvatarURL())
@@ -37,7 +38,7 @@ class StatsCommand extends Command {
 				.addField('Players Playing', `${lavalink.playingPlayers}`, true)
 				.addField('Voice States', `${this.client.music.voiceStates.size}`, true)
 				.addField('Voice Servers', `${this.client.music.voiceServers.size}`, true)
-				.addField('Loop', `${this.client.repeat.get(message.guild.id) ? '<:yes:705748854703783989> Enabled' : '<:no:705748651418452030> Disabled'}`, true);
+				.addField('Loop', `${queue.looping() ? '<:yes:705748854703783989> Enabled' : '<:no:705748651418452030> Disabled'}`, true);
 
 			return message.util.send(embed);
 		}

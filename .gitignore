@@ -4,3 +4,5 @@ Educate.pem
 .env
 .editorconfig
 .vscode
+src/struct/CaseHandler.js
+src/commands/moderation/cases
