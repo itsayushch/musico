@@ -18,7 +18,6 @@ module.exports = class extends Command {
 		const currVolume = this.client.volume.get(message.guild.id);
 		const progress_bass = new ProgressBar(currBase ? currBase : 0, 10, 10);
 		const progress_volume = new ProgressBar(currVolume ? currVolume : 100, 100, 10);
-		const queue = this.client.music.queues.get(message.guild.id);
 
 		const embed = this.client.util.embed()
 			.setColor(0x5e17eb)
