@@ -7,7 +7,6 @@ class ReasonCommand extends Command {
 			aliases: ['reason'],
 			category: 'mod',
 			channel: 'guild',
-			clientPermissions: ['MANAGE_ROLES'],
 			ratelimit: 2,
 			args: [
 				{
