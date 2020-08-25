@@ -69,7 +69,8 @@ module.exports = class KickCommand extends Command {
 					**Member:** ${member.user.tag} (${member.user.id})
 					**Reason:** ${reason}
 				`)
-					.setTimestamp();
+					.setTimestamp()
+                                        .setFooter(`Case ${totalCases}`);
 				modMessage = await this.client.channels.cache.get(logChannel).send(embed);
 			}
 
