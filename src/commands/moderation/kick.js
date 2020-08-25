@@ -52,7 +52,7 @@ module.exports = class KickCommand extends Command {
 					description: `Succesfully kicked ${member.user.tag}`
 				}
 			});
-			this.client.settings.set(message.guild, 'caseTotal', totalCases);
+			this.client.settings.set(message.guild.id, 'caseTotal', totalCases);
 
 			if (!reason) {
 				const prefix = this.handler.prefix(message);
@@ -60,7 +60,7 @@ module.exports = class KickCommand extends Command {
 			}
 
 			let modMessage;
-			if (logChannel && this.client.channels.has(logChannel)) {
+			if (logChannel && this.client.channels.cache.has(logChannel)) {
 				const embed = this.client.util.embed()
 					.setColor(CONSTANTS.COLORS.KICK)
 					.setAuthor(message.author.tag, message.author.avatarURL())

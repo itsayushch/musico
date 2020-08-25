@@ -53,7 +53,7 @@ module.exports = class extends Command {
 					description: `Succesfully banned ${member.user.tag}`
 				}
 			});
-			this.client.settings.set(message.guild, 'caseTotal', totalCases);
+			this.client.settings.set(message.guild.id, 'caseTotal', totalCases);
 
 			if (!reason) {
 				const prefix = this.handler.prefix(message);
@@ -61,7 +61,7 @@ module.exports = class extends Command {
 			}
 
 			let modMessage;
-			if (logChannel && this.client.channels.has(logChannel)) {
+			if (logChannel && this.client.channels.cache.has(logChannel)) {
 				const embed = this.client.util.embed()
 					.setColor(CONSTANTS.COLORS.BAN)
 					.setAuthor(message.author.tag, message.author.avatarURL())

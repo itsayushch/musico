@@ -44,7 +44,7 @@ class ReasonCommand extends Command {
 
 		const modLogChannel = this.client.settings.get(message.guild.id, 'mod-log', undefined);
 
-		if (modLogChannel && this.client.channels.has(modLogChannel)) {
+		if (modLogChannel && this.client.channels.cache.has(modLogChannel)) {
 			const caseEmbed = await this.client.channels.get(modLogChannel).messages.fetch(cases.messageID);
 			if (!caseEmbed) return message.reply('Looks like the message doesn\'t exist anymore!');
 			const embed = new MessageEmbed(caseEmbed.embeds[0]);
