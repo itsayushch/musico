@@ -1,7 +1,5 @@
 const { Command } = require('discord-akairo');
 const { MessageEmbed } = require('discord.js');
-const Case = require('../../models/Case');
-const moment = require('moment');
 
 class ReasonCommand extends Command {
 	constructor() {
