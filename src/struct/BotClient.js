@@ -7,6 +7,7 @@ const path = require('path');
 const Mongo = require('./Mongo');
 const Playlist = require('./PLHandler');
 const Tags = require('./TagHandler');
+const Case = require('./CaseHandler');
 const Settings = require('../core/SettingsProvider');
 
 class BotClient extends AkairoClient {
@@ -160,6 +161,7 @@ class BotClient extends AkairoClient {
 		this.storage = new Rejects(this.music.queues.redis);
 		this.playlist = new Playlist(this);
 		this.tags = new Tags(this);
+		this.case = new Case(this);
 	}
 
 	async start(token) {
