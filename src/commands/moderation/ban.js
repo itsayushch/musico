@@ -71,7 +71,7 @@ module.exports = class extends Command {
 					**Reason:** ${reason}
 				`)
 					.setTimestamp();
-				modMessage = await this.client.channels.get(logChannel).send(embed);
+				modMessage = await this.client.channels.cache.get(logChannel).send(embed);
 			}
 
 			return this.client.case.create(
