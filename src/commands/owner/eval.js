@@ -52,9 +52,6 @@ class EvalCommand extends Command {
 			}
 
 			evaled.message.edit([
-				`📥\u2000**Input**${cb}js`,
-				code,
-				cb,
 				`${title}${cb}js`,
 				evaled.output,
 				cb
@@ -84,9 +81,6 @@ class EvalCommand extends Command {
 			const sent = await message.util.send(
 				[
 					`**Executed in ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ''}${hrDiff[1] / 1000000}ms**`,
-					`📥\u2000**Input**${cb}js`,
-					code,
-					cb,
 					`📤\u2000**Output**${cb}js`,
 					output,
 					cb
@@ -103,9 +97,6 @@ class EvalCommand extends Command {
 			error = `${logs.join('\n')}\n${logs.length && error === 'undefined' ? '' : error}`;
 			error = error.replace(tokenRegex, '[TERE TOH L LAG GAYE]');
 			const sent = await message.util.send([
-				`📥\u2000**Input**${cb}js`,
-				code,
-				cb,
 				`☠\u2000**Error**${cb}js`,
 				error,
 				cb
