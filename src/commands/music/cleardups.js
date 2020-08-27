@@ -28,7 +28,7 @@ class ClearDuplicateCommand extends Command {
 			return a;
 		}, []);
 
-		await queue.store.redis.del(queue.keys.next);
+		await queue.store.cached.delete(queue.keys.next);
 		await queue.add(...newTracks);
 
 		const removed = tracks.length - newTracks.length;
