@@ -42,7 +42,6 @@ class PlayCommand extends Command {
 	}
 
 	async exec(message, { query, next, start }) {
-		const search = query;
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util.send({
 				embed: { description: 'You must be connected to a voice channel to use that command!', color: 'RED' }
@@ -65,17 +64,7 @@ class PlayCommand extends Command {
 		}
 		if (!['http:', 'https:'].includes(url.parse(query).protocol)) query = `ytsearch:${query}`;
 
-		let res;
-		const normal = await this.client.music.load(query);
-		const ytsearch = await this.client.music.load(`ytsearch:${query}`);
-
-		if (['TRACK_LOADED', 'SEARCH_RESULT'].includes(normal.loadType)) {
-			res = await this.client.music.load(query);
-		} if (['TRACK_LOADED', 'SEARCH_RESULT'].includes(ytsearch.loadType)) {
-			res = await this.client.music.load(`ytsearch:${query}`);
-		} else {
-			res = await this.client.music.load(query);
-		}
+		const res = await this.client.music.load(query);
 
 		const queue = this.client.music.queues.get(message.guild.id);
 		if (!message.guild.me.voice.channel) await queue.player.join(message.member.voice.channel.id);
