@@ -148,7 +148,7 @@ class BotClient extends AkairoClient {
 		this.bass = new Map();
 		this.volume = new Map();
 		this.music.on('stats', stats => {
-			Object.assign(this.music, stats);
+			Object.assign(this.music, { stats });
 		});
 
 		this.mongo = new Mongo();
