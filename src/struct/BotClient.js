@@ -145,11 +145,10 @@ class BotClient extends AkairoClient {
 		this.inhibitorHandler.loadAll();
 		this.listenerHandler.loadAll();
 
-		this.stats = new Map();
 		this.bass = new Map();
 		this.volume = new Map();
 		this.music.on('stats', stats => {
-			this.stats.set('lavalink-stats', stats);
+			Object.assign(this.music, stats);
 		});
 
 		this.mongo = new Mongo();

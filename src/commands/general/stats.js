@@ -26,7 +26,7 @@ class StatsCommand extends Command {
 
 	async exec(message, { music }) {
 		if (music) {
-			const lavalink = await this.client.stats.get('lavalink-stats');
+			const lavalink = this.client.music.stats;
 			const queue = this.client.music.queues.get(message.guild.id);
 			const embed = this.client.util.embed()
 				.setColor(0x5e17eb)
