@@ -126,12 +126,12 @@ class SearchCommand extends Command {
 					}
 				});
 			}
-			let counter;
+			let counter = 0;
 			let songs = '';
 			for (const input of response.content.split(' ')) {
 				++counter;
 				await queue.add(res.tracks[Number(input) - 1].track);
-				songs += `[${res.tracks[Number(input) - 1].info.title}](${res.tracks[Number(input) - 1].info.uri}) (${res.tracks[Number(input) - 1].info.isStream ? 'Live' : timeString(res.tracks[Number(input) - 1].info.length)})\n`;
+				songs += `**${counter}.** [${res.tracks[Number(input) - 1].info.title}](${res.tracks[Number(input) - 1].info.uri}) (${res.tracks[Number(input) - 1].info.isStream ? 'Live' : timeString(res.tracks[Number(input) - 1].info.length)})\n`;
 			}
 			song = {
 				author: {
