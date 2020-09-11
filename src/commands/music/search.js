@@ -47,7 +47,6 @@ class SearchCommand extends Command {
 
 		const tracks = res.tracks.slice(0, 10);
 		const tracks2 = res.tracks.slice(10, 20);
-		const tracks3 = res.tracks.slice(20, 30);
 		let song;
 		let index = 0;
 		let page = 0;
@@ -68,17 +67,9 @@ class SearchCommand extends Command {
 				.setColor(0x5e17eb)
 				.setFooter('Enter a number to make choice or `cancel` to exit.');
 
-			const embed3 = new MessageEmbed()
-				.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
-				.setTitle('Search Result')
-				.setDescription(`${tracks3.map(track => `**${++index}.** [${track.info.title}](${track.info.uri}) (${track.info.isStream ? '∞' : timeString(track.info.length)})`).join('\n\n')}`)
-				.setColor(0x5e17eb)
-				.setFooter('Enter a number to make choice or `cancel` to exit.');
-
 			const pages = [
 				embed,
-				embed2,
-				embed3
+				embed2
 			];
 			const msg = await message.channel.send(pages[page]);
 
@@ -108,8 +99,8 @@ class SearchCommand extends Command {
 
 
 			const responses = await message.channel.awaitMessages(
-				msg => (msg.author.id === message.author.id && msg.content > 0 && msg.content < 31) ||
-				(msg.author.id === message.author.id && msg.content.toLowerCase() === 'cancel'), {
+				msg => (msg.author.id === message.author.id && msg.content > 0 && msg.content <= res.track.length) ||
+					(msg.author.id === message.author.id && msg.content.toLowerCase() === 'cancel'), {
 					max: 1,
 					time: 30000
 				}
@@ -135,26 +126,21 @@ class SearchCommand extends Command {
 					}
 				});
 			}
-
-			const input = Number(response.content);
-			await queue.add(res.tracks[input - 1].track);
+			let counter;
+			let songs = '';
+			for (const input of response.content.split(' ')) {
+				++counter;
+				await queue.add(res.tracks[Number(input) - 1].track);
+				songs += `[${res.tracks[Number(input) - 1].info.title}](${res.tracks[Number(input) - 1].info.uri}) (${res.tracks[Number(input) - 1].info.isStream ? 'Live' : timeString(res.tracks[Number(input) - 1].info.length)})\n`;
+			}
 			song = {
 				author: {
 					name: 'Added to queue'
 				},
 				color: 0x5e17eb,
-				description: stripIndents`
-				**❯ Song**
-				[${res.tracks[input - 1].info.title}](${res.tracks[input - 1].info.uri})
-
-				**❯ Uploaded By**
-				${res.tracks[input - 1].info.author}
-
-				**❯ Length**
-				${res.tracks[input - 1].info.isStream ? 'Live' : timeString(res.tracks[input - 1].info.length)}
-				`,
+				description: songs,
 				thumbnail: {
-					url: `https://i.ytimg.com/vi/${res.tracks[input - 1].info.identifier}/hqdefault.jpg`
+					url: `https://i.ytimg.com/vi/${res.tracks[Number(response.content.split(' ')[0]) - 1].info.identifier}/hqdefault.jpg`
 				}
 			};
 			await msg.delete();
