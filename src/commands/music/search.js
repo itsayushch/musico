@@ -99,7 +99,7 @@ class SearchCommand extends Command {
 
 
 			const responses = await message.channel.awaitMessages(
-				msg => (msg.author.id === message.author.id && msg.content > 0 && msg.content <= res.track.length) ||
+				msg => (msg.author.id === message.author.id) ||
 					(msg.author.id === message.author.id && msg.content.toLowerCase() === 'cancel'), {
 					max: 1,
 					time: 30000
