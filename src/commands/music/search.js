@@ -79,7 +79,7 @@ class SearchCommand extends Command {
 
 			const collector = msg.createReactionCollector(
 				(reaction, user) => emojiList.includes(reaction.emoji.name) && user.id === message.author.id,
-				{ time: 45000, max: 10 }
+				{ time: 60000, max: 10 }
 			);
 
 			collector.on('collect', reaction => {
@@ -102,7 +102,7 @@ class SearchCommand extends Command {
 				msg => (msg.author.id === message.author.id) ||
 					(msg.author.id === message.author.id && msg.content.toLowerCase() === 'cancel'), {
 					max: 1,
-					time: 30000
+					time: 60000
 				}
 			);
 
