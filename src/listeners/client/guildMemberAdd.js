@@ -13,11 +13,11 @@ class GuildMemberAddListener extends Listener {
 		const memberlog = this.client.settings.get(member.guild.id, 'member-log', undefined);
 		if (memberlog) {
 			const embed = new MessageEmbed()
-				.setColor('GREEN')
+				.setColor(0x00FF00)
 				.setThumbnail(member.user.displayAvatarURL())
-				.setDescription(`Welcome **${member.user.username}**\nHope you have a wonderfull time here`)
+				.setDescription(`Welcome **${member.user.username}**\nHope you have a wonderful time here.`)
 				.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
-				.setFooter('User joined')
+				.setFooter('User Joined')
 				.setTimestamp();
 
 			return this.client.channels.cache.get(memberlog).send(embed);

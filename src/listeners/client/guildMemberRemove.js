@@ -13,11 +13,11 @@ class GuildMemberRemoveListener extends Listener {
 		const memberlog = this.client.settings.get(member.guild.id, 'member-log', undefined);
 		if (memberlog) {
 			const embed = new MessageEmbed()
-				.setColor('RED')
+				.setColor(0xFF0000)
 				.setThumbnail(member.user.displayAvatarURL())
 				.setDescription(`**${member.user.username}** left **${member.guild.name}**\nHope To See You Again `)
 				.setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
-				.setFooter('User joined')
+				.setFooter('User Left')
 				.setTimestamp();
 
 			return this.client.channels.cache.get(memberlog).send(embed);
