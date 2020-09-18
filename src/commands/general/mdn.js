@@ -35,7 +35,7 @@ class MDNCommand extends Command {
 		const queryString = qs.stringify({ q: query });
 		const res = await fetch(`https://mdn-api.vercel.app/?${queryString}`);
 		const body = await res.json();
-		if (!body.URL || !body.Title || !body.Summary) {
+		if (!body.url || !body.title || !body.summary) {
 			return message.util.reply('I couldn\'t find the requested information.');
 		}
 		const turndown = new Turndown();
@@ -44,13 +44,13 @@ class MDNCommand extends Command {
 			replacement: (text, node) => `[${text}](https://developer.mozilla.org${node.href})`
 		});
 		// eslint-disable-next-line no-useless-escape
-		const summary = body.Summary.replace(/<code><strong>(.+)<\/strong><\/code>/g, '<strong><code>$1<\/code><\/strong>');
+		const summary = body.summary.replace(/<code><strong>(.+)<\/strong><\/code>/g, '<strong><code>$1<\/code><\/strong>');
 
 		const embed = new MessageEmbed()
 			.setColor(11642864)
 			.setAuthor('MDN', 'https://i.imgur.com/DFGXabG.png', 'https://developer.mozilla.org/')
-			.setURL(`https://developer.mozilla.org${body.URL}`)
-			.setTitle(body.Title)
+			.setURL(`https://developer.mozilla.org${body.url}`)
+			.setTitle(body.title)
 			.setDescription(turndown.turndown(summary));
 
 		return message.util.send({ embed });
