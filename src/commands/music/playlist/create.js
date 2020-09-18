@@ -33,7 +33,7 @@ module.exports = class PlaylistCreateCommand extends Command {
 
 		return message.util.send({
 			embed: {
-				color: 0x5e17eb,
+				color: 11642864,
 				description: `Successfully created **${name}**.`
 			}
 		});

@@ -75,7 +75,7 @@ class TagAliasCommand extends Command {
 			});
 		}
 		return message.util.send({
-			embed: { description: `Alias **${second.substring(0, 256)}** ${add ? 'added to' : 'deleted from'} tag **${first.name}**.`, color: 0x5e17eb }
+			embed: { description: `Alias **${second.substring(0, 256)}** ${add ? 'added to' : 'deleted from'} tag **${first.name}**.`, color: 11642864 }
 		});
 	}
 }

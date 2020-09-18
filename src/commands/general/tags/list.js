@@ -29,7 +29,7 @@ module.exports = class TagListCommand extends Command {
 				return message.util.reply(`**${member.displayName}** doesn't have any tags.`);
 			}
 			const embed = new MessageEmbed()
-				.setColor(0x5e17eb)
+				.setColor(11642864)
 				.setAuthor(`**${member.user.tag} (${member.id})`, member.user.displayAvatarURL())
 				.setDescription(tags.map(tag => `\`${tag.name}\``)
 					.sort()
@@ -40,7 +40,7 @@ module.exports = class TagListCommand extends Command {
 			.toArray();
 		if (!tags.length) {
 			return message.util.send({
-				embed: { description: `**${message.guild.name}** doesn't have any tags.`, color: 0x5e17eb }
+				embed: { description: `**${message.guild.name}** doesn't have any tags.`, color: 11642864 }
 			});
 		}
 		const hoistedTags = tags.filter(tag => tag.hoisted).map(tag => `\`${tag.name}\``).sort()
@@ -50,7 +50,7 @@ module.exports = class TagListCommand extends Command {
 			.sort()
 			.join(', ');
 
-		const embed = new MessageEmbed().setColor(0x5e17eb)
+		const embed = new MessageEmbed().setColor(11642864)
 			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL());
 
 		if (hoistedTags) embed.addField('❯ Tags', hoistedTags);

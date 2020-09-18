@@ -50,7 +50,7 @@ module.exports = class PlaylistAddCommand extends Command {
 				author: {
 					name: `Added to ${playlist.name.replace(/\b(\w)/g, char => char.toUpperCase())}`
 				},
-				color: 0x5e17eb,
+				color: 11642864,
 				thumbnail: {
 					url: `https://i.ytimg.com/vi/${decoded[0].identifier}/hqdefault.jpg`
 				},

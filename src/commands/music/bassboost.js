@@ -81,7 +81,7 @@ class BassBoosterCommand extends Command {
 	async exec(message, { mode }) {
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util.send({
-				embed: { description: 'You must be connected to a voice channel to use that command!', color: 0x5e17eb }
+				embed: { description: 'You must be connected to a voice channel to use that command!', color: 11642864 }
 			});
 		}
 
@@ -89,7 +89,7 @@ class BassBoosterCommand extends Command {
 
 		const embed = this.client.util.embed()
 			.setAuthor('Bass Boost')
-			.setColor(0x5e17eb);
+			.setColor(11642864);
 
 		if (mode === 'off') {
 			await queue.player.setEqualizer(this.off);

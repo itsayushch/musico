@@ -31,7 +31,7 @@ class HelpCommand extends Command {
 		}, command.description);
 
 		const embed = this.client.util.embed()
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.setTitle(`\`${this.handler.prefix(message)}${command.aliases[0]} ${description.usage}\``)
 			.addField('• Description', description.content);
 
@@ -51,7 +51,7 @@ class HelpCommand extends Command {
 
 	async execCommandList(message) {
 		const embed = this.client.util.embed()
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.setDescription(`<a:pin:711108642551758869> **Command List**\nThis is a list of commands.\nTo view details for a command, do \`${this.handler.prefix(message)}help <command>\``)
 			.addField('Some Usefull Links', '[Invite Link](https://discord.com/oauth2/authorize?client_id=629283787095932938&permissions=305482819&scope=bot) | [Support Server](https://discord.gg/sY57ftY) | [Source Code](https://github.com/gwatech/musico)')
 			.setFooter(`© ${new Date().getFullYear()} ${this.owner.tag}`, this.owner.displayAvatarURL());

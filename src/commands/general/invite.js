@@ -36,7 +36,7 @@ class InviteCommand extends Command {
 		const invMessage = 'https://discord.com/oauth2/authorize?client_id=629283787095932938&permissions=305482819&scope=bot';
 		if (args.here) {
 			const embed = this.client.util.embed()
-				.setColor(0x5e17eb)
+				.setColor(11642864)
 				.setAuthor(this.client.user.username)
 				.setDescription([
 					`**[Invite Me](${invMessage})**`,
@@ -47,7 +47,7 @@ class InviteCommand extends Command {
 		}
 		message.channel.send('Check your dm');
 		const embed = this.client.util.embed()
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.setAuthor(this.client.user.username)
 			.setDescription([
 				`**[Invite Me](${invMessage}) **`,

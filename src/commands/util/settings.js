@@ -18,7 +18,7 @@ module.exports = class TagCommand extends Command {
 		const Modlog = await this.client.settings.get(message.guild.id, 'mod-log');
 		const Messagelog = await this.client.settings.get(message.guild.id, 'message-log');
 		const embed = this.client.util.embed()
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.setDescription(stripIndents`
 				❯ Prefix
 				• \`${this.handler.prefix(message)}\`

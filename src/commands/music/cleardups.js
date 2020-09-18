@@ -19,7 +19,7 @@ class ClearDuplicateCommand extends Command {
 		const tracks = await queue.tracks();
 		if (!tracks.length) {
 			return message.util.send({
-				embed: { description: 'You must be playing a track to use this command!', color: 0x5e17eb }
+				embed: { description: 'You must be playing a track to use this command!', color: 11642864 }
 			});
 		}
 
@@ -36,7 +36,7 @@ class ClearDuplicateCommand extends Command {
 			embed: {
 				author: {
 					name: `Removed ${removed} Track${removed === 1 ? '' : 's'}`
-				}, color: 0x5e17eb
+				}, color: 11642864
 			}
 		});
 	}

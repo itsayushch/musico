@@ -37,7 +37,7 @@ module.exports = class PlaylistRemoveCommand extends Command {
 		await this.client.playlist.removesong(playlist.name, playlist.tracks);
 		return message.util.send({
 			embed: {
-				color: 0x5e17eb,
+				color: 11642864,
 				description: `Removed **${decoded[0].info.title}** from **${playlist.name}**`
 			}
 		});

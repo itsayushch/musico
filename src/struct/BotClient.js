@@ -66,11 +66,11 @@ class BotClient extends AkairoClient {
 			argumentDefaults: {
 				prompt: {
 					modifyStart: (_, txt) => new MessageEmbed()
-						.setColor(0x5e17eb)
+						.setColor(11642864)
 						.setDescription(txt)
 						.setFooter('Type cancel to cancel the command.'),
 					modifyRetry: (_, txt) => new MessageEmbed()
-						.setColor(0x5e17eb)
+						.setColor(11642864)
 						.setDescription(txt)
 						.setFooter('Type cancel to cancel the command.'),
 					timeout: 'Ran out of time.',

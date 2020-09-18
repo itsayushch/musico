@@ -34,7 +34,7 @@ class PrefixCommand extends Command {
 			if (prefix && !message.member.permissions.has('MANAGE_GUILD')) {
 				return message.util.send({
 					embed: {
-						color: 0x5e17eb,
+						color: 11642864,
 						description: [
 							`The current prefix for this guild is \`${this.handler.prefix(message)}\``,
 							'You are missing `Manage Server` to change the prefix.'
@@ -46,7 +46,7 @@ class PrefixCommand extends Command {
 			if (prefix === ';') {
 				return message.util.send({
 					embed: {
-						color: 0x5e17eb,
+						color: 11642864,
 						description: `The prefix has been reset to \`${prefix}\``
 					}
 				});
@@ -54,7 +54,7 @@ class PrefixCommand extends Command {
 
 			return message.util.send({
 				embed: {
-					color: 0x5e17eb,
+					color: 11642864,
 					description: `The prefix has been set to \`${prefix}\``
 				}
 			});

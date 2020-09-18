@@ -32,19 +32,19 @@
 // 		let embed;
 // 		if (!current || !tracks) {
 // 			embed = {
-// 				color: 0x5e17eb,
+// 				color: 11642864,
 // 				description: 'There is nothing in the queue'
 // 			};
 // 		} else if (current && tracks) {
 // 			await queue.move(start, end);
 // 			embed = {
-// 				color: 0x5e17eb,
+// 				color: 11642864,
 // 				description: 'Succesfully moved the tracks'
 // 			};
 // 		} else {
 // 			return message.util.send({
 // 				embed: {
-// 					color: 0x5e17eb,
+// 					color: 11642864,
 // 					description: 'Couldn\'t move the tracks'
 // 				}
 // 			});

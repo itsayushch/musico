@@ -57,14 +57,14 @@ class SearchCommand extends Command {
 				.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
 				.setTitle('Search Result')
 				.setDescription(`${tracks.map(track => `**${++index}.** [${track.info.title}](${track.info.uri}) (${track.info.isStream ? '∞' : timeString(track.info.length)})`).join('\n\n')}`)
-				.setColor(0x5e17eb)
+				.setColor(11642864)
 				.setFooter('Enter a number to make choice or `cancel` to exit.');
 
 			const embed2 = new MessageEmbed()
 				.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
 				.setTitle('Search Result')
 				.setDescription(`${tracks2.map(track => `**${++index}.** [${track.info.title}](${track.info.uri}) (${track.info.isStream ? '∞' : timeString(track.info.length)})`).join('\n\n')}`)
-				.setColor(0x5e17eb)
+				.setColor(11642864)
 				.setFooter('Enter a number to make choice or `cancel` to exit.');
 
 			const pages = [
@@ -111,7 +111,7 @@ class SearchCommand extends Command {
 				return msg.edit({
 					embed: {
 						description: 'Time ran out, command has been cancelled!',
-						color: 0x5e17eb
+						color: 11642864
 					}
 				});
 			}
@@ -122,7 +122,7 @@ class SearchCommand extends Command {
 				return msg.edit({
 					embed: {
 						description: 'Command has been cancelled!',
-						color: 0x5e17eb
+						color: 11642864
 					}
 				});
 			}
@@ -137,7 +137,7 @@ class SearchCommand extends Command {
 				author: {
 					name: 'Added to queue'
 				},
-				color: 0x5e17eb,
+				color: 11642864,
 				description: songs,
 				thumbnail: {
 					url: `https://i.ytimg.com/vi/${res.tracks[Number(response.content.split(' ')[0]) - 1].info.identifier}/hqdefault.jpg`

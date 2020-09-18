@@ -16,7 +16,7 @@ class ClearQueueCommand extends Command {
 	async exec(message) {
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util.send({
-				embed: { description: 'You must be connected to a voice channel to use that command!', color: 0x5e17eb }
+				embed: { description: 'You must be connected to a voice channel to use that command!', color: 11642864 }
 			});
 		}
 
@@ -25,7 +25,7 @@ class ClearQueueCommand extends Command {
 		await queue.clear();
 
 		return message.util.send({
-			embed: { author: { name: 'Cleared 🗑' }, color: 0x5e17eb }
+			embed: { author: { name: 'Cleared 🗑' }, color: 11642864 }
 		});
 	}
 }

@@ -37,7 +37,7 @@ module.exports = class TagInfoCommand extends Command {
 		}
 		const guild = this.client.guilds.cache.get(tag.guild);
 		const embed = new MessageEmbed()
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.addField('❯ Name', tag.name)
 			.setAuthor(user ? user.tag : 'Couldn\'t fetch user.', user ? user.displayAvatarURL() : null)
 			.setThumbnail(user ? user.displayAvatarURL() : null)

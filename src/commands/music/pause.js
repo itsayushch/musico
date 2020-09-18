@@ -16,7 +16,7 @@ class PauseCommand extends Command {
 	async exec(message) {
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util.send({
-				embed: { description: 'You must be connected to a voice channel to use that command!', color: 0x5e17eb }
+				embed: { description: 'You must be connected to a voice channel to use that command!', color: 11642864 }
 			});
 		}
 
@@ -24,7 +24,7 @@ class PauseCommand extends Command {
 		await queue.player.pause();
 
 		return message.util.send({
-			embed: { author: { name: 'Paused ⏸' }, color: 0x5e17eb }
+			embed: { author: { name: 'Paused ⏸' }, color: 11642864 }
 		});
 	}
 }

@@ -42,19 +42,19 @@ module.exports = class TagAddCommand extends Command {
 	async exec(message, { name, content, hoist }) {
 		if (name && name.length >= 256) {
 			return message.util.send({
-				embed: { author: { name: 'Tag name has a limit of 256 characters!' }, color: 0x5e17eb }
+				embed: { author: { name: 'Tag name has a limit of 256 characters!' }, color: 11642864 }
 			});
 		}
 		if (content && content.length >= 1950) {
 			return message.util.send({
-				embed: { author: { name: 'Tag content has a limit of 2000 characters!' }, color: 0x5e17eb }
+				embed: { author: { name: 'Tag content has a limit of 2000 characters!' }, color: 11642864 }
 			});
 		}
 
 		await this.client.tags.add(message, name, content, hoist);
 
 		return message.util.send({
-			embed: { description: `Tag with the name **${name.substring(0, 256)}** has been added.`, color: 0x5e17eb }
+			embed: { description: `Tag with the name **${name.substring(0, 256)}** has been added.`, color: 11642864 }
 		});
 	}
 };

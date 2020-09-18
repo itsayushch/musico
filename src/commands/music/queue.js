@@ -45,7 +45,7 @@ class QueueCommand extends Command {
 		let index = (paginated.page - 1) * 10;
 
 		const embed = new MessageEmbed()
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.setAuthor(`Queue for ${message.guild.name}`, message.guild.iconURL())
 			.setThumbnail(`https://i.ytimg.com/vi/${decoded[0].info.identifier}/hqdefault.jpg`)
 			.setDescription([

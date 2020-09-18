@@ -29,7 +29,7 @@ module.exports = class PlaylistInfoCommand extends Command {
 		const user = await this.client.users.cache.get(playlist.user);
 		const guild = this.client.guilds.cache.get(playlist.guild);
 		const embed = this.client.util.embed()
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.addField('❯ Name', playlist.name)
 			.addField('❯ Description', playlist.description ? playlist.description.substring(0, 1020) : 'No description.')
 			.addField('❯ User', user ? `${user.tag} (ID: ${user.id})` : 'Couldn\'t fetch user.')

@@ -29,7 +29,7 @@ class VolumeCommand extends Command {
 	async exec(message, { volume }) {
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util.send({
-				embed: { description: 'You must be connected to a voice channel to use that command!', color: 0x5e17eb }
+				embed: { description: 'You must be connected to a voice channel to use that command!', color: 11642864 }
 			});
 		}
 
@@ -39,7 +39,7 @@ class VolumeCommand extends Command {
 		const { left, right } = this.progress(volume);
 		const embed = this.client.util.embed()
 			.setAuthor('Player Volume')
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.setDescription(`[${left.join('')}](${message.url.replace(message.id, '')})${right.join('')} \`${volume}\``);
 		return message.util.send({ embed });
 	}

@@ -42,7 +42,7 @@ class ReplayCommand extends Command {
 		const duration = Number(decoded.length);
 		const progress = new ProgressBar(point, duration, 15);
 		const embed = this.client.util.embed()
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.setAuthor('Seeked')
 			.setThumbnail(`https://i.ytimg.com/vi/${decoded.identifier}/hqdefault.jpg`)
 			.setDescription([

@@ -18,15 +18,15 @@ class StartCommand extends Command {
 	async exec(message) {
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util.send({
-				embed: { description: 'You must be connected to a voice channel to use that command!', color: 0x5e17eb }
+				embed: { description: 'You must be connected to a voice channel to use that command!', color: 11642864 }
 			});
 		} else if (!message.member.voice.channel.joinable) {
 			return message.util.send({
-				embed: { description: 'I don\'t have permission to **connect** to this voice channel!', color: 0x5e17eb }
+				embed: { description: 'I don\'t have permission to **connect** to this voice channel!', color: 11642864 }
 			});
 		} else if (!message.member.voice.channel.speakable) {
 			return message.util.send({
-				embed: { description: 'I don\'t have permission to **speak** in this voice channel!', color: 0x5e17eb }
+				embed: { description: 'I don\'t have permission to **speak** in this voice channel!', color: 11642864 }
 			});
 		}
 
@@ -38,7 +38,7 @@ class StartCommand extends Command {
 		if (!await queue.player.playing) await queue.start();
 
 		return message.util.send({
-			embed: { author: { name: 'Started ▶' }, color: 0x5e17eb }
+			embed: { author: { name: 'Started ▶' }, color: 11642864 }
 		});
 	}
 }

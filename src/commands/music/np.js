@@ -36,7 +36,7 @@ class NPCommand extends Command {
 		const currVolume = this.client.volume.get(message.guild.id);
 
 		const embed = new MessageEmbed()
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.setAuthor('Now Playing')
 			.setThumbnail(`https://i.ytimg.com/vi/${decoded.identifier}/hqdefault.jpg`)
 			.setDescription(stripIndents`

@@ -44,7 +44,7 @@ class RemoveCommand extends Command {
 			author: {
 				name: 'Removed'
 			},
-			color: 0x5e17eb,
+			color: 11642864,
 			description: `[${decoded[0].info.title}](${decoded[0].info.uri}) (${decoded[0].info.isStream ? 'Live' : timeString(decoded[0].info.length)})`,
 			thumbnail: {
 				url: `https://i.ytimg.com/vi/${decoded[0].info.identifier}/hqdefault.jpg`

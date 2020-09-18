@@ -22,7 +22,7 @@ class GuildCreateListener extends Listener {
 		const webhook = await this.client.fetchWebhook(id).catch(() => null);
 		if (!webhook) return;
 		const joinembed = this.client.util.embed()
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.setAuthor('Hello, I am Musico', this.client.user.avatarURL())
 			.setFooter(`© ${new Date().getFullYear()} ${this.owner.username}#${this.owner.discriminator}`, this.owner.displayAvatarURL())
 			.setDescription(stripIndents`Thanks for inviting!

@@ -27,7 +27,7 @@ class userInfoCommand extends Command {
 		const member = message.guild.member(user);
 
 		const Embed = this.client.util.embed()
-			.setColor(member ? member.displayHexColor : 0x5e17eb)
+			.setColor(member ? member.displayHexColor : 11642864)
 			.setThumbnail(user.displayAvatarURL())
 			.setAuthor(`${user.tag}`, user.displayAvatarURL())
 			.addField('Current rank hex color', member ? member.displayHexColor : 'Not in this guild', false)

@@ -36,7 +36,7 @@ module.exports = class PlaylistEditCommand extends Command {
 		await this.client.playlist.edit(playlist.name, playlist.description);
 		return message.util.send({
 			embed: {
-				color: 0x5e17eb,
+				color: 11642864,
 				description: `Successfully updated the description for **${playlist.name}**.`
 			}
 		});

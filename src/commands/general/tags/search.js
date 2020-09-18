@@ -30,7 +30,7 @@ module.exports = class SearchTagCommand extends Command {
 			.toArray();
 		if (!tags.length) {
 			return message.util.send({
-				embed: { description: `No results found for query ${name}.`, color: 0x5e17eb }
+				embed: { description: `No results found for query ${name}.`, color: 11642864 }
 			});
 		}
 		const search = tags
@@ -39,11 +39,11 @@ module.exports = class SearchTagCommand extends Command {
 			.join(', ');
 		if (search.length >= 1950) {
 			return message.util.send({
-				embed: { description: 'Try using a smaller query.', color: 0x5e17eb }
+				embed: { description: 'Try using a smaller query.', color: 11642864 }
 			});
 		}
 		const embed = new MessageEmbed()
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
 			.setDescription(search);
 		return message.util.send(embed);

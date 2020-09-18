@@ -36,7 +36,7 @@ class LyricsCommand extends Command {
 
 	async exec(message, { query }) {
 		await message.util.send({
-			embed: { description: `**Searching lyrics for**  \`${query}\``, color: 0x5e17eb }
+			embed: { description: `**Searching lyrics for**  \`${query}\``, color: 11642864 }
 		});
 		const song = await fetch(`https://some-random-api.ml/lyrics?title=${query}`).then(r => r.json());
 		if (!song || !song.lyrics) {
@@ -51,7 +51,7 @@ class LyricsCommand extends Command {
 		}
 
 		const embed = new MessageEmbed()
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.setAuthor('Lyrics')
 			.setThumbnail(song.thumbnail ? song.thumbnail.genius : null)
 			.setTitle(song.title || 'Unknown')

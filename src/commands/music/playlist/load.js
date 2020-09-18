@@ -41,7 +41,7 @@ module.exports = class PlaylistLoadCommand extends Command {
 		if (!message.guild.me.voice.channel) await queue.player.join(message.member.voice.channel.id);
 		const decoded = await this.client.music.decode(playlist.tracks[0]);
 		await queue.add(...playlist.tracks);
-		const embed = this.client.util.embed().setColor(0x5e17eb)
+		const embed = this.client.util.embed().setColor(11642864)
 			.setAuthor('Added to queue')
 			.setThumbnail(`https://i.ytimg.com/vi/${decoded.identifier}/hqdefault.jpg`)
 			.setDescription([

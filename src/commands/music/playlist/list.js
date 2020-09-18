@@ -36,7 +36,7 @@ module.exports = class PlaylistListCommand extends Command {
 		}
 		const paginated = paginate([playlists], page);
 		const embed = new MessageEmbed()
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
 			.setDescription(stripIndents`
 				**Playlists${paginated.page > 1 ? `, page ${paginated.page}` : ''}**

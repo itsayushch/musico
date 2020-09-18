@@ -78,7 +78,7 @@ class PlayCommand extends Command {
 				author: {
 					name: 'Added to queue'
 				},
-				color: 0x5e17eb,
+				color: 11642864,
 				description: stripIndents`
 				**❯ Song**
 				[${res.tracks[0].info.title}](${res.tracks[0].info.uri})
@@ -100,7 +100,7 @@ class PlayCommand extends Command {
 				author: {
 					name: 'Added to queue'
 				},
-				color: 0x5e17eb,
+				color: 11642864,
 				description: stripIndents`
 				**❯ Playlist**
 				${res.playlistInfo.name}

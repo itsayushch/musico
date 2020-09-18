@@ -61,7 +61,7 @@ class TagEditCommand extends Command {
 		}
 		await this.client.tags.edit(message, tag.name, content ? content : tag.content, hoist, unhoist);
 		return message.util.send({
-			embed: { description: `Successfully edited **${tag.name}**${hoist ? ' to be hoisted.' : '.'}`, color: 0x5e17eb }
+			embed: { description: `Successfully edited **${tag.name}**${hoist ? ' to be hoisted.' : '.'}`, color: 11642864 }
 		});
 	}
 }

@@ -29,7 +29,7 @@ class StatsCommand extends Command {
 			const lavalink = this.client.music.stats;
 			const queue = this.client.music.queues.get(message.guild.id);
 			const embed = this.client.util.embed()
-				.setColor(0x5e17eb)
+				.setColor(11642864)
 				.setAuthor('Musico', this.client.user.displayAvatarURL())
 				.setTitle('**Music Stats**')
 				.setFooter(`© ${new Date().getFullYear()} ${this.owner.username}#${this.owner.discriminator}`, this.owner.displayAvatarURL())
@@ -43,7 +43,7 @@ class StatsCommand extends Command {
 			return message.util.send(embed);
 		}
 		const embed = new MessageEmbed()
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.setAuthor('Musico', this.client.user.displayAvatarURL())
 			.setTitle('**Stats**')
 			.addField('**Memory Usage**', `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB `, true)

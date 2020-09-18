@@ -20,7 +20,7 @@ module.exports = class extends Command {
 		const progress_volume = new ProgressBar(currVolume ? currVolume : 100, 100, 10);
 
 		const embed = this.client.util.embed()
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.setAuthor('Musico', this.client.user.displayAvatarURL())
 			.setTitle('**Music Filters**')
 			.setDescription(stripIndents`

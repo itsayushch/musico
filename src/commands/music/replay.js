@@ -27,7 +27,7 @@ class ReplayCommand extends Command {
 		await queue.player.seek(0);
 		const decoded = await this.client.music.decode(current.track);
 		const embed = this.client.util.embed()
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.setAuthor('Replaying')
 			.setThumbnail(`https://i.ytimg.com/vi/${decoded.identifier}/hqdefault.jpg`)
 			.setDescription([

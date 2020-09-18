@@ -38,7 +38,7 @@ module.exports = class IGCommand extends Command {
 		}
 		const account = res.graphql.user;
 		const embed = this.client.util.embed()
-			.setColor(0x5e17eb)
+			.setColor(11642864)
 			.setTitle(account.full_name)
 			.setURL(`https://instagram.com/${name}`)
 			.setThumbnail(account.profile_pic_url_hd)

@@ -41,14 +41,14 @@ class SkipCommand extends Command {
 		if (!skip) {
 			await queue.stop();
 			return message.util.send({
-				embed: { author: { name: 'Skipped ⏭' }, color: 0x5e17eb }
+				embed: { author: { name: 'Skipped ⏭' }, color: 11642864 }
 			});
 		}
 
 		const song = await this.decode(queues[num - 1]);
 
 		const embed = new MessageEmbed()
-		    .setColor(0x5e17eb)
+		    .setColor(11642864)
 			.setAuthor('Now Playing')
 			.setThumbnail(`https://i.ytimg.com/vi/${song.identifier}/hqdefault.jpg`)
 			.setDescription([
