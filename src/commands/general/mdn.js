@@ -49,7 +49,7 @@ class MDNCommand extends Command {
 		const embed = new MessageEmbed()
 			.setColor(11642864)
 			.setAuthor('MDN', 'https://i.imgur.com/DFGXabG.png', 'https://developer.mozilla.org/')
-			.setURL(`https://developer.mozilla.org${body.url}`)
+			.setURL(body.url)
 			.setTitle(body.title)
 			.setDescription(turndown.turndown(summary));
 
