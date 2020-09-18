@@ -52,6 +52,8 @@ class MDNCommand extends Command {
 			.setURL(body.url)
 			.setTitle(body.title)
 			.setDescription(turndown.turndown(summary));
+		if (body.properties.length) embed.addField('Properties', body.properties.map(m => `\`${m.title}\``).join('\n'));
+		if (body.methods.length) embed.addField('Properties', body.methods.map(m => `\`${m.title}\``).join('\n'));
 
 		return message.util.send({ embed });
 	}
