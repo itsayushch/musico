@@ -33,7 +33,7 @@ class MDNCommand extends Command {
 	async exec(message, { query, match }) {
 		if (!query && match) query = match[1];
 		const queryString = qs.stringify({ q: query });
-		const res = await fetch(`https://mdn.pleb.xyz/search?${queryString}`);
+		const res = await fetch(`https://mdn-api.vercel.app/?${queryString}`);
 		const body = await res.json();
 		if (!body.URL || !body.Title || !body.Summary) {
 			return message.util.reply('I couldn\'t find the requested information.');
