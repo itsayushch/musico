@@ -1,8 +1,6 @@
 const { Command } = require('discord-akairo');
-const ms = require('ms');
 const ProgressBar = require('../../util/bar');
 const timeString = require('../../util/timeString');
-const moment = require('moment');
 
 class ReplayCommand extends Command {
 	constructor() {
@@ -26,7 +24,6 @@ class ReplayCommand extends Command {
 	}
 
 	async exec(message, { position }) {
-		const TIMESTAMP_REGEX = /^(\d+):(\d+)(?::(\d+))?$/;
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util.send({
 				embed: { description: 'You must be connected to a voice channel to use that command!', color: 'RED' }
@@ -36,7 +33,17 @@ class ReplayCommand extends Command {
 		const current = await queue.current();
 		if (!current) return;
 
-		const point = ms(`${position.replace(/:/, '.')}m`);
+		const ms = position.replace(/./g, ':').split(/:/g);
+		let point = 0;
+
+		switch(ms.length) {
+			case 1: 
+				point = Number(ms[0]) * 1000;
+			case 2: 
+				point = Number(ms[0]) * 60 * 1000 + Number(ms[1]) * 1000;
+			case 3:
+				point = Number(ms[0]) * 60 * 60 * 1000 + Number(ms[1]) * 60 * 1000 + Number(ms[2]) * 1000;
+		}
 		await queue.player.seek(point);
 		const decoded = await this.client.music.decode(current.track);
 		const duration = Number(decoded.length);

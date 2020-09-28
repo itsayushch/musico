@@ -128,7 +128,7 @@ class SearchCommand extends Command {
 			}
 			let counter = 0;
 			let songs = '';
-			for (const input of response.content.split(' ')) {
+			for (const input of response.content.split(/ +/g)) {
 				++counter;
 				await queue.add(res.tracks[Number(input) - 1].track);
 				songs += `**${counter}.** [${res.tracks[Number(input) - 1].info.title}](${res.tracks[Number(input) - 1].info.uri}) (${res.tracks[Number(input) - 1].info.isStream ? 'Live' : timeString(res.tracks[Number(input) - 1].info.length)})\n`;
