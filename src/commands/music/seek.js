@@ -33,7 +33,7 @@ class ReplayCommand extends Command {
 		const current = await queue.current();
 		if (!current) return;
 
-		const ms = position.replace('.', ':').split(/:/g);
+		const ms = position.replace('.', ':').split(':');
 		let point = 0;
 
 		switch(ms.length) {
