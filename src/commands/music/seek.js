@@ -39,10 +39,15 @@ class ReplayCommand extends Command {
 		switch(ms.length) {
 			case 1: 
 				point = Number(ms[0]) * 1000;
+				break;
 			case 2: 
 				point = Number(ms[0]) * 60 * 1000 + Number(ms[1]) * 1000;
+				break;
 			case 3:
 				point = Number(ms[0]) * 60 * 60 * 1000 + Number(ms[1]) * 60 * 1000 + Number(ms[2]) * 1000;
+				break;
+			default:
+				break;
 		}
 		await queue.player.seek(point);
 		const decoded = await this.client.music.decode(current.track);
