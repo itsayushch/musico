@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const fetch = require('node-fetch');
+const instagram = require("user-instagram")
 
 module.exports = class IGCommand extends Command {
 	constructor() {
@@ -26,9 +26,22 @@ module.exports = class IGCommand extends Command {
 	}
 
 	async exec(message, { name }) {
-		const res = await this.getUser(name);
-		const notFound = Object.entries(res);
-		if (!notFound.length) {
+		try {
+			const account = await this.getUser(name);
+			const embed = this.client.util.embed()
+				.setColor(11642864)
+				.setTitle(account.username)
+				.setURL(link)
+				.setThumbnail(account.profilePicHD)
+				.setDescription(`>>> ${account.biography}`)
+				.addField('Username: ', `${account.username}`)
+				.addField('Full name:', `${account.fullName}`)
+				.addField('Posts:', `${account.postsCount}`)
+				.addField('Followers:', `${account.subscribersCount}`)
+				.addField('Following:', `${account.subscribtions}`)
+				.addField('Account type:', account.isPrivate ? 'Private 🔐' : 'Public 🔓');
+			return message.util.send(embed);
+		} catch (e) {
 			return message.util.send({
 				embed: {
 					color: 'RED',
@@ -36,27 +49,10 @@ module.exports = class IGCommand extends Command {
 				}
 			});
 		}
-		const account = res.graphql.user;
-		const embed = this.client.util.embed()
-			.setColor(11642864)
-			.setTitle(account.full_name)
-			.setURL(`https://instagram.com/${name}`)
-			.setThumbnail(account.profile_pic_url_hd)
-			.setDescription(`>>> ${account.biography}`)
-			.addField('Username: ', `${account.username}`)
-			.addField('Full name:', `${account.full_name}`)
-			.addField('Posts:', `${account.edge_owner_to_timeline_media.count}`)
-			.addField('Followers:', `${account.edge_followed_by.count}`)
-			.addField('Following:', `${account.edge_follow.count}`)
-			.addField('Account type:', account.is_private ? 'Private 🔐' : 'Public 🔓');
-		return message.util.send(embed);
 	}
 
 	async getUser(name) {
-		const url = `https://instagram.com/${name}/?__a=1`;
-
-		const res = await fetch(url);
-		const data = await res.json();
+		const data = await instagram.getUserData(name);
 		return data;
 	}
 };
