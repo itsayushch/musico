@@ -16,7 +16,7 @@ module.exports = class PlaylistEditCommand extends Command {
 		const playlist = yield {
 			type: 'playlist',
 			prompt: {
-				start: 'What playlists description do you want to edit?',
+				start: 'What playlist to edit?',
 				retry: (msg, { phrase }) => `A playlist with the name **${phrase}** does not exist.`
 			}
 		};
