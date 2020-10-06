@@ -87,14 +87,14 @@ class BotClient extends AkairoClient {
 		this.commandHandler.resolver.addType('playlist', async (message, phrase) => {
 			if (!phrase) { return Flag.fail(phrase); }
 			phrase = Util.cleanContent(phrase.toLowerCase(), message);
-			const playlist = await this.mongo.db('musico').collection('playlist').findOne({ name: phrase, guild: message.guild.id });
+			const playlist = await this.mongo.db('musico').collection('playlist').findOne({ name: new RegExp(`^${phrase}$`, 'i'), guild: message.guild.id });
 			return playlist || Flag.fail(phrase);
 		});
 
 		this.commandHandler.resolver.addType('existingPlaylist', async (message, phrase) => {
 			if (!phrase) { return Flag.fail(phrase); }
 			phrase = Util.cleanContent(phrase.toLowerCase(), message);
-			const playlist = await this.mongo.db('musico').collection('playlist').findOne({ name: phrase, guild: message.guild.id });
+			const playlist = await this.mongo.db('musico').collection('playlist').findOne({ name: new RegExp(`^${phrase}$`, 'i'), guild: message.guild.id });
 			return playlist ? Flag.fail(phrase) : phrase;
 		});
 

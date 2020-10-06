@@ -19,7 +19,7 @@ module.exports = class PlaylistShowCommand extends Command {
 					type: 'playlist',
 					prompt: {
 						start: message => `${message.author}, What playlist do you want information on?`,
-						retry: (message, { failure }) => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
+						retry: (message, { failure }) => `${message.author}, a playlist with the name **${failure}** does not exist.`
 					}
 				},
 				{
