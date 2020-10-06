@@ -61,7 +61,7 @@ module.exports = class PlaylistEditCommand extends Command {
 		return message.util.send({
 			embed: {
 				color: 11642864,
-				description: `Successfully updated the description for **${playlist.name}**.`
+				description: `Successfully updated the ${des ? 'description': 'name' } for **${playlist.name}**.`
 			}
 		});
 	}
