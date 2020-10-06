@@ -29,17 +29,17 @@ module.exports = class PlaylistEditCommand extends Command {
 			flag: ['--des', '--description', '-d']
 		};
 		const info = yield (
-			name
+			des
 				? {
 					match: 'rest',
 					prompt: {
-						start: 'What\'s the new name you want to apply to this playlist?'
+						start: 'What should the new description be?'
 					}
-				}
+				} 
 				: {
 					match: 'rest',
 					prompt: {
-						start: 'What should the new description be?'
+						start: 'What\'s the new name you want to apply to this playlist?'
 					}
 				}
 		);
