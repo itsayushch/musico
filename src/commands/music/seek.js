@@ -38,10 +38,10 @@ class ReplayCommand extends Command {
 
 		switch(ms.length) {
 			case 1: 
-				point = Number(ms[0]) * 1000;
+				point = Number(ms[0]) * 1000 * 60;
 				break;
 			case 2: 
-				point = Number(ms[0]) * 60 * 1000 + Number(ms[1]) * 1000;
+				point = Number(ms[0]) * 60 * 1000 + Number(ms[1].padEnd(2, '0')) * 1000;
 				break;
 			case 3:
 				point = Number(ms[0]) * 60 * 60 * 1000 + Number(ms[1]) * 60 * 1000 + Number(ms[2]) * 1000;
