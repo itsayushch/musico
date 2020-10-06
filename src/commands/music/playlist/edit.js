@@ -56,12 +56,7 @@ module.exports = class PlaylistEditCommand extends Command {
 			playlist.description = Util.cleanContent(info, message);
 			await this.client.playlist.editdesc(playlist.name, playlist.description);
 		} else {
-			return message.util.send({
-				embed: {
-					color: 11642864,
-					description: 'You have to either supply `--name` or `--des`'
-				}
-			});
+			await this.client.playlist.editname(playlist.name, Util.cleanContent(info, message));
 		}
 		return message.util.send({
 			embed: {
