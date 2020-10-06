@@ -9,31 +9,60 @@ module.exports = class PlaylistEditCommand extends Command {
 			},
 			channel: 'guild',
 			ratelimit: 2,
-			args: [
-				{
-					id: 'playlist',
-					type: 'playlist',
-					prompt: {
-						start: message => `${message.author}, What playlists description do you want to edit?`,
-						retry: (message, { failure }) => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
-					}
-				},
-				{
-					id: 'info',
-					match: 'rest',
-					type: 'string',
-					prompt: {
-						start: message => `${message.author}, What should the new description be?`
-					}
-				}
-			]
 		});
 	}
 
-	async exec(message, { playlist, info }) {
+	async *args() {
+		const playlist = yield {
+			type: 'playlist',
+			prompt: {
+				start: 'What playlists description do you want to edit?',
+				retry: (msg, { phrase }) => `A playlist with the name **${phrase}** does not exist.`
+			}
+		};
+		const name = yield {
+			match: 'flag',
+			flag: ['--name', '-n']
+		};
+		const des = yield {
+			match: 'flag',
+			flag: ['--des', '--description', '-d']
+		};
+		const info = yield (
+			name
+				? {
+					match: 'rest',
+					prompt: {
+						start: 'What\'s the new name you want to apply to this playlist?'
+					}
+				}
+				: {
+					match: 'rest',
+					prompt: {
+						start: 'What should the new description be?'
+					}
+				}
+		);
+		return { playlist, info, name, des };
+	}
+
+	async exec(message, { playlist, info, name, des }) {
+
 		if (playlist.user !== message.author.id) { return message.util.reply('You can only edit your own playlists.'); }
-		playlist.description = Util.cleanContent(info, message);
-		await this.client.playlist.edit(playlist.name, playlist.description);
+		
+		if (name) {
+			await this.client.playlist.editname(playlist.name, Util.cleanContent(info, message));
+		} else if (des) {
+			playlist.description = Util.cleanContent(info, message);
+			await this.client.playlist.editdesc(playlist.name, playlist.description);
+		} else {
+			return message.util.send({
+				embed: {
+					color: 11642864,
+					description: 'You have to either supply `--name` or `--des`'
+				}
+			});
+		}
 		return message.util.send({
 			embed: {
 				color: 11642864,
