@@ -30,11 +30,11 @@ module.exports = class PlaylistListCommand extends Command {
 
 	async exec(message, { member, page }) {
 		const where = member ? { user: member.id, guild: message.guild.id } : { guild: message.guild.id };
-		const playlists = await this.client.mongo.db('musico').collection('playlist').findOne(where);
+		const playlists = await this.client.mongo.db('musico').collection('playlist').find(where).toArray();
 		if (!playlists) {
 			return message.util.send(`${member ? `${member.displayName}` : `${message.guild.name}`} doesn't have any playlists.`);
 		}
-		const paginated = paginate([playlists], page);
+		const paginated = paginate(playlists, page);
 		const embed = new MessageEmbed()
 			.setColor(11642864)
 			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
