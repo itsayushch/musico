@@ -18,7 +18,7 @@ class Message extends Listener {
         });
 
         const nextValue = score.experience + 1;
-        const nextLevel = Math.floor(0.1 * Math.sqrt(score.level + 1));
+        const nextLevel = Math.floor(0.1 * Math.sqrt(nextValue + 1));
 
         await this.client.settings.set(message.guild.id, message.author.id, {
             experience: nextValue,
