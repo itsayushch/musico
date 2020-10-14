@@ -20,19 +20,20 @@ module.exports = class extends Command {
 
 	async exec(message, { user }) {
 		const score = await this.client.settings.get(message.guild.id, user.id, {
-            level: 0,
-            experience: 0
+			level: 0,
+			experience: 0
 		});
-		
-		return message.channel.send({
-			embed: {
-				color: 11642864,
-				description: stripIndents`
-					**Level:** \`${score.level.toString()}\`
-					**Exp:** \`${score.experience.toString()}\`
-				`
-			}
-		})
+
+		const embed = this.client.util.embed()
+			.setColor(11642864)
+			.setAuthor(user.tag, user.displayAvatarURL({ dynamic: true }))
+			.setThumbnail(user.displayAvatarURL({ dynamic: true }))
+			.setDescription(stripIndents`
+				**Level:** \`${score.level.toString()}\`
+				**Exp:** \`${score.experience.toString()}\`
+			`)
+
+		return message.channel.send({ embed });
 	}
 };
 

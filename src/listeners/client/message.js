@@ -17,8 +17,8 @@ class Message extends Listener {
             experience: 0
         });
 
-        const nextValue = score.experience + 1;
-        const nextLevel = Math.floor(0.1 * Math.sqrt(nextValue + 1));
+        const nextValue = score.experience + this.randomExp;
+        const nextLevel = Math.floor(0.1 * Math.sqrt(nextValue));
 
         await this.client.settings.set(message.guild.id, message.author.id, {
             experience: nextValue,
@@ -28,7 +28,11 @@ class Message extends Listener {
         if (score.level !== nextLevel) {
             return message.channel.send(`Congratulations ${message.author.toString()}! You leveled up to level **${nextLevel}**!`);
         }
-	}
+    }
+    get randomExp() {
+        const max = 20; const min = 3;
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
 }
 
 module.exports = Message;
