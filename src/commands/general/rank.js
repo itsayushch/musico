@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-
+const { stripIndents } = require('common-tags');
 module.exports = class extends Command {
 	constructor() {
 		super('rank', {
@@ -27,10 +27,10 @@ module.exports = class extends Command {
 		return message.channel.send({
 			embed: {
 				color: 11642864,
-				description: [
-					`**Level:** \`${score.level}\``,
-					`**Exp:** \`${score.experience}\``,
-				]
+				description: stripIndents`
+					**Level:** \`${score.level.toString()}\`
+					**Exp:** \`${score.experience.toString()}\`
+				`
 			}
 		})
 	}
