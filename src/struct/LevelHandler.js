@@ -46,7 +46,7 @@ class LevelHandlder {
 		const data = await this.database.findOne({
 			user: member.id
 		});
-		return data;
+		return data.exp || 0;
 	}
 
 	async setGuildMemberExp(member, exp) {
@@ -61,8 +61,7 @@ class LevelHandlder {
 		if (this.cached.has(member.id)) return;
 
 		this.cached.add(member.id);
-		let oldExp = await this.getGuildMemberExp(member);
-		oldExp = oldExp.exp;
+		const oldExp = await this.getGuildMemberExp(member);
 		const oldLvl = this.getLevelFromExp(oldExp);
 		const newExp = oldExp + LevelHandlder.randomInt(15, 25);
 		const newLvl = this.getLevelFromExp(newExp);
