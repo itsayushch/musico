@@ -3,7 +3,7 @@ const moment = require('moment');
 class LevelHandlder {
     constructor(client) {
         this.client = client;
-        this.database = this.client.mongo('musico').collection('levels');
+        this.database = this.client.mongo.db('musico').collection('levels');
     }
 
     getLevelExp(level) {
