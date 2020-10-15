@@ -5,7 +5,7 @@ class ProgressBar {
 		this.barSize = barSize;
 	}
 
-	createBar(message) {
+	createBar(message, showPercentage = true) {
 		const percentage = this.value / this.maxValue; // Calculate the percentage of the bar
 		const progress = Math.round(this.barSize * percentage); // Calculate the number of square caracters to fill the progress side.
 		const emptyProgress = this.barSize - progress; // Calculate the number of dash caracters to fill the empty progress side.
@@ -14,7 +14,7 @@ class ProgressBar {
 		const emptyProgressText = '▬'.repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
 		const percentageText = `${Math.round(percentage * 100)}%`; // Displaying the percentage of the bar
 
-		const bar = `${progressText}${emptyProgressText} ${percentageText}`; // Creating the bar
+		const bar = `${progressText}${emptyProgressText}${showPercentage ? ` ${percentageText}` : ''}`; // Creating the bar
 		return bar;
 	}
 }

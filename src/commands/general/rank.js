@@ -1,5 +1,7 @@
 const { Command } = require('discord-akairo');
 const { stripIndents } = require('common-tags');
+const ProgressBar = require('../../util/bar');
+
 module.exports = class extends Command {
 	constructor() {
 		super('rank', {
@@ -19,18 +21,24 @@ module.exports = class extends Command {
 	}
 
 	async exec(message, { user }) {
-		const score = await this.client.settings.get(message.guild.id, user.id, {
-			level: 0,
-			experience: 0
-		});
+		const userData = await this.client.mongo.db('musico').collection('levels').findOne({ user: message.author.id });
+
+		const currentLevel = this.client.levels.getLevelFromExp(userData.exp);
+		const levelExp = this.client.levels.getLevelExp(currentLevel);
+		const currentLevelExp = this.client.levels.getLevelProgress(userData.exp);
+
+		const progress = new ProgressBar(currentLevelExp, levelExp, 15);
 
 		const embed = this.client.util.embed()
 			.setColor(11642864)
 			.setAuthor(user.tag, user.displayAvatarURL({ dynamic: true }))
 			.setThumbnail(user.displayAvatarURL({ dynamic: true }))
 			.setDescription(stripIndents`
-				**Level:** \`${score.level.toString()}\`
-				**Exp:** \`${score.experience.toString()}\`
+				**Level:** \`${currentLevel.toString()}\`
+				**Exp:** \`${currentLevelExp.toString()} / ${levelExp.exp.toString()}\`
+				**Total Exp:** \`${userData.exp.toString()}\`  
+
+				${progress.createBar(message, false)}
 			`);
 
 		return message.channel.send({ embed });
