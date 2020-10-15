@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const instagram = require("user-instagram")
+const instagram = require('user-instagram');
 
 module.exports = class IGCommand extends Command {
 	constructor() {

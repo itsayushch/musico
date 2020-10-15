@@ -30,7 +30,8 @@ module.exports = class PlaylistListCommand extends Command {
 
 	async exec(message, { member, page }) {
 		const where = member ? { user: member.id, guild: message.guild.id } : { guild: message.guild.id };
-		const playlists = await this.client.mongo.db('musico').collection('playlist').find(where).toArray();
+		const playlists = await this.client.mongo.db('musico').collection('playlist').find(where)
+			.toArray();
 		if (!playlists) {
 			return message.util.send(`${member ? `${member.displayName}` : `${message.guild.name}`} doesn't have any playlists.`);
 		}

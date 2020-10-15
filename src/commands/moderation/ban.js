@@ -71,7 +71,7 @@ module.exports = class extends Command {
 					**Reason:** ${reason}
 				`)
 					.setTimestamp()
-                                        .setFooter(`Case ${totalCases}`);
+					.setFooter(`Case ${totalCases}`);
 				modMessage = await this.client.channels.cache.get(logChannel).send(embed);
 			}
 

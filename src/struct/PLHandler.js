@@ -28,8 +28,8 @@ module.exports = class PlaylistHandler {
 				guild: message.guild.id,
 				user: message.author.id
 			},
-				{ $push: { tracks: { $each: track } } },
-				{ upsert: true });
+			{ $push: { tracks: { $each: track } } },
+			{ upsert: true });
 		return pladd;
 	}
 
@@ -39,8 +39,8 @@ module.exports = class PlaylistHandler {
 			.updateOne({
 				name
 			},
-				{ $set: { plays } },
-				{ upsert: true });
+			{ $set: { plays } },
+			{ upsert: true });
 		return plplays;
 	}
 
@@ -50,8 +50,8 @@ module.exports = class PlaylistHandler {
 			.updateOne({
 				name
 			},
-				{ $set: { description } },
-				{ upsert: true });
+			{ $set: { description } },
+			{ upsert: true });
 		return pledit;
 	}
 
@@ -63,9 +63,10 @@ module.exports = class PlaylistHandler {
 					name: newname
 				}
 			},
-				{ upsert: true });
+			{ upsert: true });
 		return pledit;
 	}
+
 	// 	For deleting the playlist
 	async remove(name) {
 		const pldel = await this.client.mongo.db('musico').collection('playlist')
@@ -79,8 +80,8 @@ module.exports = class PlaylistHandler {
 			.updateOne({
 				name
 			},
-				{ $set: { tracks: track } },
-				{ upsert: true });
+			{ $set: { tracks: track } },
+			{ upsert: true });
 		return plrm;
 	}
 };

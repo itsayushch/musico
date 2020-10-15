@@ -8,7 +8,7 @@ module.exports = class PlaylistEditCommand extends Command {
 				usage: '<playlist> <info>'
 			},
 			channel: 'guild',
-			ratelimit: 2,
+			ratelimit: 2
 		});
 	}
 
@@ -35,7 +35,7 @@ module.exports = class PlaylistEditCommand extends Command {
 					prompt: {
 						start: 'What should the new description be?'
 					}
-				} 
+				}
 				: {
 					match: 'rest',
 					prompt: {
@@ -47,9 +47,8 @@ module.exports = class PlaylistEditCommand extends Command {
 	}
 
 	async exec(message, { playlist, info, name, des }) {
-
 		if (playlist.user !== message.author.id) { return message.util.reply('You can only edit your own playlists.'); }
-		
+
 		if (name) {
 			await this.client.playlist.editname(playlist.name, Util.cleanContent(info, message));
 		} else if (des) {
@@ -61,7 +60,7 @@ module.exports = class PlaylistEditCommand extends Command {
 		return message.util.send({
 			embed: {
 				color: 11642864,
-				description: `Successfully updated the ${des ? 'description': 'name' } for **${playlist.name}**.`
+				description: `Successfully updated the ${des ? 'description' : 'name'} for **${playlist.name}**.`
 			}
 		});
 	}

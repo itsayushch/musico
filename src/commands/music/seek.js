@@ -36,11 +36,11 @@ class ReplayCommand extends Command {
 		const ms = position.replace('.', ':').split(':');
 		let point = 0;
 
-		switch(ms.length) {
-			case 1: 
+		switch (ms.length) {
+			case 1:
 				point = Number(ms[0]) * 1000 * 60;
 				break;
-			case 2: 
+			case 2:
 				point = Number(ms[0]) * 60 * 1000 + Number(ms[1].padEnd(2, '0')) * 1000;
 				break;
 			case 3:

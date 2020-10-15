@@ -31,7 +31,7 @@ module.exports = class extends Command {
 			.setDescription(stripIndents`
 				**Level:** \`${score.level.toString()}\`
 				**Exp:** \`${score.experience.toString()}\`
-			`)
+			`);
 
 		return message.channel.send({ embed });
 	}

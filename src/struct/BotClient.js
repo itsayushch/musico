@@ -9,6 +9,7 @@ const Playlist = require('./PLHandler');
 const Tags = require('./TagHandler');
 const Case = require('./CaseHandler');
 const Settings = require('../core/SettingsProvider');
+const Levels = require('./LevelHandler');
 
 class BotClient extends AkairoClient {
 	constructor() {
@@ -161,6 +162,7 @@ class BotClient extends AkairoClient {
 		this.playlist = new Playlist(this);
 		this.tags = new Tags(this);
 		this.case = new Case(this);
+		this.levels = new Levels(this);
 	}
 
 	async start(token) {
