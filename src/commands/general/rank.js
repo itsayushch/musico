@@ -34,9 +34,9 @@ module.exports = class extends Command {
 			.setAuthor(user.tag, user.displayAvatarURL({ dynamic: true }))
 			.setThumbnail(user.displayAvatarURL({ dynamic: true }))
 			.setDescription(stripIndents`
-				**Level:** \`${currentLevel.toString()}\`
-				**Exp:** \`${currentLevelExp.toString()} / ${levelExp.exp.toString()}\`
-				**Total Exp:** \`${userData.exp.toString()}\`  
+				**Level:** \`${currentLevel}\`
+				**Exp:** \`${currentLevelExp} / ${levelExp.exp}\`
+				**Total Exp:** \`${userData.exp}\`  
 
 				${progress.createBar(message, false)}
 			`);
