@@ -56,24 +56,17 @@ class LevelHandlder {
     giveGuildUserExp(member, message) {
         if (moment().diff(member.timeout || 0) < 0) return;
         member.timeout = moment().add(35, 'seconds');
-        return new Promise(async (fulfill, reject) => {
-            try {
-                const oldExp = (await this.getGuildMemberExp(member)).exp;
-                const oldLvl = this.getLevelFromExp(oldExp);
-                const newExp = oldExp + PonyUtils.randomInt(15, 25);
-                const newLvl = this.getLevelFromExp(newExp);
 
-                await this.setGuildMemberExp(member, newExp);
+        const oldExp = (await this.getGuildMemberExp(member)).exp;
+        const oldLvl = this.getLevelFromExp(oldExp);
+        const newExp = oldExp + LevelHandlder.randomInt(15, 25);
+        const newLvl = this.getLevelFromExp(newExp);
 
-                if (oldLvl !== newLvl) {
-                    await message.util.send(`Congratulations ${message.author.toString()}! You leveled up to level **${newLvl}**!`);
-                }
+        await this.setGuildMemberExp(member, newExp);
 
-                fulfill();
-            } catch (err) {
-                reject(err);
-            }
-        });
+        if (oldLvl !== newLvl) {
+            await message.util.send(`Congratulations ${message.author.toString()}! You leveled up to level **${newLvl}**!`);
+        }
     }
 }
 
