@@ -35,7 +35,7 @@ module.exports = class extends Command {
 			.setThumbnail(user.displayAvatarURL({ dynamic: true }))
 			.setDescription(stripIndents`
 				**Level:** \`${currentLevel}\`
-				**Exp:** \`${currentLevelExp} / ${levelExp.exp}\`
+				**Exp:** \`${currentLevelExp} / ${levelExp}\`
 				**Total Exp:** \`${userData.exp}\`  
 
 				${progress.createBar(message, false)}
