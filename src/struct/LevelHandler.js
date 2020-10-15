@@ -38,8 +38,8 @@ class LevelHandlder {
 		return exp;
 	}
 
-	getLeaderboard(guild) {
-		return this.database.find({ guild }).toArray();
+	getLeaderboard() {
+		return this.database.find().toArray();
 	}
 
 	async getGuildMemberExp(member) {
@@ -50,7 +50,7 @@ class LevelHandlder {
 	}
 
 	async setGuildMemberExp(member, exp) {
-		const data = await this.database.updateOne({ guild: member.guild.id, user: member.id }, {
+		const data = await this.database.updateOne({ user: member.id }, {
 			$set: { exp }
 		}, { upsert: true });
 
@@ -61,10 +61,6 @@ class LevelHandlder {
 		if (this.cached.has(member.id)) return;
 
 		this.cached.add(member.id);
-		setTimeout(() => {
-			this.cached.delete(member.id);
-		}, 45000);
-
 		let oldExp = await this.getGuildMemberExp(member);
 		oldExp = oldExp.exp;
 		const oldLvl = this.getLevelFromExp(oldExp);
@@ -76,6 +72,9 @@ class LevelHandlder {
 		if (oldLvl !== newLvl) {
 			await message.util.send(`Congratulations ${message.author.toString()}! You leveled up to level **${newLvl}**!`);
 		}
+		setTimeout(() => {
+			this.cached.delete(member.id);
+		}, 45000);
 	}
 }
 
