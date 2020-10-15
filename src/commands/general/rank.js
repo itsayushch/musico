@@ -21,7 +21,7 @@ module.exports = class extends Command {
 	}
 
 	async exec(message, { user }) {
-		const userData = await this.client.mongo.db('musico').collection('levels').findOne({ user: message.author.id });
+		const userData = await this.client.mongo.db('musico').collection('levels').findOne({ user: user.id });
 
 		const currentLevel = this.client.levels.getLevelFromExp(userData.exp);
 		const levelExp = this.client.levels.getLevelExp(currentLevel);
