@@ -5,6 +5,7 @@ class LevelHandlder {
 	constructor(client) {
 		this.client = client;
 		this.database = this.client.mongo.db('musico').collection('levels');
+		this.cached = new Set();
 	}
 
 	getLevelExp(level) {
@@ -48,17 +49,24 @@ class LevelHandlder {
 		return data;
 	}
 
-	setGuildMemberExp(member, exp) {
-		return this.database.updateOne({ guild: member.guild.id, user: member.id }, {
+	async setGuildMemberExp(member, exp) {
+		const data = await this.database.updateOne({ guild: member.guild.id, user: member.id }, {
 			$set: { exp }
 		}, { upsert: true });
+
+		return data;
 	}
 
 	async giveGuildUserExp(member, message) {
-		if (moment().diff(member.timeout || 0) < 0) return;
-		member.timeout = moment().add(35, 'seconds');
+		if (this.cached.has(member.id)) return;
 
-		const oldExp = (await this.getGuildMemberExp(member)).exp;
+		this.cached.add(member.id);
+		setTimeout(() => {
+			this.cached.delete(member.id);
+		}, 45000);
+
+		let oldExp = await this.getGuildMemberExp(member);
+		oldExp = oldExp.exp;
 		const oldLvl = this.getLevelFromExp(oldExp);
 		const newExp = oldExp + LevelHandlder.randomInt(15, 25);
 		const newLvl = this.getLevelFromExp(newExp);
