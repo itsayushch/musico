@@ -46,7 +46,7 @@ class LevelHandlder {
 		const data = await this.database.findOne({
 			user: member.id
 		});
-		return data.exp || 0;
+		return data ? data.exp : 0;
 	}
 
 	async setGuildMemberExp(member, exp) {
