@@ -24,7 +24,7 @@ module.exports = class extends Command {
 		const user = member.user;
 		const userData = await this.client.mongo.db('musico').collection('levels').findOne({ user: user.id });
 
-		if (!userData) {
+		if (!userData && !user.bot) {
 			return message.util.send({
 				embed: {
 					color: 0xFF0000,
