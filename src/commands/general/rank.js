@@ -35,7 +35,7 @@ module.exports = class extends Command {
 			return message.util.send({
 				embed: {
 					color: 0xFF0000,
-					description: `**${user.tag}** is a bots. What will bots do by earning exp?.`
+					description: `**${user.tag}** is a bot. What will bots do by earning exp?`
 				}
 			});
 		}
