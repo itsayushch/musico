@@ -12,21 +12,24 @@ module.exports = class extends Command {
 			},
 			args: [
 				{
-					id: 'user',
-					type: 'user',
-					default: m => m.author
+					id: 'member',
+					type: 'member',
+					default: m => m.member
 				}
 			]
 		});
 	}
 
-	async exec(message, { user }) {
+	async exec(message, { member }) {
+		const user = member.user;
 		const userData = await this.client.mongo.db('musico').collection('levels').findOne({ user: user.id });
 
 		if (!userData) {
 			return message.util.send({
-				color: 0xFF0000,
-				description: `${user.toString()} do not have any exp. Start chatting to earn the.`
+				embed: {
+					color: 0xFF0000,
+					description: `**${user.tag}** do not have any exp. Start chatting to earn them.`
+				}
 			});
 		}
 		const currentLevel = this.client.levels.getLevelFromExp(userData.exp);
