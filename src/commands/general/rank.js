@@ -23,6 +23,12 @@ module.exports = class extends Command {
 	async exec(message, { user }) {
 		const userData = await this.client.mongo.db('musico').collection('levels').findOne({ user: user.id });
 
+		if (!userData) {
+			return message.util.send({
+				color: 0xFF0000,
+				description: `${user.toString()} do not have any exp. Start chatting to earn the.`
+			});
+		}
 		const currentLevel = this.client.levels.getLevelFromExp(userData.exp);
 		const levelExp = this.client.levels.getLevelExp(currentLevel);
 		const currentLevelExp = this.client.levels.getLevelProgress(userData.exp);
@@ -35,9 +41,7 @@ module.exports = class extends Command {
 			.setThumbnail(user.displayAvatarURL({ dynamic: true }))
 			.setDescription(stripIndents`
 				**Level:** \`${currentLevel}\`
-				**Exp:** \`${currentLevelExp} / ${levelExp}\`
-				**Total Exp:** \`${userData.exp}\`  
-
+				**Exp:** \`${currentLevelExp + userData.exp} / ${levelExp + userData.exp}\`
 				${progress.createBar(message, false)}
 			`);
 
