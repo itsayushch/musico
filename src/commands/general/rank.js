@@ -48,7 +48,7 @@ module.exports = class extends Command {
 				${progress.createBar(message, false)}
 			`);
 
-		return message.channel.send({ embed });
+		return message.util.send({ embed });
 	}
 };
 
