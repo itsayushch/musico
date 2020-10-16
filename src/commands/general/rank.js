@@ -31,6 +31,13 @@ module.exports = class extends Command {
 					description: `**${user.tag}** do not have any exp. Start chatting to earn them.`
 				}
 			});
+		} else if (user.bot) {
+			return message.util.send({
+				embed: {
+					color: 0xFF0000,
+					description: `**${user.tag}** is a bots. What will bots do by earning exp?.`
+				}
+			});
 		}
 		const currentLevel = this.client.levels.getLevelFromExp(userData.exp);
 		const levelExp = this.client.levels.getLevelExp(currentLevel);
