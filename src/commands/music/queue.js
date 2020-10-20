@@ -54,18 +54,19 @@ class QueueCommand extends Command {
 			]);
 
 		const msg = await message.util.send({ embed });
-		for (const emoji of ['⬅️', '➡️']) {
+		for (const emoji of ['⬅', '➡']) {
 			await msg.react(emoji);
 		}
 
 		const collector = msg.createReactionCollector(
-			(reaction, user) => ['⬅️', '➡️'].includes(reaction.emoji.name) && user.id === message.author.id,
-			{ time: 120000, max: 1 }
+			(reaction, user) => ['⬅', '➡'].includes(reaction.emoji.name) && user.id === message.author.id,
+			{ time: 45000, max: 10 }
 		);
 
 		collector.on('collect', async reaction => {
-			if (reaction.emoji.name === '➡️') {
+			if (reaction.emoji.name === '➡') {
 				page++;
+				console.log(page);
 				if (page < 1) page = paginated.maxPage;
 				if (page > paginated.maxPage) page = 1;
 				paginated = paginate(decoded.slice(1), page);
@@ -90,7 +91,7 @@ class QueueCommand extends Command {
 				return message;
 			}
 
-			if (reaction.emoji.name === '⬅️') {
+			if (reaction.emoji.name === '⬅') {
 				page--;
 				if (page < 1) page = paginated.maxPage;
 				if (page > paginated.maxPage) page = 1;
@@ -118,7 +119,7 @@ class QueueCommand extends Command {
 		});
 
 		collector.on('end', async () => {
-			await msg.reactions.removeAll().catch(() => null);
+			await msg.reactions.removeAll();
 			return message;
 		});
 		return message;
