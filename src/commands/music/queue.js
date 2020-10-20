@@ -61,7 +61,7 @@ class QueueCommand extends Command {
 
 		const collector = msg.createReactionCollector(
 			(reaction, user) => ['⬅️', '➡️'].includes(reaction.emoji.name) && user.id === message.author.id,
-			{ time: 120000, max: 10 }
+			{ time: 120000, max: 1 }
 		);
 
 		collector.on('collect', async reaction => {
