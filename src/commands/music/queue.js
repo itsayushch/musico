@@ -15,19 +15,12 @@ class QueueCommand extends Command {
 				examples: ['1', '3']
 			},
 			category: 'music',
-			channel: 'guild',
-			args: [
-				{
-					id: 'page',
-					match: 'content',
-					type: Argument.compose((msg, str) => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)),
-					default: 1
-				}
-			]
+			channel: 'guild'
 		});
 	}
 
-	async exec(message, { page }) {
+	async exec(message) {
+		let page = 1;
 		const queue = this.client.music.queues.get(message.guild.id);
 		const current = Object.assign({ track: null, position: 0 }, await queue.current());
 		const tracks = [(current || { track: null }).track].concat(await queue.tracks()).filter(track => track);
@@ -60,7 +53,74 @@ class QueueCommand extends Command {
 					: 'No more songs in Queue'
 			]);
 
-		return message.util.send({ embed });
+		const msg = await message.util.send({ embed });
+		for (const emoji of ['⬅️', '➡️']) {
+			await msg.react(emoji);
+			await this.delay(250);
+		}
+
+		const collector = msg.createReactionCollector(
+			(reaction, user) => ['⬅️', '➡️'].includes(reaction.emoji.name) && user.id === message.author.id,
+			{ time: 120000, max: 10 }
+		);
+
+		collector.on('collect', async reaction => {
+			if (reaction.emoji.name === '➡️') {
+				page += 1;
+				if (page < 1) page = paginated.maxPage;
+				if (page > paginated.maxPage) page = 1;
+				await msg.edit({
+					embed: embed.setFooter(`Page ${this.paginate(decoded.slice(1), page).page}/${paginated.maxPage} (${index} accounts)`)
+						.setColor(11642864)
+						.setAuthor(`Queue for ${message.guild.name}`, message.guild.iconURL())
+						.setThumbnail(`https://i.ytimg.com/vi/${decoded[0].info.identifier}/hqdefault.jpg`)
+						.setDescription([
+							'**Now Playing**',
+							`[${decoded[0].info.title}](${decoded[0].info.uri}) (${timeString(current.position)}/${decoded[0].info.isStream ? '∞' : timeString(decoded[0].info.length)})`,
+							'',
+							paginated.items.length
+								? stripIndents`**Queue${paginated.maxPage > 1 ? `, Page ${paginated.page}/${paginated.maxPage}` : ''}**
+							${paginated.items.map(song => `**${++index}.** [${song.info.title}](${song.info.uri}) (${song.info.isStream ? '∞' : timeString(song.info.length)})`).join('\n')}
+		
+							**Total Queue Time:** ${timeString(totalLength)}, **Song${decoded.length > 1 || decoded.length === 0 ? 's' : ''}:** ${decoded.length}`
+								: 'No more songs in Queue'
+						])
+				});
+				await reaction.users.remove(message.author.id);
+				return message;
+			}
+
+			if (reaction.emoji.name === '⬅️') {
+				page -= 1;
+				if (page < 1) page = paginated.maxPage;
+				if (page > paginated.maxPage) page = 1;
+				await msg.edit({
+					embed: embed.setColor(11642864)
+						.setAuthor(`Queue for ${message.guild.name}`, message.guild.iconURL())
+						.setThumbnail(`https://i.ytimg.com/vi/${decoded[0].info.identifier}/hqdefault.jpg`)
+						.setDescription([
+							'**Now Playing**',
+							`[${decoded[0].info.title}](${decoded[0].info.uri}) (${timeString(current.position)}/${decoded[0].info.isStream ? '∞' : timeString(decoded[0].info.length)})`,
+							'',
+							paginated.items.length
+								? stripIndents`**Queue${paginated.maxPage > 1 ? `, Page ${paginated.page}/${paginated.maxPage}` : ''}**
+							${paginated.items.map(song => `**${++index}.** [${song.info.title}](${song.info.uri}) (${song.info.isStream ? '∞' : timeString(song.info.length)})`).join('\n')}
+		
+							**Total Queue Time:** ${timeString(totalLength)}, **Song${decoded.length > 1 || decoded.length === 0 ? 's' : ''}:** ${decoded.length}`
+								: 'No more songs in Queue'
+						])
+
+				});
+				await reaction.users.remove(message.author.id);
+				return message;
+			}
+		});
+
+		collector.on('end', async () => {
+			await msg.reactions.removeAll().catch(() => null);
+			return message;
+		});
+		return message;
 	}
 }
 
