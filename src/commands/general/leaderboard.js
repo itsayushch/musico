@@ -35,6 +35,7 @@ module.exports = class extends Command {
 			.setAuthor(`Leaderboard for ${message.guild.name}`, message.guild.iconURL())
 			.setDescription(str)
 			.setFooter(paginated.page > 1 ? `, page ${paginated.page}` : '');
+		return message.util.send(embed);
 	}
 };
 
