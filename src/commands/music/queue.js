@@ -34,7 +34,7 @@ class QueueCommand extends Command {
 
 		const decoded = await this.client.music.decode(tracks);
 		const totalLength = decoded.slice(1).filter(track => !track.info.isStream).reduce((prev, song) => prev + song.info.length, 0);
-		const paginated = paginate(decoded.slice(1), page);
+		let paginated = paginate(decoded.slice(1), page);
 		let index = (paginated.page - 1) * 10;
 
 		const embed = new MessageEmbed()
@@ -69,6 +69,7 @@ class QueueCommand extends Command {
 				page += 1;
 				if (page < 1) page = paginated.maxPage;
 				if (page > paginated.maxPage) page = 1;
+				paginated = paginate(decoded.slice(1), page);
 				await msg.edit({
 					embed: embed.setFooter(`Page ${this.paginate(decoded.slice(1), page).page}/${paginated.maxPage} (${index} accounts)`)
 						.setColor(11642864)
@@ -94,6 +95,7 @@ class QueueCommand extends Command {
 				page -= 1;
 				if (page < 1) page = paginated.maxPage;
 				if (page > paginated.maxPage) page = 1;
+				paginated = paginate(decoded.slice(1), page);
 				await msg.edit({
 					embed: embed.setColor(11642864)
 						.setAuthor(`Queue for ${message.guild.name}`, message.guild.iconURL())
