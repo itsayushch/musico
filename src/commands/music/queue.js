@@ -33,7 +33,7 @@ class QueueCommand extends Command {
 		const tracks = [(current || { track: null }).track].concat(await queue.tracks()).filter(track => track);
 		if (!tracks.length) {
 			const embed = new MessageEmbed()
-				.setColor(0x0080ff)
+				.setColor(11642864)
 				.setAuthor(`Queue for ${message.guild.name}`, message.guild.iconURL())
 				.setDescription('No more songs in Queue');
 			return message.util.send({ embed });
