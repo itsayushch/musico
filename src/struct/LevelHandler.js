@@ -38,8 +38,9 @@ class LevelHandlder {
 		return exp;
 	}
 
-	getLeaderboard() {
-		return this.database.find().toArray();
+	async getLeaderboard() {
+		const members = await this.database.find().toArray();
+		members.sort((a, b) => b.exp - a.exp);
 	}
 
 	async getGuildMemberExp(member) {

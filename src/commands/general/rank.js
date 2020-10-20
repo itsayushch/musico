@@ -42,6 +42,8 @@ module.exports = class extends Command {
 		const currentLevel = this.client.levels.getLevelFromExp(userData.exp);
 		const levelExp = this.client.levels.getLevelExp(currentLevel);
 		const currentLevelExp = this.client.levels.getLevelProgress(userData.exp);
+		const leaderboard = await this.client.levels.getLeaderboard();
+		const rank = leaderboard.findIndex(item => item.user === message.author.id) + 1;
 
 		const progress = new ProgressBar(currentLevelExp, levelExp, 15);
 
@@ -50,6 +52,7 @@ module.exports = class extends Command {
 			.setAuthor(user.tag, user.displayAvatarURL({ dynamic: true }))
 			.setThumbnail(user.displayAvatarURL({ dynamic: true }))
 			.setDescription(stripIndents`
+				**Rank:** \`#${rank}\`
 				**Level:** \`${currentLevel}\`
 				**Exp:** \`${currentLevelExp + userData.exp} / ${levelExp + userData.exp}\`
 				${progress.createBar(message, false)}
