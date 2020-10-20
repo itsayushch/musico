@@ -24,11 +24,11 @@ module.exports = class extends Command {
 		const leaderboard = await this.client.levels.getLeaderboard();
 		const paginated = paginate(leaderboard, page);
 		let rank = (paginated.page - 1) * 10;
-		let str = '\`## LEVEL USER\`\n';
+		let str = '\`## LEVEL USER        \`\n';
 		for (const items of leaderboard) {
 			const user = await this.client.users.fetch(items.user);
 			const currentLevel = this.client.levels.getLevelFromExp(items.exp);
-			str += `\`\u200e${String(++rank).padStart(2, ' ')}\` ${String(currentLevel).padStart(5, ' ')} ${user.username}\n`;
+			str += `\`\u200e${String(++rank).padStart(2, ' ')} \u200e${String(currentLevel).padStart(5, ' ')} ${user.username}\`\n`;
 		}
 		const embed = this.client.util.embed()
 			.setColor(11642864)
