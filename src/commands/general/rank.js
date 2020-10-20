@@ -43,7 +43,7 @@ module.exports = class extends Command {
 		const levelExp = this.client.levels.getLevelExp(currentLevel);
 		const currentLevelExp = this.client.levels.getLevelProgress(userData.exp);
 		const leaderboard = await this.client.levels.getLeaderboard();
-		const rank = leaderboard.findIndex(item => item.user === message.author.id) + 1;
+		const rank = leaderboard.findIndex(item => item.user === user.id) + 1;
 
 		const progress = new ProgressBar(currentLevelExp, levelExp, 15);
 
