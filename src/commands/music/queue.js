@@ -35,7 +35,7 @@ class QueueCommand extends Command {
 		const decoded = await this.client.music.decode(tracks);
 		const totalLength = decoded.slice(1).filter(track => !track.info.isStream).reduce((prev, song) => prev + song.info.length, 0);
 		let paginated = paginate(decoded.slice(1), page);
-		let index = (paginated.page - 1) * 10;
+		let index = 0;
 
 		const embed = new MessageEmbed()
 			.setColor(11642864)
