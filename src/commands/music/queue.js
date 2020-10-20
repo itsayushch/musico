@@ -54,7 +54,6 @@ class QueueCommand extends Command {
 			]);
 
 		const msg = await message.util.send({ embed });
-		if (paginated.maxPage === 1) return msg;
 		for (const emoji of ['⬅️', '➡️']) {
 			await msg.react(emoji);
 		}
@@ -86,7 +85,6 @@ class QueueCommand extends Command {
 						])
 				});
 				await reaction.users.remove(message.author.id);
-				return message;
 			}
 
 			if (reaction.emoji.name === '⬅️') {
@@ -110,15 +108,12 @@ class QueueCommand extends Command {
 
 				});
 				await reaction.users.remove(message.author.id);
-				return message;
 			}
 		});
 
 		collector.on('end', async () => {
 			await msg.reactions.removeAll().catch(() => null);
-			return message;
 		});
-		return message;
 	}
 }
 
