@@ -35,7 +35,7 @@ class QueueCommand extends Command {
 		const decoded = await this.client.music.decode(tracks);
 		const totalLength = decoded.slice(1).filter(track => !track.info.isStream).reduce((prev, song) => prev + song.info.length, 0);
 		let paginated = paginate(decoded.slice(1), page);
-		let index = 0;
+		let index = (paginated.page - 1) * 10;
 
 		const embed = new MessageEmbed()
 			.setColor(11642864)
@@ -66,10 +66,10 @@ class QueueCommand extends Command {
 		collector.on('collect', async reaction => {
 			if (reaction.emoji.name === '➡') {
 				page++;
-				console.log(page);
 				if (page < 1) page = paginated.maxPage;
 				if (page > paginated.maxPage) page = 1;
 				paginated = paginate(decoded.slice(1), page);
+				index = (paginated.page - 1) * 10;
 				await msg.edit({
 					embed: this.client.util.embed()
 						.setColor(11642864)
@@ -96,6 +96,7 @@ class QueueCommand extends Command {
 				if (page < 1) page = paginated.maxPage;
 				if (page > paginated.maxPage) page = 1;
 				paginated = paginate(decoded.slice(1), page);
+				index = (paginated.page - 1) * 10;
 				await msg.edit({
 					embed: this.client.util.embed()
 						.setColor(11642864)
