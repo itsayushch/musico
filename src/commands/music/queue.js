@@ -71,7 +71,7 @@ class QueueCommand extends Command {
 				if (page > paginated.maxPage) page = 1;
 				paginated = paginate(decoded.slice(1), page);
 				await msg.edit({
-					embed: embed.setFooter(`Page ${this.paginate(decoded.slice(1), page).page}/${paginated.maxPage} (${index} accounts)`)
+					embed: this.client.util.embed()
 						.setColor(11642864)
 						.setAuthor(`Queue for ${message.guild.name}`, message.guild.iconURL())
 						.setThumbnail(`https://i.ytimg.com/vi/${decoded[0].info.identifier}/hqdefault.jpg`)
@@ -97,7 +97,8 @@ class QueueCommand extends Command {
 				if (page > paginated.maxPage) page = 1;
 				paginated = paginate(decoded.slice(1), page);
 				await msg.edit({
-					embed: embed.setColor(11642864)
+					embed: this.client.util.embed()
+						.setColor(11642864)
 						.setAuthor(`Queue for ${message.guild.name}`, message.guild.iconURL())
 						.setThumbnail(`https://i.ytimg.com/vi/${decoded[0].info.identifier}/hqdefault.jpg`)
 						.setDescription([
