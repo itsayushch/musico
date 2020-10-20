@@ -54,9 +54,9 @@ class QueueCommand extends Command {
 			]);
 
 		const msg = await message.util.send({ embed });
+		if (paginated.maxPage === 1) return msg;
 		for (const emoji of ['⬅️', '➡️']) {
 			await msg.react(emoji);
-			await this.delay(250);
 		}
 
 		const collector = msg.createReactionCollector(
