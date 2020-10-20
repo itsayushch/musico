@@ -28,7 +28,7 @@ module.exports = class extends Command {
 		for (const items of leaderboard) {
 			const user = await this.client.users.fetch(items.user);
 			const currentLevel = this.client.levels.getLevelFromExp(items.exp);
-			str += `\`\u200e${String(++rank).padStart(2, ' ')} \u200e${String(currentLevel).padStart(5, ' ')} ${user.username}\`\n`;
+			str += `\`\u200e${String(++rank).padStart(2, ' ')} \u200e${String(currentLevel).padStart(5, ' ')} ${user.username.substring(0, 25).padEnd(26, ' ')}\u200e\`\n`;
 		}
 		const embed = this.client.util.embed()
 			.setColor(11642864)
