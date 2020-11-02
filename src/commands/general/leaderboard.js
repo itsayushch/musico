@@ -57,7 +57,7 @@ module.exports = class extends Command {
 						.setColor(11642864)
 						.setAuthor(`Leaderboard for ${message.guild.name}`, message.guild.iconURL())
 						.setDescription(str)
-						.setFooter(paginated.page > 1 ? `Page ${paginated.page}` : '');
+						.setFooter(paginated.page > 1 ? `Page ${paginated.page}` : '')
 
 				});
 				await reaction.users.remove(message.author.id);
@@ -80,7 +80,7 @@ module.exports = class extends Command {
 						.setColor(11642864)
 						.setAuthor(`Leaderboard for ${message.guild.name}`, message.guild.iconURL())
 						.setDescription(str)
-						.setFooter(paginated.page > 1 ? `Page ${paginated.page}` : '');
+						.setFooter(paginated.page > 1 ? `Page ${paginated.page}` : '')
 
 				});
 				await reaction.users.remove(message.author.id);
