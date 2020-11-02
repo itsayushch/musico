@@ -8,21 +8,14 @@ module.exports = class extends Command {
 			category: 'general',
 			description: {
 				content: ''
-			},
-			args: [
-				{
-					id: 'page',
-					match: 'rest',
-					type: Argument.compose((_, str) => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)),
-					default: 1
-				}
-			]
+			}
 		});
 	}
 
-	async exec(message, { page }) {
+	async exec(message) {
+		let page = 1;
 		const leaderboard = await this.client.levels.getLeaderboard();
-		const paginated = paginate(leaderboard, page);
+		let paginated = paginate(leaderboard, page, 20);
 		let rank = (paginated.page - 1) * 10;
 		let str = '\`## LEVEL USER                      \`\n';
 		for (const items of leaderboard) {
@@ -35,7 +28,61 @@ module.exports = class extends Command {
 			.setAuthor(`Leaderboard for ${message.guild.name}`, message.guild.iconURL())
 			.setDescription(str)
 			.setFooter(paginated.page > 1 ? `, page ${paginated.page}` : '');
-		return message.util.send(embed);
+
+		const msg = await message.util.send({ embed });
+		if (paginated.maxPage <= 1) return;
+
+		for (const emoji of ['⬅', '➡']) {
+			await msg.react(emoji);
+		}
+		const collector = msg.createReactionCollector(
+			(reaction, user) => ['⬅', '➡'].includes(reaction.emoji.name) && user.id === message.author.id,
+			{ time: 45000, max: 10 }
+		);
+
+		collector.on('collect', async reaction => {
+			if (reaction.emoji.name === '➡') {
+				page++;
+				if (page < 1) page = paginated.maxPage;
+				if (page > paginated.maxPage) page = 1;
+				paginated = paginate(leaderboard, page, 20);
+				rank = (paginated.page - 1) * 10;
+				await msg.edit({
+					embed: this.client.util.embed()
+						.setColor(11642864)
+						.setAuthor(`Leaderboard for ${message.guild.name}`, message.guild.iconURL())
+						.setDescription(str)
+						.setFooter(paginated.page > 1 ? `, page ${paginated.page}` : '')
+
+				});
+				await reaction.users.remove(message.author.id);
+				return message;
+			}
+
+			if (reaction.emoji.name === '⬅') {
+				page--;
+				if (page < 1) page = paginated.maxPage;
+				if (page > paginated.maxPage) page = 1;
+				paginated = paginate(leaderboard, page, 20);
+				rank = (paginated.page - 1) * 10;
+				await msg.edit({
+					embed: this.client.util.embed()
+						.setColor(11642864)
+						.setAuthor(`Leaderboard for ${message.guild.name}`, message.guild.iconURL())
+						.setDescription(str)
+						.setFooter(paginated.page > 1 ? `, page ${paginated.page}` : '')
+
+				});
+				await reaction.users.remove(message.author.id);
+				return message;
+			}
+		});
+
+		collector.on('end', async () => {
+			await msg.reactions.removeAll();
+			return message;
+		});
+		return message;
 	}
 };
 
