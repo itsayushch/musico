@@ -42,9 +42,7 @@ module.exports = class extends Command {
 
 		collector.on('collect', async reaction => {
 			if (reaction.emoji.name === '➡') {
-				page++;
-				if (page < 1) page = paginated.maxPage;
-				if (page > paginated.maxPage) page = 1;
+				page += 1;
 				paginated = paginate(leaderboard, page, 20);
 				rank = (paginated.page - 1) * 10;
 				str = '\`## LEVEL USER                      \`\n';
@@ -66,9 +64,7 @@ module.exports = class extends Command {
 			}
 
 			if (reaction.emoji.name === '⬅') {
-				page--;
-				if (page < 1) page = paginated.maxPage;
-				if (page > paginated.maxPage) page = 1;
+				page -= 1;
 				paginated = paginate(leaderboard, page, 20);
 				rank = (paginated.page - 1) * 10;
 				str = '\`## LEVEL USER                      \`\n';
