@@ -18,7 +18,7 @@ module.exports = class extends Command {
 		let paginated = paginate([...leaderboard], page, 20);
 		let rank = (paginated.page - 1) * 10;
 		let str = '\`## LEVEL USER                      \`\n';
-		for (const items of paginated) {
+		for (const items of paginated.items) {
 			const user = await this.client.users.fetch(items.user);
 			const currentLevel = this.client.levels.getLevelFromExp(items.exp);
 			str += `\`\u200e${String(++rank).padStart(2, ' ')} \u200e${String(currentLevel).padStart(5, ' ')} ${user.username.substring(0, 25).padEnd(26, ' ')}\u200e\`\n`;
@@ -27,7 +27,7 @@ module.exports = class extends Command {
 			.setColor(11642864)
 			.setAuthor(`Leaderboard for ${message.guild.name}`, message.guild.iconURL())
 			.setDescription(str)
-			.setFooter(paginated.page > 1 ? `, page ${paginated.page}` : '');
+			.setFooter(paginated.page > 1 ? `Page ${paginated.page}` : '');
 
 		const msg = await message.util.send({ embed });
 		if (paginated.maxPage <= 1) return;
@@ -47,12 +47,17 @@ module.exports = class extends Command {
 				if (page > paginated.maxPage) page = 1;
 				paginated = paginate(leaderboard, page, 20);
 				rank = (paginated.page - 1) * 10;
+				for (const items of paginated.items) {
+					const user = await this.client.users.fetch(items.user);
+					const currentLevel = this.client.levels.getLevelFromExp(items.exp);
+					str += `\`\u200e${String(++rank).padStart(2, ' ')} \u200e${String(currentLevel).padStart(5, ' ')} ${user.username.substring(0, 25).padEnd(26, ' ')}\u200e\`\n`;
+				}
 				await msg.edit({
 					embed: this.client.util.embed()
 						.setColor(11642864)
 						.setAuthor(`Leaderboard for ${message.guild.name}`, message.guild.iconURL())
 						.setDescription(str)
-						.setFooter(paginated.page > 1 ? `, page ${paginated.page}` : '')
+						.setFooter(paginated.page > 1 ? `Page ${paginated.page}` : '');
 
 				});
 				await reaction.users.remove(message.author.id);
@@ -65,12 +70,17 @@ module.exports = class extends Command {
 				if (page > paginated.maxPage) page = 1;
 				paginated = paginate(leaderboard, page, 20);
 				rank = (paginated.page - 1) * 10;
+				for (const items of paginated.items) {
+					const user = await this.client.users.fetch(items.user);
+					const currentLevel = this.client.levels.getLevelFromExp(items.exp);
+					str += `\`\u200e${String(++rank).padStart(2, ' ')} \u200e${String(currentLevel).padStart(5, ' ')} ${user.username.substring(0, 25).padEnd(26, ' ')}\u200e\`\n`;
+				}
 				await msg.edit({
 					embed: this.client.util.embed()
 						.setColor(11642864)
 						.setAuthor(`Leaderboard for ${message.guild.name}`, message.guild.iconURL())
 						.setDescription(str)
-						.setFooter(paginated.page > 1 ? `, page ${paginated.page}` : '')
+						.setFooter(paginated.page > 1 ? `Page ${paginated.page}` : '');
 
 				});
 				await reaction.users.remove(message.author.id);
