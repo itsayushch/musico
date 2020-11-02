@@ -49,7 +49,8 @@ module.exports = class extends Command {
 				for (const items of paginated.items) {
 					const user = await this.client.users.fetch(items.user);
 					const currentLevel = this.client.levels.getLevelFromExp(items.exp);
-					str += `\`\u200e${String(++rank).padStart(2, ' ')} \u200e${String(currentLevel).padStart(5, ' ')} ${user.username.substring(0, 25).padEnd(26, ' ')}\u200e\`\n`;
+					++rank;
+					str += `\`\u200e${String(rank).padStart(2, ' ')} \u200e${String(currentLevel).padStart(5, ' ')} ${user.username.substring(0, 25).padEnd(26, ' ')}\u200e\`\n`;
 				}
 				await msg.edit({
 					embed: this.client.util.embed()
@@ -57,7 +58,6 @@ module.exports = class extends Command {
 						.setAuthor(`Leaderboard for ${message.guild.name}`, message.guild.iconURL())
 						.setDescription(str)
 						.setFooter(paginated.page > 1 ? `Page ${paginated.page}` : '')
-
 				});
 				await reaction.users.remove(message.author.id);
 				return message;
@@ -71,7 +71,8 @@ module.exports = class extends Command {
 				for (const items of paginated.items) {
 					const user = await this.client.users.fetch(items.user);
 					const currentLevel = this.client.levels.getLevelFromExp(items.exp);
-					str += `\`\u200e${String(++rank).padStart(2, ' ')} \u200e${String(currentLevel).padStart(5, ' ')} ${user.username.substring(0, 25).padEnd(26, ' ')}\u200e\`\n`;
+					++rank;
+					str += `\`\u200e${String(rank).padStart(2, ' ')} \u200e${String(currentLevel).padStart(5, ' ')} ${user.username.substring(0, 25).padEnd(26, ' ')}\u200e\`\n`;
 				}
 				await msg.edit({
 					embed: this.client.util.embed()
