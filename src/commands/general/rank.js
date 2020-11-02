@@ -45,7 +45,7 @@ module.exports = class extends Command {
 		const leaderboard = await this.client.levels.getLeaderboard();
 		const rank = leaderboard.findIndex(item => item.user === user.id) + 1;
 
-		const progress = new ProgressBar(currentLevelExp, levelExp, 20);
+		const progress = new ProgressBar(currentLevelExp, levelExp, 15);
 
 		const embed = this.client.util.embed()
 			.setColor(11642864)
