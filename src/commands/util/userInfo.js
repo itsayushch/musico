@@ -34,7 +34,7 @@ class userInfoCommand extends Command {
 			.addField('Current rank hex color', member ? member.displayHexColor : 'Not in this guild', false)
 			.addField('ID', user.id)
 			.addField('Joined guild at', member ? moment(member.joinedAt).format('DD-MM-YYYY') : 'Not in this guild', false)
-			.addField('Date when account created', `${moment(user.createdAt).format('DD-MM-YYYY')} (${moment.duration(new Date() - user.createdAt).format('YY [years] MM [months] DD [days] [ago]')})`, false)
+			.addField('Date when account created', `${moment(user.createdAt).format('DD-MM-YYYY')}\n(${moment.duration(new Date() - user.createdAt).format('YY [years] MM [months] DD [days] [ago]')})`, false)
 			.setTimestamp();
 
 
