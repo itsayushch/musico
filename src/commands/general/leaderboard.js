@@ -16,7 +16,7 @@ module.exports = class extends Command {
 		let page = 1;
 		const leaderboard = await this.client.levels.getLeaderboard();
 		let paginated = paginate([...leaderboard], page, 20);
-		let rank = (paginated.page - 1) * 10;
+		let rank = (paginated.page - 1) * 20;
 		let str = '\`## LEVEL USER                      \`\n';
 		for (const items of paginated.items) {
 			const user = await this.client.users.fetch(items.user);
@@ -44,7 +44,7 @@ module.exports = class extends Command {
 			if (reaction.emoji.name === '➡') {
 				page += 1;
 				paginated = paginate(leaderboard, page, 20);
-				rank = (paginated.page - 1) * 10;
+				rank = (paginated.page - 1) * 20;
 				str = '\`## LEVEL USER                      \`\n';
 				for (const items of paginated.items) {
 					const user = await this.client.users.fetch(items.user);
@@ -66,7 +66,7 @@ module.exports = class extends Command {
 			if (reaction.emoji.name === '⬅') {
 				page -= 1;
 				paginated = paginate(leaderboard, page, 20);
-				rank = (paginated.page - 1) * 10;
+				rank = (paginated.page - 1) * 20;
 				str = '\`## LEVEL USER                      \`\n';
 				for (const items of paginated.items) {
 					const user = await this.client.users.fetch(items.user);
