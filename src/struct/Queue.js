@@ -149,9 +149,7 @@ class Queue extends events.EventEmitter {
 	}
 
 	previous(track) {
-		const tracks = [];
-		if (tracks.length === 2) tracks.shift();
-		tracks.push(track);
+		const tracks = track ? track : null;
 		return tracks;
 	}
 
