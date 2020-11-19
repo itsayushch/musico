@@ -17,7 +17,7 @@ class Queue extends events.EventEmitter {
 			if (!['TrackEndEvent', 'TrackStartEvent'].includes(d.type) || (d.type === 'TrackEndEvent' && !['REPLACED', 'STOPPED'].includes(d.reason))) {
 				const count = d.type === 'TrackEndEvent' ? undefined : 1;
 				try {
-					this.previous(await this.current().track);
+					this.previous(this._store.get(this.keys.prev));
 					this._next({ count, previous: d });
 				} catch (error) {
 					this.store.client.emit('error', error);
@@ -150,8 +150,8 @@ class Queue extends events.EventEmitter {
 
 	previous(track) {
 		const tracks = [];
+		if (tracks.length === 2) tracks.shift();
 		tracks.push(track);
-
 		return tracks;
 	}
 
