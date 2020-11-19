@@ -14,9 +14,9 @@ class Queue extends events.EventEmitter {
 		};
 
 		this.on('event', async d => {
-			if (d.type === 'TrackEndEventr') this.previous(this._store.get(this.keys.prev));
 			if (!['TrackEndEvent', 'TrackStartEvent'].includes(d.type) || (d.type === 'TrackEndEvent' && !['REPLACED', 'STOPPED'].includes(d.reason))) {
 				const count = d.type === 'TrackEndEvent' ? undefined : 1;
+				this._previous(this._store.get(this.keys.prev));
 				try {
 					this._next({ count, previous: d });
 				} catch (error) {
