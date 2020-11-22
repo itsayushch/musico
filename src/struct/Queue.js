@@ -16,7 +16,6 @@ class Queue extends events.EventEmitter {
 		this.on('event', async d => {
 			if (!['TrackEndEvent', 'TrackStartEvent'].includes(d.type) || (d.type === 'TrackEndEvent' && !['REPLACED', 'STOPPED'].includes(d.reason))) {
 				const count = d.type === 'TrackEndEvent' ? undefined : 1;
-				this._previous(this._store.get(this.keys.prev));
 				try {
 					this._next({ count, previous: d });
 				} catch (error) {
@@ -26,7 +25,6 @@ class Queue extends events.EventEmitter {
 		});
 
 		this.on('playerUpdate', async d => {
-			console.log(d); // Testing
 			try {
 				this._store.set(this.keys.pos, d.state.position);
 			} catch (e) {
