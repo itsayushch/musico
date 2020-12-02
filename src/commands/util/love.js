@@ -8,7 +8,7 @@ module.exports = class LoveCommand extends Command {
 			description: {
 				content: 'Calculates the love affinity the person has for you.',
 				usage: 'user',
-				examples: ['@Mirunalini, 709330769503584268']
+				examples: ['@Mirunalini', '709330769503584268']
 			},
 			args: [
 				{
@@ -32,7 +32,7 @@ module.exports = class LoveCommand extends Command {
 		const love =
 			(message.author.id === '539770184236269568' && person.id === '709330769503584268') ||
 			(message.author.id === '709330769503584268' && person.id === '539770184236269568')
-				? Math.floor((Math.random() * 100) + 80)
+				? this.getRandomInt(80, 100)
 				: Math.random() * 100;
 
 		const loveIndex = Math.floor(love / 10);
@@ -44,5 +44,9 @@ module.exports = class LoveCommand extends Command {
 				`💟 ${Math.floor(love)}%\n\n${loveLevel}`);
 
 		return message.util.send(embed);
+	}
+
+	getRandomInt(min, max) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 };
