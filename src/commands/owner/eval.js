@@ -69,12 +69,10 @@ class EvalCommand extends Command {
 				`*Executed in ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ''}${hrDiff[1] / 1000000}ms*`,
 				'📤\u2000**Output**',
 				`\`\`\`js\n${inspected}\`\`\``
-			], {
-				maxLength: 1900, prepend, append
-			});
+			], { maxLength: 2000 });
 		}
 		return Util.splitMessage(`*Callback executed after ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ''}${hrDiff[1] / 1000000}ms* \`\`\`js\n${inspected}\`\`\``, {
-			maxLength: 1900, prepend, append
+			maxLength: 2000
 		});
 	}
 
