@@ -1,6 +1,7 @@
 const { Command, Flag, Argument } = require('discord-akairo');
 const { Util } = require('discord.js');
 const util = require('util');
+const fetch = require('node-fetch');
 
 class EvalCommand extends Command {
 	constructor() {
@@ -8,7 +9,6 @@ class EvalCommand extends Command {
 			aliases: ['eval', 'e'],
 			category: 'owner',
 			optionFlags: ['--depth', '-d'],
-			ownerOnly: true,
 			description: {
 				content: 'You can\'t use this anyway, so why explain?',
 				usage: '<code>'
@@ -39,15 +39,13 @@ class EvalCommand extends Command {
 
 	async exec(message, { code, depth }) {
 		let hrDiff;
+		if (!this.client.isOwner(message.author.id)) return this.safeEval(message, code, depth);
 		try {
 			const hrStart = process.hrtime();
 			this.eval = eval(code); // eslint-disable-line
 			hrDiff = process.hrtime(hrStart);
 		} catch (error) {
-			return message.util.send([
-				'**☠\u2000**Error****',
-				`\`\`\`js\n${error}\n\`\`\``
-			]);
+			return message.util.send(`**Error While Evaluating** \n\`\`\`js\n${error}\n\`\`\``);
 		}
 
 		this.hrStart = process.hrtime();
@@ -65,15 +63,19 @@ class EvalCommand extends Command {
 		const prepend = `\`\`\`js\n${prependPart}\n`;
 		const append = `\n${appendPart}\n\`\`\``;
 		if (input) {
-			return Util.splitMessage([
-				`*Executed in ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ''}${hrDiff[1] / 1000000}ms*`,
-				'📤\u2000**Output**',
-				`\`\`\`js\n${inspected}\`\`\``
-			], { maxLength: 2000 });
+			return Util.splitMessage(`*Executed in ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ''}${hrDiff[1] / 1000000}ms* \`\`\`js\n${inspected}\`\`\``, {
+				maxLength: 1900, prepend, append
+			});
 		}
 		return Util.splitMessage(`*Callback executed after ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ''}${hrDiff[1] / 1000000}ms* \`\`\`js\n${inspected}\`\`\``, {
-			maxLength: 2000
+			maxLength: 1900, prepend, append
 		});
+	}
+
+	async safeEval(message, code, depth) {
+		const data = await fetch(`https://now-eval-api.vercel.app?depth=${depth}&code=${encodeURIComponent(code)}`)
+			.then(res => res.text());
+		return message.channel.send(data, { code: 'js', split: true });
 	}
 
 	get replaceToken() {
