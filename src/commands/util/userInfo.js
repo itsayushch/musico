@@ -29,8 +29,8 @@ class UserInfoCommand extends Command {
 
 		const Embed = this.client.util.embed()
 			.setColor(member ? member.displayHexColor : 11642864)
-			.setThumbnail(user.displayAvatarURL())
-			.setAuthor(`${user.tag}`, user.displayAvatarURL())
+			.setThumbnail(user.displayAvatarURL({ dynamic: true }))
+			.setAuthor(`${user.tag}`, user.displayAvatarURL({ size: 2048, dynamic: true }))
 			.addField('Current rank hex color', member ? member.displayHexColor : 'Not in this guild', false)
 			.addField('ID', user.id)
 			.addField('Joined guild at', member ? `${moment(member.joinedAt).format('DD-MM-YYYY')}\n(${moment.duration(new Date() - member.joinedAt).format('YY [years] MM [months] DD [days] [ago]')})` : 'Not in this guild', false)
