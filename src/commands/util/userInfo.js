@@ -1,8 +1,8 @@
-const { Command } = require('discord-akairo');
+const { Command, Argument } = require('discord-akairo');
 const moment = require('moment');
 require('moment-duration-format');
 
-class userInfoCommand extends Command {
+class UserInfoCommand extends Command {
 	constructor() {
 		super('userInfo', {
 			aliases: ['userInfo', 'user'],
@@ -12,8 +12,8 @@ class userInfoCommand extends Command {
 			args: [
 				{
 					id: 'user',
-					type: 'user',
-					default: m => m.author
+					type: Argument.union('user', (_, id) => id ? this.client.users.fetch(id).catch(() => null) : null),
+					default: message => message.author
 				}
 			],
 			description: {
@@ -33,19 +33,19 @@ class userInfoCommand extends Command {
 			.setAuthor(`${user.tag}`, user.displayAvatarURL())
 			.addField('Current rank hex color', member ? member.displayHexColor : 'Not in this guild', false)
 			.addField('ID', user.id)
-			.addField('Joined guild at', member ? moment(member.joinedAt).format('DD-MM-YYYY') : 'Not in this guild', false)
+			.addField('Joined guild at', member ? `${moment(member.joinedAt).format('DD-MM-YYYY')}\n(${moment.duration(new Date() - member.joinedAt).format('YY [years] MM [months] DD [days] [ago]')})` : 'Not in this guild', false)
 			.addField('Date when account created', `${moment(user.createdAt).format('DD-MM-YYYY')}\n(${moment.duration(new Date() - user.createdAt).format('YY [years] MM [months] DD [days] [ago]')})`, false)
 			.setTimestamp();
 
 
 		// Show since when this user have been boosting the current guild
-		if (member && member.premiumSince) Embed.addField('Boosting this guild since', member.premiumSince, false);
+		if (member && member.premiumSince) Embed.addField('Boosting this guild since', moment(member.premiumSince).format('DD-MM-YYYY'), false);
 
 		// Show user status
 		if (user.presence.activities[0]) {
 			Embed.addField('Presence', user.presence.activities[0], false);
-			if (user.presence.activities[0].details) Embed.addField('​▬▬▬▬▬▬▬▬▬▬', user.presence.activities[0].details, false);
-			if (user.presence.activities[0].state) Embed.addField('​▬▬▬▬▬▬▬▬▬▬', user.presence.activities[0].state, false);
+			if (user.presence.activities[0].details) Embed.addField('\u200b', user.presence.activities[0].details, false);
+			if (user.presence.activities[0].state) Embed.addField('​\u200b', user.presence.activities[0].state, false);
 		}
 		Embed.addField('Account type', user.bot ? 'Bot' : 'Human', false);
 		// Show guild nickname
@@ -64,8 +64,5 @@ class userInfoCommand extends Command {
 	}
 }
 
-module.exports = userInfoCommand;
-
-
-module.exports = userInfoCommand;
+module.exports = UserInfoCommand;
 
