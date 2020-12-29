@@ -28,7 +28,7 @@ class serverIconCommand extends Command {
 
 
 		if (!args.serverid) {
-			const format = message.guild.iconURL().substr(message.guild.iconURL().length - 3);
+			const format = message.guild.iconURL({ dynamic: true }).substr(message.guild.iconURL({ dynamic: true }).length - 3);
 			if (format === 'gif') {
 				serverEmbed.setAuthor(message.guild.name);
 				serverEmbed.setDescription(`[gif](${message.guild.iconURL({ format: 'gif', size: 2048 })})`);
