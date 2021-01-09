@@ -1,5 +1,7 @@
 const { Command } = require('discord-akairo');
+const { MessageAttachment, Message, GuildMember } = require('discord.js');
 const { stripIndents } = require('common-tags');
+const fetch = require('node-fetch');
 const ProgressBar = require('../../util/bar');
 
 module.exports = class extends Command {
@@ -20,6 +22,12 @@ module.exports = class extends Command {
 		});
 	}
 
+	/**
+	 *
+	 * @param {Message} message - Message object
+	 * @param {Object} args - Arguments
+	 * @param {GuildMember} args.member - The Guild Member
+	 */
 	async exec(message, { member }) {
 		const user = member.user;
 		const userData = await this.client.mongo.db('musico').collection('levels').findOne({ user: user.id });
@@ -45,21 +53,40 @@ module.exports = class extends Command {
 		const leaderboard = await this.client.levels.getLeaderboard();
 		const rank = leaderboard.findIndex(item => item.user === user.id) + 1;
 
-		const progress = new ProgressBar(currentLevelExp, levelExp, 15);
+		const res = await fetch('https://rank-api.herokuapp.com/', {
+			method: 'POST',
+			body: JSON.stringify({
+				avatar: user.displayAvatarURL({ format: 'png', size: 2048 }),
+				exp: currentLevelExp,
+				level: currentLevel,
+				nextLevelXp: levelExp,
+				rank,
+				presence: user.presence.status,
+				username: user.username,
+				displayHexColor: member.displayHexColor,
+				discriminator: user.discriminator
+			})
+		});
 
-		const embed = this.client.util.embed()
-			.setColor(11642864)
-			.setAuthor(user.tag, user.displayAvatarURL({ dynamic: true }))
-			.setThumbnail(user.displayAvatarURL({ dynamic: true }))
-			.setDescription(stripIndents`
-				**Rank:** \`#${rank}\`
-				**Level:** \`${currentLevel}\`
-				**Exp:** \`${currentLevelExp} / ${levelExp}\`
-				**Total Exp:** \`${userData.exp}\`
-				${progress.createBar(message, false)}
-			`);
+		const buffer = await res.buffer();
 
-		return message.util.send({ embed });
+		const attachment = new MessageAttachment(buffer, 'rank.png');
+		return message.util.send(attachment);
+		// const progress = new ProgressBar(currentLevelExp, levelExp, 15);
+
+		// const embed = this.client.util.embed()
+		// 	.setColor(11642864)
+		// 	.setAuthor(user.tag, user.displayAvatarURL({ dynamic: true }))
+		// 	.setThumbnail(user.displayAvatarURL({ dynamic: true }))
+		// 	.setDescription(stripIndents`
+		// 		**Rank:** \`#${rank}\`
+		// 		**Level:** \`${currentLevel}\`
+		// 		**Exp:** \`${currentLevelExp} / ${levelExp}\`
+		// 		**Total Exp:** \`${userData.exp}\`
+		// 		${progress.createBar(message, false)}
+		// 	`);
+
+		// return message.util.send({ embed });
 	}
 };
 
