@@ -65,7 +65,10 @@ module.exports = class extends Command {
 				username: user.username,
 				displayHexColor: member.displayHexColor,
 				discriminator: user.discriminator
-			})
+			}),
+			headers: {
+				'Content-Type': 'image/png'
+			}
 		});
 
 		const buffer = await res.buffer();
