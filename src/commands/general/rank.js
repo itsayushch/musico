@@ -67,7 +67,7 @@ module.exports = class extends Command {
 				discriminator: user.discriminator
 			}),
 			headers: {
-				'Content-Type': 'image/png'
+				'Content-Type': 'application/json'
 			}
 		});
 
