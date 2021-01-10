@@ -9,6 +9,7 @@ module.exports = class extends Command {
 		super('rank', {
 			aliases: ['rank'],
 			category: 'general',
+                        cooldown: 1000 * 30,
 			description: {
 				content: ''
 			},
