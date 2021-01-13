@@ -53,7 +53,7 @@ module.exports = class extends Command {
 		const leaderboard = await this.client.levels.getLeaderboard();
 		const rank = leaderboard.findIndex(item => item.user === user.id) + 1;
 
-		const res = await fetch('https://rank-api.herokuapp.com/', {
+		const res = await fetch('https://level-api.herokuapp.com/', {
 			method: 'POST',
 			body: JSON.stringify({
 				avatar: user.displayAvatarURL({ format: 'png', size: 2048 }),
