@@ -1,3 +1,8 @@
-<h1> Musico </h1>
-A private <i> discord bot </i> for the <b> Gwa Tech</b>
-server. Developed by Ayush #7777 in Node.js and Discord.js
+# Musico
+
+The offical discord bot of [GWA TECH](https://ayushkr.me/discord) (A programming community on discord). 
+
+**Musico** provides amazing features like high quality music from many sources, moderation commands, utility tools and much more. You can check them out by joining the Official Discord Server of **GWA TECH**.
+
+**Official Discord Server's Invite Link**
+https://discord.com/invite/sY57ftY
