@@ -14,7 +14,7 @@ const Levels = require('./LevelHandler');
 class BotClient extends AkairoClient {
 	constructor() {
 		super({
-			ownerID: ['539770184236269568']
+			ownerID: ['539770184236269568', '501987283453607947']
 		}, {
 			messageCacheMaxSize: 50,
 			messageCacheLifetime: 300,
