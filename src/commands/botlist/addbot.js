@@ -41,7 +41,7 @@ class AddBotCommand extends Command {
 				**INVITE URL:** [Click Here](${this.generateInvite(client)})
 			`);
 
-		await message.channel.send(`${message.author} your bot has been added to the list.\nPlease wait untill we test and verify it.\n\nThank you!`);
+		await message.util.send(`${message.author} your bot has been added to the list.\nPlease wait untill we test and verify it.\n\nThank you!`);
 
 		await this.save(message.author.id, client, prefix);
 
@@ -53,6 +53,7 @@ class AddBotCommand extends Command {
 			ownerID,
 			clientID,
 			prefix,
+			approved: false,
 			submittedAt: new Date()
 		});
 
