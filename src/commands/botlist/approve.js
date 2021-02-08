@@ -22,6 +22,8 @@ class AddBotCommand extends Command {
 	}
 
 	async exec(message, { client }) {
+		await message.util.send(`Succesfully approved <@${client}>`);
+
 		await this.edit(message.author.id, client);
 		await this.botLog(client, message.author);
 		await this.handle(client);
