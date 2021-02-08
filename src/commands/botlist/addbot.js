@@ -38,7 +38,7 @@ class AddBotCommand extends Command {
 				**OWNER:** ${message.author.tag} (${message.author.id})
 				**BOT:** ${client}
 				**PREFIX:** ${prefix}
-				**INVITE URL:** ${this.generateInvite(client)}
+				**INVITE URL:** [Click Here](${this.generateInvite(client)})
 			`);
 
 		await message.channel.send(`${message.author} your bot has been added to the list.\nPlease wait untill we test and verify it.\n\nThank you!`);
