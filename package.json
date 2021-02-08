@@ -29,6 +29,9 @@
   "scripts": {
     "test": "eslint --fix --ext .js --ignore-path .gitignore ."
   },
+  "engines": {
+    "node": "14.x"
+  },
   "author": "Ayush Chowdhury",
   "license": "MIT",
   "keywords": [],
