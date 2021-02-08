@@ -53,7 +53,7 @@ class AddBotCommand extends Command {
 		return this.client.channels.cache.get('808343180628983808').send(embed);
 	}
 
-	async hadndle(clientID) {
+	async handle(clientID) {
 		const { ownerID } = await this.client.mongo.db('musico').collection('bots').findOne({ clientID });
 		const guild = this.client.guilds.cache.get('694554848758202451');
 
