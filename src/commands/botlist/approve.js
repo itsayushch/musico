@@ -28,8 +28,10 @@ class AddBotCommand extends Command {
 
 	async edit(user, clientID) {
 		const db = await this.client.mongo.db('musico').collection('bots').updateOne({ clientID }, {
-			approved: true,
-			approvedBy: user
+			$set: {
+				approved: true,
+				approvedBy: user
+			}
 		});
 
 		return db;
