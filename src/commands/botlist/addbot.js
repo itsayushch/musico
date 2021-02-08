@@ -45,7 +45,7 @@ class AddBotCommand extends Command {
 
 		await this.save(message.author.id, client, prefix);
 
-		return this.client.users.cache.get('808324664165924934').send(embed);
+		return this.client.channels.cache.get('808324664165924934').send(embed);
 	}
 
 	async save(ownerID, clientID, prefix) {
