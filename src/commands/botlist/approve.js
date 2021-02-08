@@ -24,6 +24,7 @@ class AddBotCommand extends Command {
 	async exec(message, { client }) {
 		await this.edit(message.author.id, client);
 		await this.botLog(client, message.author);
+		await this.handle(client);
 	}
 
 	async edit(user, clientID) {
@@ -55,9 +56,9 @@ class AddBotCommand extends Command {
 		const guild = this.client.guilds.cache.get('694554848758202451');
 
 		if (guild.members.cache.has(ownerID)) {
-			this.client.users.cache.get(ownerID).send(`Congratulations your bot <@${clientID}> has been approved!`);
-			guild.members.cache.get(ownerID).roles.add('808341405943463956');
-			guild.members.cache.get(clientID).roles.add('808307235590766602');
+			await this.client.users.cache.get(ownerID).send(`Congratulations your bot <@${clientID}> has been approved!`);
+			await guild.members.cache.get(ownerID).roles.add('808341405943463956');
+			await guild.members.cache.get(clientID).roles.add('808307235590766602');
 		}
 	}
 }
