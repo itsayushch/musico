@@ -57,10 +57,11 @@ class AddBotCommand extends Command {
 		const { ownerID } = await this.client.mongo.db('musico').collection('bots').findOne({ clientID });
 		const guild = this.client.guilds.cache.get('694554848758202451');
 
+		const bot = await this.client.users.fetch(clientID);
+
 		if (guild.members.cache.has(ownerID)) {
-			await this.client.users.cache.get(ownerID).send(`Congratulations your bot <@${clientID}> has been approved!`);
-			await guild.members.cache.get(ownerID).roles.add('808341405943463956');
-			await guild.members.cache.get(clientID).roles.add('808307235590766602');
+			await this.client.users.cache.get(ownerID).send(`Congratulations, your bot **${bot.tag} (${bot.id})** has been approved!`);
+			await guild.members.cache.get(ownerID)?.roles.add('808341405943463956');
 		}
 	}
 }
