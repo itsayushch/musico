@@ -18,7 +18,6 @@ class InviteCommand extends Command {
 	async exec(message) {
 		return message.util.send('https://discord.gg/sY57ftY');
 	}
-		
 }
 
 module.exports = InviteCommand;

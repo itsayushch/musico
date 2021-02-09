@@ -1,4 +1,5 @@
 const { Command } = require('discord-akairo');
+const { stripIndents } = require('common-tags');
 
 class AddBotCommand extends Command {
 	constructor() {
@@ -27,6 +28,8 @@ class AddBotCommand extends Command {
 		await this.edit(message.author.id, client);
 		await this.botLog(client, message.author);
 		await this.handle(client);
+
+		return message.guild.members.cache.get(client).kick('Bot Approved');
 	}
 
 	async edit(user, clientID) {
@@ -47,7 +50,11 @@ class AddBotCommand extends Command {
 			.setColor('#98fb98')
 			.setTitle('Bot Approved')
 			.setThumbnail(bot.displayAvatarURL({ size: 1024 }))
-			.setDescription(`Bot Tag: \`${bot.tag}\`\nBot ID: \`${bot.id}\`\nModerator: ${approvedBy}`)
+			.setDescription(stripIndents`
+				Bot Tag: \`${bot.tag}\`
+				Bot ID: \`${bot.id}\`
+				Moderator: ${approvedBy.tag} (${approvedBy.id})
+			`)
 			.setTimestamp();
 
 		return this.client.channels.cache.get('808343180628983808').send(embed);
