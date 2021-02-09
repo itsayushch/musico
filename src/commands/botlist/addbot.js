@@ -47,12 +47,12 @@ class AddBotCommand extends Command {
 			`);
 
 		await message.util.send({
-			embed: { color: 'GREEN', description: '<:emoji_100:808567239443611668> Your bot has been successfully added to the queue.\nPlease wait for our moderators to test your bot.'  }
+			embed: { color: 'GREEN', description: '<:emoji_100:808567239443611668> Your bot has been successfully added to the queue.\nPlease wait for our moderators to test your bot.' }
 		});
 
 		await this.save(message.author.id, client, prefix);
 
-		return this.client.channels.cache.get('808324664165924934').send('@everyone', {embed});
+		return this.client.channels.cache.get('808324664165924934').send('@everyone', { embed });
 	}
 
 	async save(ownerID, clientID, prefix) {
