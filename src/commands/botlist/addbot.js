@@ -32,9 +32,9 @@ class AddBotCommand extends Command {
 	}
 
 	async exec(message, { client, prefix }) {
-		if (this.checkExisting(client)) return message.util.send('You have already added this bot. Please wait for our testers to test your bot.');
+		if (await this.checkExisting(client)) return message.util.send('You have already added this bot. Please wait for our testers to test your bot.');
 
-		if (!this.validateBot(client)) return message.util.send('The Client ID you entered is not valid. Please try again with a valid Client ID.');
+		if (await this.validateBot(client) === false) return message.util.send('The Client ID you entered is not valid. Please try again with a valid Client ID.');
 
 		const embed = this.client.util.embed()
 			.setColor(0xb1a7f0)
