@@ -5,7 +5,7 @@
 
 ## How to contribute
 
-Contribution can be done in many ways. Here some some of the following:-
+Contribution can be done in many ways. Here are some of the following ways:-
 
 - Bug report
 - Suggesting new features
