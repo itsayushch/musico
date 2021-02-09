@@ -38,8 +38,8 @@ class DeclineCommand extends Command {
 	async exec(message, { client, reason }) {
 		await message.util.send(`Succesfully declined <@${client}>`);
 
-		await this.botLog(client, message.author);
-		await this.handle(client);
+		await this.botLog(client, message.author, reason);
+		await this.handle(client, reason);
 		await this.delete(client);
 
 		return message.guild.members.cache.get(client).kick(reason);
