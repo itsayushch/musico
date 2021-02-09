@@ -40,7 +40,7 @@ class DeclineCommand extends Command {
 
 		await this.botLog(client, message.author);
 		await this.handle(client);
-		await this.delete(message.author.id, client);
+		await this.delete(client);
 
 		return message.guild.members.cache.get(client).kick(reason);
 	}
