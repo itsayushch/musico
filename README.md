@@ -6,41 +6,6 @@
 <p><b>Musico</b> provides amazing features like high quality music from many sources, moderation commands, utility tools and much more.</p>
 </div>
 
-### What's Inside?
-<details>
-<summary>📂Musico</summary>
-<details>
-<summary>📂src</summary>
-<details>
-<summary>📂commands</summary>
-</details>
-<details>
-<summary>📂core</summary>
-</details>
-<details>
-<summary>📂inhibitors</summary>
-</details>
-<details>
-<summary>📂listeners</summary>
-</details>
-<details>
-<summary>📂struct</summary>
-</details>
-<details>
-<summary>📂util</summary>
-</details>
-</details>
-📄.eslintrc.json<br />
-📄.gitignore<br />
-📄CONTRIBUTING.md<br />
-📄example.env<br />
-📄index.js<br />
-📄LICENSE<br />
-📄package.json<br />
-📄Procfile<br />
-📄README.md
-</details>
-
 ### Contributing 
 Contributors are most welcomed to this repository you may read the `CONTRIBUTING.md` file to get a detailed info on how to contribute.
 
