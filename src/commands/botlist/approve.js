@@ -44,10 +44,10 @@ class AddBotCommand extends Command {
 		const bot = await this.client.users.fetch(client);
 
 		const embed = this.client.util.embed()
-			.setColor(0x00ff00)
+			.setColor('#98fb98')
 			.setTitle('Bot Approved')
 			.setThumbnail(bot.displayAvatarURL({ size: 1024 }))
-			.setDescription(`**${bot.tag} (${bot.id})** was approved by ${approvedBy}`)
+			.setDescription(`Bot Tag: \`${bot.tag}\`\nBot ID: \`${bot.id}\`\nModerator: ${approvedBy}`)
 			.setTimestamp();
 
 		return this.client.channels.cache.get('808343180628983808').send(embed);
@@ -58,9 +58,8 @@ class AddBotCommand extends Command {
 		const guild = this.client.guilds.cache.get('694554848758202451');
 
 		if (guild.members.cache.has(ownerID)) {
-			await this.client.users.cache.get(ownerID).send(`Congratulations your bot <@${clientID}> has been approved!`);
-			await guild.members.cache.get(ownerID).roles.add('808341405943463956');
-			await guild.members.cache.get(clientID).roles.add('808307235590766602');
+			await this.client.users.cache.get(ownerID).send(`🎉 Congratulations your bot <@${clientID}> has been approved by ${approvedBy}!`);
+			await guild.members.cache.get(ownerID)?.roles.add('808341405943463956');
 		}
 	}
 }
