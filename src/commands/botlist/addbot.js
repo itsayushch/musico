@@ -17,7 +17,7 @@ class AddBotCommand extends Command {
 					id: 'client',
 					type: 'string',
 					prompt: {
-						start: 'Enter the client ID'
+						start: 'Enter the ID of the bot'
 					}
 				},
 				{
@@ -40,17 +40,19 @@ class AddBotCommand extends Command {
 			.setColor(0xb1a7f0)
 			.setTitle('Bot Submitted')
 			.setDescription(stripIndents`
-				**OWNER:** ${message.author.tag} (${message.author.id})
-				**BOT:** ${client}
-				**PREFIX:** ${prefix}
-				**INVITE URL:** [Click Here](${this.generateInvite(client)})
+				**Owner** - ${message.author.tag} (${message.author.id})
+				**Bot** - ${client}
+				**Prefix** - ${prefix}
+				**Invite Url** - [Click Here](${this.generateInvite(client)})
 			`);
 
-		await message.util.send(`${message.author} your bot has been added to the list.\nPlease wait untill we test and verify it.\n\nThank you!`);
+		await message.util.send({
+			embed: { color: 'GREEN', description: '<:emoji_100:808567239443611668> Your bot has been successfully added to the queue.\nPlease wait for our moderators to test your bot.'  }
+		});
 
 		await this.save(message.author.id, client, prefix);
 
-		return this.client.channels.cache.get('808324664165924934').send(embed);
+		return this.client.channels.cache.get('808324664165924934').send('@everyone', {embed});
 	}
 
 	async save(ownerID, clientID, prefix) {
