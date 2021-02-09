@@ -60,7 +60,7 @@ class AddBotCommand extends Command {
 		const bot = await this.client.users.fetch(clientID);
 
 		if (guild.members.cache.has(ownerID)) {
-			await this.client.users.cache.get(ownerID).send(`🎉 Congratulations your bot <@${clientID}> has been approved!`);
+			await this.client.users.cache.get(ownerID).send(`🎉 Congratulations your bot **${bot.tag}** \`(${bot.id})\` has been approved!`);
 			await guild.members.cache.get(ownerID)?.roles.add('808341405943463956');
 		}
 	}
