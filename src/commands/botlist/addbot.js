@@ -1,3 +1,4 @@
+/* eslint-disable newline-per-chained-call */
 const { Command } = require('discord-akairo');
 const { stripIndents } = require('common-tags');
 
@@ -31,6 +32,10 @@ class AddBotCommand extends Command {
 	}
 
 	async exec(message, { client, prefix }) {
+		if (this.checkExisting(client)) return message.util.send('You have already added this bot. Please wait for our testers to test your bot.');
+
+		if (!this.validateBot(client)) return message.util.send('The Client ID you entered is not valid. Please try again with a valid Client ID.');
+
 		const embed = this.client.util.embed()
 			.setColor(0xb1a7f0)
 			.setTitle('Bot Submitted')
@@ -58,6 +63,22 @@ class AddBotCommand extends Command {
 		});
 
 		return db;
+	}
+
+	async checkExisting(client) {
+		const db = await this.client.mongo.db('musico').collection('bots').find({
+			clientID: client
+		}).toArray();
+
+		return db.length ? true : false;
+	}
+
+	async validateBot(client) {
+		const bot = await this.client.users.fetch(client).catch(() => undefined);
+
+		if (!bot?.bot) return false;
+
+		return true;
 	}
 
 	generateInvite(id) {
