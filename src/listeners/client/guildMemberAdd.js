@@ -11,7 +11,6 @@ class GuildMemberAddListener extends Listener {
 	}
 
 	async exec(member) {
-		if (member.guild.id === '694554848758202451') await this.handleVerifiedBots(member);
 		const memberlog = this.client.settings.get(member.guild.id, 'member-log', undefined);
 		if (memberlog) {
 			const embed = new MessageEmbed()
@@ -22,7 +21,10 @@ class GuildMemberAddListener extends Listener {
 				.setFooter('User Joined')
 				.setTimestamp();
 
-			return this.client.channels.cache.get(memberlog).send(embed);
+			this.client.channels.cache.get(memberlog).send(embed);
+			setTimeout(async () => {
+				if (member.guild.id === '694554848758202451') await this.handleVerifiedBots(member);
+			}, 1000 * 2);
 		}
 	}
 
@@ -31,9 +33,10 @@ class GuildMemberAddListener extends Listener {
 	 * @param {GuildMember} member - The guild member
 	 */
 	async handleVerifiedBots(member) {
-		const { approved } = await this.client.mongo.db('musico').collection('bots').updateOne({ clientID: member.id });
+		const { approved } = await this.client.mongo.db('musico').collection('bots').findOne({ clientID: member.id });
 
 		if (approved) {
+			if (member.roles.cache.has('694597110590341221')) await member.roles.remove('694597110590341221');
 			return member.roles.add('808307235590766602');
 		}
 	}
