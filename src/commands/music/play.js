@@ -64,9 +64,9 @@ class PlayCommand extends Command {
 		}
 		if (!['http:', 'https:'].includes(url.parse(query).protocol)) query = `ytsearch:${query}`;
 
-		const res = await this.client.music.load(query);
-
 		const queue = this.client.music.queues.get(message.guild.id);
+		const res = await queue.load(query);
+
 		if (!message.guild.me.voice.channel) await queue.player.join(message.member.voice.channel.id);
 
 		let embed;
