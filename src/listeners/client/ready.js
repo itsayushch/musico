@@ -10,7 +10,8 @@ class ReadyListener extends Listener {
 		});
 	}
 
-	exec() {
+	async exec() {
+		await this.client.music.requestToken();
 		Logger.info(`${this.client.user.tag} (${this.client.user.id})`, { tag: 'READY' });
 	}
 }

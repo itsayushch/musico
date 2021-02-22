@@ -22,6 +22,7 @@ class BotClient extends AkairoClient {
 			disableEveryone: true,
 			fetchAllMembers: false
 		});
+
 		this.music = new Music({
 			userID: process.env.ID,
 			password: 'youshallnotpass',

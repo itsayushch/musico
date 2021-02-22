@@ -13,13 +13,13 @@ class Queue extends events.EventEmitter {
 		this.guild = guild;
 		this.spotifyPattern = /^(?:https:\/\/open\.spotify\.com\/(?:user\/[A-Za-z0-9]+\/)?|spotify:)(album|playlist|track)(?:[/:])([A-Za-z0-9]+).*$/;
 		this.baseURL = 'https://api.spotify.com/v1';
-		this.token = '';
 		this.keys = {
 			next: `${this.guild}.next`,
 			pos: `${this.guild}.pos`,
 			prev: `${this.guild}.prev`,
 			loop: `${this.guild}.loop`
 		};
+		this.token = this.store.token;
 
 		this.on('event', async d => {
 			if (!['TrackEndEvent', 'TrackStartEvent'].includes(d.type) || (d.type === 'TrackEndEvent' && !['REPLACED', 'STOPPED'].includes(d.reason))) {
@@ -67,32 +67,6 @@ class Queue extends events.EventEmitter {
 		}
 
 		return loadData;
-	}
-
-	async requestToken() {
-		if (this.nextRequest) return;
-		try {
-			const res = await fetch('https://accounts.spotify.com/api/token', {
-				method: 'POST',
-				headers: {
-					Authorization: `Basic ${Buffer.from(`${this.store.client.options.spotifyClientID}:${this.store.client.options.spotifyClientSecret}`).toString('base64')}`,
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				body: 'grant_type=client_credentials'
-			});
-
-			const { access_token, token_type, expires_in } = await res?.json();
-			this.token = `${token_type} ${access_token}`;
-			this.nextRequest = setTimeout(() => {
-				delete this.nextRequest;
-				void this.requestToken();
-			}, expires_in * 1000);
-		} catch (e) {
-			if (e.status === 400) {
-				return Promise.reject(new Error('Invalid Spotify client.'));
-			}
-			await this.requestToken();
-		}
 	}
 
 	async getTrack(id) {
@@ -357,6 +331,34 @@ class QueueStore extends Map {
 		super();
 		this.client = client;
 		this.cached = new Map();
+		this.nextRequest = null;
+		this.token = '';
+	}
+
+	async requestToken() {
+		if (this.nextRequest) return;
+		try {
+			const res = await fetch('https://accounts.spotify.com/api/token', {
+				method: 'POST',
+				headers: {
+					Authorization: `Basic ${Buffer.from(`${this.store.client.options.spotifyClientID}:${this.store.client.options.spotifyClientSecret}`).toString('base64')}`,
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				body: 'grant_type=client_credentials'
+			});
+
+			const { access_token, token_type, expires_in } = await res?.json();
+			this.token = `${token_type} ${access_token}`;
+			this.nextRequest = setTimeout(() => {
+				delete this.nextRequest;
+				void this.requestToken();
+			}, expires_in * 1000);
+		} catch (e) {
+			if (e.status === 400) {
+				return Promise.reject(new Error('Invalid Spotify client.'));
+			}
+			await this.requestToken();
+		}
 	}
 
 	get(key) {
