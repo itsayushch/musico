@@ -25,6 +25,8 @@ class BotClient extends AkairoClient {
 		this.music = new Music({
 			userID: process.env.ID,
 			password: 'youshallnotpass',
+			spotifyClientID: process.env.SPOTIFY_CLIENT_ID,
+			spotifyClientSecret: process.env.SPOTIFY_CLIENT_SECRET,
 			hosts: {
 				rest: process.env.LAVALINK_REST,
 				ws: process.env.LAVALINK_WS
