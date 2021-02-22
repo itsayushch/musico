@@ -357,7 +357,8 @@ class QueueStore extends Map {
 			if (e.status === 400) {
 				return Promise.reject(new Error('Invalid Spotify client.'));
 			}
-			await this.requestToken();
+                        console.log(e);
+			// await this.requestToken();
 		}
 	}
 
