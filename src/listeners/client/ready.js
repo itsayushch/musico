@@ -12,7 +12,7 @@ class ReadyListener extends Listener {
 
 	async exec() {
 		Logger.info(`${this.client.user.tag} (${this.client.user.id})`, { tag: 'READY' });
-await this.client.music.queues.requestToken();
+		await this.client.music.queues.requestToken();
 	}
 }
 

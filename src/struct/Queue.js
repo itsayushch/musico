@@ -341,7 +341,7 @@ class QueueStore extends Map {
 			const res = await fetch('https://accounts.spotify.com/api/token', {
 				method: 'POST',
 				headers: {
-					Authorization: `Basic ${(new Buffer(`${this.client.options.spotifyClientID}:${this.client.options.spotifyClientSecret}`)).toString('base64')}`,
+					Authorization: `Basic ${new Buffer(`${this.client.options.spotifyClientID}:${this.client.options.spotifyClientSecret}`).toString('base64')}`,
 					'Content-Type': 'application/x-www-form-urlencoded'
 				},
 				body: 'grant_type=client_credentials'
@@ -357,7 +357,7 @@ class QueueStore extends Map {
 			if (e.status === 400) {
 				return Promise.reject(new Error('Invalid Spotify client.'));
 			}
-                        console.log(e);
+			console.log(e);
 			await this.requestToken();
 		}
 	}
