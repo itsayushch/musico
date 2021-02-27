@@ -2,9 +2,9 @@ const { Listener } = require('discord-akairo');
 
 class Message extends Listener {
 	constructor() {
-		super('message', {
-			event: 'message',
+		super('levels', {
 			emitter: 'client',
+			event: 'message',
 			category: 'client'
 		});
 	}
