@@ -133,10 +133,10 @@ class Queue extends events.EventEmitter {
 	}
 
 	async getPlaylistTracks(playlist, currPage = 1) {
-		if (!playlist.tracks.next || currPage >= this.playlistPageLoadLimit) { return playlist.tracks.items; }
+		if (!playlist.tracks?.next || currPage >= this.playlistPageLoadLimit) { return playlist.tracks.items; }
 		currPage++;
 
-		const res = await fetch(playlist.tracks.next, {
+		const res = await fetch(playlist.tracks?.next, {
 			method: 'GET',
 			headers: {
 				Authorization: this.token,
@@ -341,7 +341,7 @@ class QueueStore extends Map {
 			const res = await fetch('https://accounts.spotify.com/api/token', {
 				method: 'POST',
 				headers: {
-					Authorization: `Basic ${new Buffer(`${this.client.options.spotifyClientID}:${this.client.options.spotifyClientSecret}`).toString('base64')}`,
+					Authorization: `Basic ${Buffer.from(`${this.client.options.spotifyClientID}:${this.client.options.spotifyClientSecret}`).toString('base64')}`,
 					'Content-Type': 'application/x-www-form-urlencoded'
 				},
 				body: 'grant_type=client_credentials'
@@ -349,16 +349,15 @@ class QueueStore extends Map {
 
 			const { access_token, token_type, expires_in } = await res?.json();
 			this.token = `${token_type} ${access_token}`;
-			this.nextRequest = setTimeout(() => {
+			this.nextRequest = setTimeout(async () => {
 				delete this.nextRequest;
-				void this.requestToken();
+				await this.requestToken();
 			}, expires_in * 1000);
 		} catch (e) {
 			if (e.status === 400) {
 				return Promise.reject(new Error('Invalid Spotify client.'));
 			}
 			await this.requestToken();
-			console.log(e);
 		}
 	}
 
