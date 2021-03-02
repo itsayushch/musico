@@ -13,7 +13,7 @@ Contributors are most welcomed to this repository you may read the `CONTRIBUTING
 Musico is a private bot for GWA tech discord server and cannot be added to your server.
 
 ### Self Hosting
-Please don't. Incase of self-hosting, no help will be provded from our side.
+Please don't. Incase of self-hosting, no help will be provided from our side.
 
 # Credits
 [**Ayush CH**](https://ayushkr.me/)
