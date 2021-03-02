@@ -12,12 +12,11 @@ Contributors are most welcomed to this repository you may read the `CONTRIBUTING
 ### Note
 Musico is a private bot for GWA tech discord server and cannot be added to your server.
 
-### Hosting
-- git clone the repository locally by typing `git clone https://github.com/gwatech/musico.git`.
-- rename `example.env` to `.env` and put your creditionals there.
+### Self Hosting
+Please don't. Incase of self-hosting, no help will be provded from our side.
 
 # Credits
-Ayush CH
+[**Ayush CH**](https://ayushkr.me/)
 
 # Discord Server
 <a href="https://discord.com/invite/sY57ftY"><img src="https://cdn.discordapp.com/attachments/768300525456064533/808563278052851722/unknown.png"></a>
