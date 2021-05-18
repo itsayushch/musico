@@ -19,4 +19,4 @@ Please don't. Incase of self-hosting, no help will be provided from our side.
 [**Ayush CH**](https://ayushkr.me/)
 
 # Discord Server
-<a href="https://discord.com/invite/sY57ftY"><img src="https://cdn.discordapp.com/attachments/768300525456064533/808563278052851722/unknown.png"></a>
+<a href="https://discord.com/invite/sY57ftY"><img src="https://cdn.discordapp.com/attachments/694607365462294668/844211761510481970/unknown.png"></a>
