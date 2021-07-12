@@ -20,5 +20,5 @@ Please don't. Incase of self-hosting, no help will be provided from our side.
 
 ## Discord Server
 <a href="https://discord.gg/sY57ftY" target="_blank">
-  <div>![Server](https://inwidget.miubot.ga/694554848758202451)</div>
+  <img src="https://inwidget.miubot.ga/694554848758202451" alt='Discord Server'>
 </a>
