@@ -15,10 +15,7 @@ Musico is a private bot for GWA tech discord server and cannot be added to your 
 ### Self Hosting
 Please don't. Incase of self-hosting, no help will be provided from our side.
 
-## Credits
-[**Ayush CH**](https://ayushkr.me/)
-
-## Discord Server
+### Discord Server
 <a href="https://discord.gg/sY57ftY" target="_blank">
   <img src="https://inwidget.miubot.ga/694554848758202451" alt='Discord Server'>
 </a>
